@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { Wager } from 'tc2017-contract-artifacts';
 import { BlockchainService } from './blockchain.service';
 import { Bet } from '../../models/Bet';
@@ -12,14 +12,40 @@ const contract = require('truffle-contract');
 export class WagerService {
   Wager = contract(Wager);
   blockchainService: BlockchainService;
-  instance: any;
+  betPlaced: EventEmitter<any> = new EventEmitter();
+  roundOver: EventEmitter<any> = new EventEmitter();
 
   constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
+  }
+
+  setupContractWatchers = () => {
     this.Wager.deployed().then((instance) => {
-      this.instance = instance;
+      const betPlaced = instance.BetPlaced();
+
+      betPlaced.watch((error, result) => {
+        if (!error) {
+          this.betPlaced.emit(result);
+        }
+      });
+
+      const roundOver = instance.RoundOver();
+
+      roundOver.watch((error, result) => {
+        if (!error) {
+          this.roundOver.emit(result);
+        }
+      });
     });
+  }
+
+  getBetPlacedEmitter = () => {
+    return this.betPlaced;
+  }
+
+  getRoundOverEmitter = () => {
+    return this.roundOver;
   }
 
   placeBet = (bet: Bet): Observable<any> => {
@@ -29,7 +55,7 @@ export class WagerService {
       const wallet = bet.walletId;
 
       this.blockchainService.web3.personal.unlockAccount(wallet, pKey, 2);
-      instance.bet.sendTransaction(
+      return instance.bet.sendTransaction(
         this.blockchainService.web3.toHex(artist),
         {
             from: wallet,

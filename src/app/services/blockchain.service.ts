@@ -1,4 +1,4 @@
-import { Injectable, Inject, forwardRef } from '@angular/core';
+import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
@@ -10,9 +10,12 @@ const Web3 = require('web3');
 export class BlockchainService {
   web3: any;
   nowPlaying: AudioSong;
+  songChanged: EventEmitter<any> = new EventEmitter();
+  blockMined: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     this.web3 = new Web3(new Web3.providers.HttpProvider(environment.rpcEndpoint));
+    this.setupBlockchainFilters();
   }
 
   setupBlockchainFilters = () => {
@@ -25,16 +28,25 @@ export class BlockchainService {
           const songData = JSON.parse(jsonAscii);
           this.nowPlaying = songData;
         }*/
+        this.songChanged.emit(tx);
       }
     });
 
     // Log the object representing the most recently mined block on the blockchain
     this.web3.eth.filter('latest').watch((error, result) => {
       if (!error) {
-        // TODO let's do some visual stuff with the current block
-        console.log('block: ' + result);
+        const block = this.web3.eth.getBlock(result);
+        this.blockMined.emit(block);
       }
     });
+  }
+
+  getSongChangedEmitter = () => {
+    return this.songChanged;
+  }
+
+  getBlockMinedEmitter = () => {
+    return this.blockMined;
   }
 
   getAccountBalance = (walletId: string): Observable<string> => {
