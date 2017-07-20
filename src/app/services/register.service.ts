@@ -3,6 +3,8 @@ import { Register } from 'tc2017-contract-artifacts';
 import { BlockchainService } from './blockchain.service';
 import { Registration } from '../../models/Registration';
 import { AppComponent } from '../app.component';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromPromise.js';
 
 const contract = require('truffle-contract');
 
@@ -10,16 +12,23 @@ const contract = require('truffle-contract');
 export class RegisterService {
   Register = contract(Register);
   blockchainService: BlockchainService;
-  appComponent: AppComponent;
-  instance: any;
-  walletRegistered: EventEmitter<string> = new EventEmitter<string>();
+  accountRegistered: EventEmitter<any> = new EventEmitter();
 
   constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
-
     this.Register.setProvider(this.blockchainService.web3.currentProvider);
+
+  }
+
+  setupContractWatchers = () => {
     this.Register.deployed().then((instance) => {
-      this.instance = instance;
+      const registration = instance.Registration();
+
+      registration.watch((error, result) => {
+        if (!error) {
+          this.accountRegistered.emit(result);
+        }
+      });
     });
   }
 
@@ -36,14 +45,13 @@ export class RegisterService {
             }
         );
     });
-    this.walletRegistered.emit(wallet);
   }
 
-  getAccountsForCharity = (charity: number) => {
-    this.Register.deployed().then((instance) => {
+  getAccountsForCharity = (charity: number): Observable<any> => {
+    return Observable.fromPromise(this.Register.deployed().then((instance) => {
       instance.getAccountsByCharity.call(0).then((result) => {
-        console.log(result);
+        return result;
       });
-    });
+    }));
   }
 }
