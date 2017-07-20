@@ -1,26 +1,6 @@
-<md-card >
-  <md-card-header>
-    <md-card-title>My Wallet</md-card-title>
-    <md-card-subtitle>{{walletId}}</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
-    <h1 style="text-align:center">
-      € {{balance}}
-    </h1>
-  </md-card-content>
-</md-card>
+<app-wallet [wallet]="wallet"></app-wallet>
 
-<md-card style="margin-top:8px">
-  <md-card-header>
-    <md-card-title>{{nowPlayingTitle}}</md-card-title>
-    <md-card-subtitle>{{nowPlayingArtist}}</md-card-subtitle>
-  </md-card-header>
-  <img md-card-image src={{nowPlayingImg}}>
-  <md-card-actions align="end">
-    <button md-button>CHEERS</button>
-    <button md-button>BOO</button>
-  </md-card-actions>
-</md-card>
+<app-now-playing style="margin-top:8px" [song]="currentSong"></app-now-playing>
 
 <md-card style="margin-top:8px">
   <md-card-header>

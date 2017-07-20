@@ -10,8 +10,8 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { ROCK_CHAIN_ROUTES } from './routes';
-import { HomepageModule } from './pages/homepage/homepage';
-import { NowPlayingComponent } from './now-playing/now-playing.component';
+import { HomepageComponent } from './pages/homepage/homepage';
+import { NowPlayingComponent } from './cards/now-playing/now-playing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { WalletComponent } from './cards/wallet/wallet.component';
@@ -25,15 +25,15 @@ import { CharityStandingsComponent } from './cards/charity-standings/charity-sta
     HomeComponent,
     AboutComponent,
     WalletComponent,
-    CharityStandingsComponent
+    CharityStandingsComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     NavBarModule,
     FooterModule,
-    RouterModule.forRoot(ROCK_CHAIN_ROUTES),
-    HomepageModule
+    RouterModule.forRoot(ROCK_CHAIN_ROUTES)
 
   ],
   providers: [],

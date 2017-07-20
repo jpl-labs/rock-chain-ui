@@ -2,6 +2,8 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { MdButtonModule, MdListModule, MdIconModule, MdLineModule, MdCardModule, MdProgressBarModule } from '@angular/material';
 import { FooterModule } from '../../shared/footer/footer';
 import { RouterModule } from '@angular/router';
+import { AudioSong } from '../../../models/PlayerStatus';
+import { Wallet } from '../../../models/Wallet';
 
 const Web3 = require('web3');
 const contract = require('truffle-contract');
@@ -29,6 +31,7 @@ export class HomepageComponent {
   betArtist: string;
   pKey: string;
 
+  currentSong: AudioSong;
   nowPlayingTitle: string;
   nowPlayingArtist: string;
   nowPlayingImg: string;
@@ -39,11 +42,17 @@ export class HomepageComponent {
   status: string;
   canBeNumber = canBeNumber;
 
+  wallet: Wallet;
+
   constructor() {
 
     this.checkAndInstantiateWeb3();
     Cookie.set('walletId', '0xe50c83d4d2136e2972c5b67a9544af403d192dd4');
     this.walletId = Cookie.get('walletId');
+    this.wallet = {
+      id: Cookie.get('walletId'),
+      balance: this.web3.fromWei(this.web3.eth.getBalance(this.walletId).toNumber(), "ether")
+    };
     this.setupContractEventWatchers();
     this.setupBlockchainFilters();
     this.refreshBalance();
@@ -96,9 +105,10 @@ export class HomepageComponent {
           this.payout = this.web3.fromWei(result.args.payout, "ether");
 
           const songData = JSON.parse(result.args.songData);
-            this.nowPlayingTitle = songData.title;
-            this.nowPlayingArtist = songData.artist;
-            this.nowPlayingImg = songData.cover;
+          this.currentSong = songData;
+          this.nowPlayingTitle = songData.title;
+          this.nowPlayingArtist = songData.artist;
+          this.nowPlayingImg = songData.cover;
           this.refreshBalance();
         }
       });
@@ -132,6 +142,7 @@ export class HomepageComponent {
             this.nowPlayingTitle = songData.title;
             this.nowPlayingArtist = songData.artist;
             this.nowPlayingImg = songData.cover;
+            this.currentSong = songData;
           }
         });
 
@@ -209,16 +220,10 @@ export class HomepageComponent {
 
   refreshBalance = () => {
     this.balance = this.web3.fromWei(this.web3.eth.getBalance(this.walletId).toNumber(), "ether");
+    this.wallet.balance = this.web3.fromWei(this.web3.eth.getBalance(this.walletId).toNumber(), "ether");
   }
 
   setStatus = (message) => {
     this.status = message;
   }
 }
-
-@NgModule({
-  imports: [MdButtonModule, MdListModule, MdIconModule, MdLineModule, MdCardModule, MdProgressBarModule, FooterModule, RouterModule],
-  exports: [HomepageComponent],
-  declarations: [HomepageComponent],
-})
-export class HomepageModule { }
