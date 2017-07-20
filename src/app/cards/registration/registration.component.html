@@ -1,0 +1,32 @@
+<md-card style="margin-top:8px">
+  <md-card-header>
+    <md-card-title>Register for RockChain</md-card-title>
+  </md-card-header>
+  <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+  <md-card-content>
+    <md-input-container>
+      <input mdInput placeholder="Password" id="password"
+              required
+              [(ngModel)]="model.password" name="password"
+              #password="ngModel">
+      <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger">
+      </div>
+    </md-input-container>
+    <div>
+      <md-select placeholder="Charity" id="charity"
+              required
+              [(ngModel)]="model.charity" name="charity"
+              #charity="ngModel">
+        <md-option *ngFor="let charity of charities" [value]="charities.indexOf(charity)">{{charity}}</md-option>
+      </md-select>
+      <div [hidden]="charity.valid || charity.pristine" class="alert alert-danger">
+        Charity selection is required
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-actions align="end">
+    <button type="submit" md-button>REGISTER</button>
+  </md-card-actions>
+  </form>
+</md-card>

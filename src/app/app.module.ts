@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { NavBarModule } from './shared/navbar/navbar';
 import { FooterModule } from './shared/footer/footer';
-
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'hammerjs';
 
@@ -17,7 +18,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { WalletComponent } from './cards/wallet/wallet.component';
 import { CharityStandingsComponent } from './cards/charity-standings/charity-standings.component';
 import { SongFeedbackComponent } from './dialogs/song-feedback/song-feedback.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegistrationComponent, RegistrationDialog } from './cards/registration/registration.component';
 
 
 @NgModule({
@@ -32,7 +33,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SongFeedbackComponent
   ],
   entryComponents: [
-    SongFeedbackComponent
+    SongFeedbackComponent,
+    RegistrationComponent,
+    RegistrationDialog,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     NavBarModule,
     FooterModule,
-    RouterModule.forRoot(ROCK_CHAIN_ROUTES)
+    RouterModule.forRoot(ROCK_CHAIN_ROUTES),
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
