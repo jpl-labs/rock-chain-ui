@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
 import { MdSidenav, MdSidenavModule } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';
+import * as Cookie from 'js-cookie';
 
 const SMALL_WIDTH_BREAKPOINT = 840;
 
@@ -12,8 +13,11 @@ const SMALL_WIDTH_BREAKPOINT = 840;
 })
 export class AppComponent implements OnInit {
   title = 'app';
+  walletId: string;
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router) {
+    this.walletId = Cookie.get('walletId');
+  }
 
   @ViewChild(MdSidenav) sidenav: MdSidenav;
 

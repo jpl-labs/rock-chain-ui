@@ -13,6 +13,7 @@ import { canBeNumber } from '../../../util/validation';
 import * as Cookie from 'js-cookie';
 import { RegistrationComponent } from '../../cards/registration/registration.component';
 import { Registration } from '../../../models/Registration';
+import { WagerService } from '../../services/wager.service';
 
 @Component({
     selector: 'app-homepage',
@@ -46,8 +47,10 @@ export class HomepageComponent {
 
     wallet: Wallet;
 
-    constructor() {
+    wagerService: WagerService;
 
+    constructor(private _wagerService: WagerService) {
+        this.wagerService = _wagerService;
         this.checkAndInstantiateWeb3();
         //Cookie.set('walletId', '0xe50c83d4d2136e2972c5b67a9544af403d192dd4');
         this.walletId = Cookie.get('walletId');
@@ -192,19 +195,13 @@ export class HomepageComponent {
     }
 
     endRound = () => {
-        this.Wager.deployed().then((instance) => {
-            instance.endRound.sendTransaction(
-                this.web3.toHex("Bon Jovi"),
-                this.web3.toHex("{ \"artist\": \"Bon Jovi\", \"song\": \"Livin' on a Prayer\" }"),
-                {
-                    from: "0x72e98c3c1be92b3195fa3a6dc62ca90e77e6f9be",
-                    gas: 4712388
-                }
-            );
-        })
-            .then(() => {
-                this.refreshBalance();
-            });
+      this.wagerService.placeBet(
+        {
+          artist: this.betArtist,
+          password: this.pKey,
+          walletId: Cookie.get('walletId')
+        }
+      );
     }
 
     like = (song: AudioSong) => {

@@ -18,7 +18,10 @@ import { AboutComponent } from './pages/about/about.component';
 import { WalletComponent } from './cards/wallet/wallet.component';
 import { CharityStandingsComponent } from './cards/charity-standings/charity-standings.component';
 import { SongFeedbackComponent } from './dialogs/song-feedback/song-feedback.component';
-import { RegistrationComponent, RegistrationDialog } from './cards/registration/registration.component';
+import { RegistrationComponent, RegistrationDialogComponent } from './cards/registration/registration.component';
+import { WagerService } from './services/wager.service';
+import { BlockchainService } from './services/blockchain.service';
+import { RegisterService } from './services/register.service';
 
 
 @NgModule({
@@ -31,13 +34,13 @@ import { RegistrationComponent, RegistrationDialog } from './cards/registration/
     CharityStandingsComponent,
     HomepageComponent,
     RegistrationComponent,
-    RegistrationDialog,
+    RegistrationDialogComponent,
     SongFeedbackComponent
   ],
   entryComponents: [
     SongFeedbackComponent,
     RegistrationComponent,
-    RegistrationDialog,
+    RegistrationDialogComponent,
     HomepageComponent
   ],
   imports: [
@@ -50,7 +53,7 @@ import { RegistrationComponent, RegistrationDialog } from './cards/registration/
     FormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [WagerService, BlockchainService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

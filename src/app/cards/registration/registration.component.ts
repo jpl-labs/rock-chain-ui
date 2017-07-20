@@ -18,14 +18,14 @@ export class RegistrationComponent implements OnInit {
 
   model = {
     charity: -1,
-    password: ""
+    password: ''
   };
 
   charities = ['animals', 'kids', 'disaster'];
 
   waitingForRegistration = false;
 
-  constructor(public dialog: MdDialog) { 
+  constructor(public dialog: MdDialog) {
 
   }
 
@@ -33,20 +33,20 @@ export class RegistrationComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    let dialogRef = this.dialog.open(RegistrationDialog);
+  onSubmit = () => {
+    const dialogRef = this.dialog.open(RegistrationDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if(result === "CONFIRM") {
+      if (result === 'CONFIRM') {
         this.onRegister.emit(this.model);
       }
-    })
+    });
   }
 }
 
 @Component({
-  selector: 'registration-dialog',
+  selector: 'app-registration-dialog',
   templateUrl: 'registration-dialog.html',
 })
-export class RegistrationDialog {
-  constructor(public dialogRef: MdDialogRef<RegistrationDialog>) {}
+export class RegistrationDialogComponent {
+  constructor(public dialogRef: MdDialogRef<RegistrationDialogComponent>) {}
 }
