@@ -32,6 +32,10 @@ export class RegisterService {
     });
   }
 
+  getAccountRegisteredEmitter = () => {
+    return this.accountRegistered;
+  }
+
   registerAccount = (registration: Registration) => {
     const wallet = this.blockchainService.web3.personal.newAccount(registration.password);
 

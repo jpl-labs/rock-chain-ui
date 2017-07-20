@@ -40,6 +40,14 @@ export class WagerService {
     });
   }
 
+  getBetPlacedEmitter = () => {
+    return this.betPlaced;
+  }
+
+  getRoundOverEmitter = () => {
+    return this.roundOver;
+  }
+
   placeBet = (bet: Bet): Observable<any> => {
     return Observable.fromPromise(this.Wager.deployed().then((instance) => {
       const artist = bet.artist;

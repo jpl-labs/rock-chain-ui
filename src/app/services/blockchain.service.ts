@@ -41,6 +41,14 @@ export class BlockchainService {
     });
   }
 
+  getSongChangedEmitter = () => {
+    return this.songChanged;
+  }
+
+  getBlockMinedEmitter = () => {
+    return this.blockMined;
+  }
+
   getAccountBalance = (walletId: string): Observable<string> => {
     return Observable.fromPromise(
       this.web3.fromWei(
