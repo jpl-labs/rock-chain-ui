@@ -1,21 +1,21 @@
 <md-card >
   <md-card-header>
     <md-card-title>My Wallet</md-card-title>
-    <md-card-subtitle>0x123f681646d4a755815f9cb19e1acc8565a0c2ac</md-card-subtitle>
+    <md-card-subtitle>{{walletId}}</md-card-subtitle>
   </md-card-header>
   <md-card-content>
     <h1 style="text-align:center">
-      $6,542
+      € {{balance}}
     </h1>
   </md-card-content>
 </md-card>
 
 <md-card style="margin-top:8px">
   <md-card-header>
-    <md-card-title>The Veldt</md-card-title>
-    <md-card-subtitle>deadmau5</md-card-subtitle>
+    <md-card-title>{{nowPlayingTitle}}</md-card-title>
+    <md-card-subtitle>{{nowPlayingArtist}}</md-card-subtitle>
   </md-card-header>
-  <img md-card-image src="https://fanart.tv/fanart/music/4a00ec9d-c635-463a-8cd4-eb61725f0c60/albumcover/-album-title-goes-here--529a405aab25a.jpg">
+  <img md-card-image src={{nowPlayingImg}}>
   <md-card-actions align="end">
     <button md-button>CHEERS</button>
     <button md-button>BOO</button>
