@@ -1,3 +1,11 @@
-<p>
-  now-playing works!
-</p>
+<md-card style="margin-top:8px"> 
+  <md-card-header *ngIf="song">
+    <md-card-title>{{song.title}}</md-card-title>
+    <md-card-subtitle>{{song.artist}}</md-card-subtitle>
+  </md-card-header>
+  <img md-card-image *ngIf="song" src={{song.cover}}>
+  <md-card-actions align="end">
+    <button md-button>CHEERS</button>
+    <button md-button>BOO</button>
+  </md-card-actions>
+</md-card>

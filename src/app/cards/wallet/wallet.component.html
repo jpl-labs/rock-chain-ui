@@ -1,3 +1,11 @@
-<p>
-  wallet works!
-</p>
+<md-card >
+  <md-card-header>
+    <md-card-title>My Wallet</md-card-title>
+    <md-card-subtitle>{{wallet.id}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <h1 style="text-align:center">
+      € {{wallet.balance}}
+    </h1>
+  </md-card-content>
+</md-card>

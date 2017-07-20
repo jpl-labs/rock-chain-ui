@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AudioSong } from '../../../models/PlayerStatus';
 
 @Component({
   selector: 'app-now-playing',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./now-playing.component.css']
 })
 export class NowPlayingComponent implements OnInit {
+
+  @Input() song: AudioSong;
 
   constructor() { }
 
