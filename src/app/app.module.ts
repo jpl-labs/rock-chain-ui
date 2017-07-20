@@ -30,6 +30,8 @@ import { RegistrationComponent, RegistrationDialog } from './cards/registration/
     WalletComponent,
     CharityStandingsComponent,
     HomepageComponent,
+    RegistrationComponent,
+    RegistrationDialog,
     SongFeedbackComponent
   ],
   entryComponents: [
