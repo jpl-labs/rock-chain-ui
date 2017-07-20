@@ -1,25 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AudioSong } from '../../../models/PlayerStatus';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { SongFeedbackComponent } from '../../dialogs/song-feedback';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+const Vibrant = require('node-vibrant');
 
 @Component({
   selector: 'app-now-playing',
   templateUrl: './now-playing.component.html',
   styleUrls: ['./now-playing.component.css']
 })
-export class NowPlayingComponent implements OnInit {
+export class NowPlayingComponent implements OnInit, OnChanges {
 
   @Input() song: AudioSong;
   @Output() onLike = new EventEmitter<AudioSong>();
   @Output() onDislike = new EventEmitter<AudioSong>();
 
   selectedOption: string;
+  background: string;
+  foreground: string;
 
   constructor(public dialog: MdDialog) {
+
 
   }
 
@@ -31,6 +35,17 @@ export class NowPlayingComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.song) {
+      Vibrant.from(`https://cors.now.sh/${this.song.cover}`).getPalette()
+        .then((palette) => {
+          this.background = palette.Vibrant.getHex();
+          this.foreground = palette.DarkMuted.getHex();
+    }
+        );
+    }
   }
 
   feedback(positive: boolean) {
