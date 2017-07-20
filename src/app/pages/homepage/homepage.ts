@@ -9,6 +9,7 @@ const contract = require('truffle-contract');
 import { Wager, Register } from 'tc2017-contract-artifacts';
 import { canBeNumber } from '../../../util/validation';
 import * as Cookie from 'js-cookie';
+import { RegistrationComponent } from '../../cards/registration/registration.component';
 
 @Component({
   selector: 'app-homepage',
@@ -215,10 +216,3 @@ export class HomepageComponent {
     this.status = message;
   }
 }
-
-@NgModule({
-  imports: [MdButtonModule, MdListModule, MdIconModule, MdLineModule, MdCardModule, MdProgressBarModule, FooterModule, RouterModule],
-  exports: [HomepageComponent],
-  declarations: [HomepageComponent],
-})
-export class HomepageModule { }
