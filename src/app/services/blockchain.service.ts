@@ -54,4 +54,8 @@ export class BlockchainService {
       this.web3.fromWei(
         this.web3.eth.getBalance(walletId).toNumber(), 'ether'));
   }
+
+  getAccounts = (): Observable<string[]> => {
+    return this.web3.personal.listAccounts;
+  }
 }

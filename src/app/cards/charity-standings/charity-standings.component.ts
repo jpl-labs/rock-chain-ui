@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlockchainService } from '../../services/blockchain.service';
 
 @Component({
   selector: 'app-charity-standings',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./charity-standings.component.css']
 })
 export class CharityStandingsComponent implements OnInit {
+  blockchainService: BlockchainService;
+  balances: Map<string, number>;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private _blockchainService: BlockchainService) {
+    this.blockchainService = _blockchainService;
   }
 
+  ngOnInit() {
+
+  }
 }

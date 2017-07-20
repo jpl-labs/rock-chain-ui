@@ -22,6 +22,7 @@ import { RegistrationComponent, RegistrationDialogComponent } from './cards/regi
 import { WagerService } from './services/wager.service';
 import { BlockchainService } from './services/blockchain.service';
 import { RegisterService } from './services/register.service';
+import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standings.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { RegisterService } from './services/register.service';
     HomepageComponent,
     RegistrationComponent,
     RegistrationDialogComponent,
-    SongFeedbackComponent
+    SongFeedbackComponent,
+    WalletStandingsComponent
   ],
   entryComponents: [
     SongFeedbackComponent,
