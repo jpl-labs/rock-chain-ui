@@ -5,6 +5,7 @@ import { NavBarModule } from './shared/navbar/navbar';
 import { FooterModule } from './shared/footer/footer';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'hammerjs';
 
@@ -16,7 +17,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { WalletComponent } from './cards/wallet/wallet.component';
 import { CharityStandingsComponent } from './cards/charity-standings/charity-standings.component';
-import { RegistrationComponent } from './cards/registration/registration.component';
+import { RegistrationComponent, RegistrationDialog } from './cards/registration/registration.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { RegistrationComponent } from './cards/registration/registration.compone
     WalletComponent,
     CharityStandingsComponent,
     RegistrationComponent,
+    RegistrationDialog,
     HomepageComponent
   ],
   imports: [
@@ -36,9 +38,11 @@ import { RegistrationComponent } from './cards/registration/registration.compone
     NavBarModule,
     FooterModule,
     RouterModule.forRoot(ROCK_CHAIN_ROUTES),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RegistrationDialog] 
 })
 export class AppModule { }

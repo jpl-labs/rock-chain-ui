@@ -12,6 +12,7 @@ import { Wager, Register } from 'tc2017-contract-artifacts';
 import { canBeNumber } from '../../../util/validation';
 import * as Cookie from 'js-cookie';
 import { RegistrationComponent } from '../../cards/registration/registration.component';
+import { Registration } from '../../../models/Registration';
 
 @Component({
   selector: 'app-homepage',
@@ -48,7 +49,7 @@ export class HomepageComponent {
   constructor() {
 
     this.checkAndInstantiateWeb3();
-    Cookie.set('walletId', '0xe50c83d4d2136e2972c5b67a9544af403d192dd4');
+    //Cookie.set('walletId', '0xe50c83d4d2136e2972c5b67a9544af403d192dd4');
     this.walletId = Cookie.get('walletId');
     this.wallet = {
       id: Cookie.get('walletId'),
@@ -206,17 +207,22 @@ export class HomepageComponent {
       });
   }
 
-  registerAccount = () => {
+  registerAccount = (registration: Registration) => {
+    let wallet = this.web3.personal.newAccount(registration.password);
+    
+    this.walletId = wallet;
+    Cookie.set('walletId', wallet);
+
     this.Register.deployed().then((instance) => {
       instance.register.sendTransaction(
         this.walletId,
-        0,
+        registration.charity,
         {
-          from: this.web3.accounts[0],
+          from: this.web3.eth.accounts[0],
           gas: 4712388
         }
-      );
-    });
+      )
+    })
   }
 
   refreshBalance = () => {
