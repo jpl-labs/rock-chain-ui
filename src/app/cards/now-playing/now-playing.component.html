@@ -5,7 +5,7 @@
   </md-card-header>
   <img md-card-image *ngIf="song" src={{song.cover}}>
   <md-card-actions align="end">
-    <button md-button>CHEERS</button>
-    <button md-button>BOO</button>
+    <button md-button (click)="feedback(true)" [disabled]="!song">CHEERS</button>
+    <button md-button (click)="feedback(false)" [disabled]="!song">BOO</button>
   </md-card-actions>
 </md-card>

@@ -205,6 +205,17 @@ export class HomepageComponent {
       });
   }
 
+  like = (song: AudioSong) => {
+    console.log('liked');
+    console.log(song);
+  }
+
+  dislike = (song: AudioSong) => {
+    console.log('disliked');
+    console.log(song);
+  }
+
+
   registerAccount = () => {
     this.Register.deployed().then((instance) => {
       instance.register.sendTransaction(

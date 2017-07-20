@@ -1,6 +1,6 @@
 <app-wallet [wallet]="wallet"></app-wallet>
 
-<app-now-playing style="margin-top:8px" [song]="currentSong"></app-now-playing>
+<app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
 <md-card style="margin-top:8px">
   <md-card-header>

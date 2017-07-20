@@ -16,6 +16,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { WalletComponent } from './cards/wallet/wallet.component';
 import { CharityStandingsComponent } from './cards/charity-standings/charity-standings.component';
+import { SongFeedbackComponent } from './dialogs/song-feedback/song-feedback.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -26,15 +28,19 @@ import { CharityStandingsComponent } from './cards/charity-standings/charity-sta
     AboutComponent,
     WalletComponent,
     CharityStandingsComponent,
-    HomepageComponent
+    HomepageComponent,
+    SongFeedbackComponent
+  ],
+  entryComponents: [
+    SongFeedbackComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialModule,
     NavBarModule,
     FooterModule,
     RouterModule.forRoot(ROCK_CHAIN_ROUTES)
-
   ],
   providers: [],
   bootstrap: [AppComponent]
