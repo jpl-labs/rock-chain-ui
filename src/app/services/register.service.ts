@@ -36,18 +36,18 @@ export class RegisterService {
     return this.accountRegistered;
   }
 
-  registerAccount = (registration: Registration) => {
+  registerAccount = (registration: Registration): void => {
     const wallet = this.blockchainService.web3.personal.newAccount(registration.password);
 
     this.Register.deployed().then((instance) => {
-        instance.register.sendTransaction(
-            wallet,
-            registration.charity,
-            {
-                from: this.blockchainService.web3.eth.accounts[0],
-                gas: 4712388
-            }
-        );
+      instance.register.sendTransaction(
+        wallet,
+        registration.charity,
+        {
+            from: this.blockchainService.web3.eth.accounts[0],
+            gas: 4712388
+        }
+      );
     });
   }
 

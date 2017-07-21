@@ -48,14 +48,14 @@ export class WagerService {
     return this.roundOver;
   }
 
-  placeBet = (bet: Bet): Observable<any> => {
-    return Observable.fromPromise(this.Wager.deployed().then((instance) => {
+  placeBet = (bet: Bet)  => {
+    this.Wager.deployed().then((instance) => {
       const artist = bet.artist;
       const pKey = bet.password;
       const wallet = bet.walletId;
 
       this.blockchainService.web3.personal.unlockAccount(wallet, pKey, 2);
-      return instance.bet.sendTransaction(
+      instance.bet.sendTransaction(
         this.blockchainService.web3.toHex(artist),
         {
             from: wallet,
@@ -64,6 +64,6 @@ export class WagerService {
             gas: 4712388
         }
       );
-    }));
+    });
   }
 }

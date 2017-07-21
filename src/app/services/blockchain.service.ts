@@ -2,7 +2,7 @@ import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromPromise.js';
+import 'rxjs/add/observable/fromEvent.js';
 
 const Web3 = require('web3');
 
@@ -14,7 +14,7 @@ export class BlockchainService {
   blockMined: EventEmitter<any> = new EventEmitter();
 
   constructor() {
-    this.web3 = new Web3(new Web3.providers.HttpProvider(environment.rpcEndpoint));
+    this.web3 = new Web3(new Web3.providers.HttpProvider('http://tc20175xj.eastus.cloudapp.azure.com:8545'));
     this.setupBlockchainFilters();
   }
 
@@ -41,6 +41,10 @@ export class BlockchainService {
     });
   }
 
+  createNewGethAccount = (password: string): string => {
+    return this.web3.personal.newAccount(password);
+  }
+
   getSongChangedEmitter = () => {
     return this.songChanged;
   }
@@ -49,13 +53,11 @@ export class BlockchainService {
     return this.blockMined;
   }
 
-  getAccountBalance = (walletId: string): Observable<string> => {
-    return Observable.fromPromise(
-      this.web3.fromWei(
-        this.web3.eth.getBalance(walletId).toNumber(), 'ether'));
+  getAccountBalance = (walletId: string): number => {
+    return this.web3.fromWei(this.web3.eth.getBalance(walletId).toNumber(), 'ether');
   }
 
-  getAccounts = (): Observable<string[]> => {
-    return this.web3.personal.listAccounts;
+  getAccounts = (): string[] => {
+    return this.web3.eth.accounts;
   }
 }

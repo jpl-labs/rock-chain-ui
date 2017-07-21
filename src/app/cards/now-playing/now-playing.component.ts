@@ -49,7 +49,6 @@ export class NowPlayingComponent implements OnInit, OnChanges {
     }
 
     feedback(positive: boolean) {
-
         const dialogRef = this.dialog.open(SongFeedbackComponent, {
             data: {
                 verb: positive ? 'cheers' : 'boo',
