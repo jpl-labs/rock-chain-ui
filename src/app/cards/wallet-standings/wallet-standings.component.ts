@@ -20,7 +20,7 @@ export class WalletStandingsComponent implements OnInit {
   ngOnInit() {
     this.blockchainService.getAccounts().map(account => {
       const balance = this.blockchainService.getAccountBalance(account);
-      if (balance > 0) {
+      if (balance > 0 && account !== this.blockchainService.web3.eth.accounts[0]) {
         this.balances.push({
           account: account,
           balance: balance
@@ -30,11 +30,11 @@ export class WalletStandingsComponent implements OnInit {
     this.balances.sort((a, b) => {
       return (a.balance < b.balance) ? 1 : ((b.balance < a.balance) ? -1 : 0);
     });
-    this.balances = this.balances.splice(0, 10);
+    this.balances = this.balances.splice(0, 5);
     this.topBalance = this.balances[0].balance;
   }
 
   getBalancePercentage = (balance: number) => {
-    return Math.floor((1000 / this.topBalance) * 10000000000);
+    return Math.floor((balance / this.topBalance) * 100);
   }
 }
