@@ -4,7 +4,10 @@
   </md-card-header>
   <md-card-content>
     <md-list>
-      <md-list-item *ngFor="let balance of balances">
+      <md-list-item *ngFor="let balance of balances; index as i">
+        <md-icon *ngIf="i === 0" md-list-icon>star_rate</md-icon>
+        <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
+        <md-icon *ngIf="i > 1" md-list-icon>looks_{{i+1}}</md-icon>
         <h4 md-line>{{balance.account}}</h4>
         <p md-line style="display: flex"><span style="flex-grow: 1"></span>{{balance.balance}}</p>
         <md-progress-bar md-line mode="determinate" value="{{getBalancePercentage(balance.balance)}}"></md-progress-bar>

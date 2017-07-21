@@ -68,6 +68,6 @@
   </md-card-actions>
 </md-card>
 
-<app-registration #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
+<app-registration *ngIf="wallet.id === null" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
 <app-wallet-standings></app-wallet-standings>
