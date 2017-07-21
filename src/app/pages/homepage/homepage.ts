@@ -25,64 +25,70 @@ import { BlockchainService } from '../../services/blockchain.service';
     templateUrl: './homepage.html',
     styleUrls: ['./homepage.scss']
 })
-export class HomepageComponent {
-    betArtist: string;
-    pKey: string;
+export class HomepageComponent implements OnInit {
+  betArtist: string;
+  pKey: string;
 
-    currentSong: AudioSong;
+  currentSong: AudioSong;
 
-    canBeNumber = canBeNumber;
+  canBeNumber = canBeNumber;
 
-    wallet: Wallet;
+  wallet: Wallet;
 
-    wagerService: WagerService;
-    registerService: RegisterService;
-    blockchainService: BlockchainService;
+  wagerService: WagerService;
+  registerService: RegisterService;
+  blockchainService: BlockchainService;
 
-    constructor(
-        private _wagerService: WagerService,
-        private _registerService: RegisterService,
-        private _blockchainService: BlockchainService) {
-      this.registerService = _registerService;
-      this.wagerService = _wagerService;
-      this.blockchainService = _blockchainService;
+  constructor(
+      private _wagerService: WagerService,
+      private _registerService: RegisterService,
+      private _blockchainService: BlockchainService) {
+    this.registerService = _registerService;
+    this.wagerService = _wagerService;
+    this.blockchainService = _blockchainService;
+  }
 
-      const tmpWalletId = Cookie.get('walletId');
+  ngOnInit() {
+    const tmpWalletId = Cookie.get('walletId');
 
-      this.wallet = {
-          id: tmpWalletId,
-          balance: this.blockchainService.getAccountBalance(tmpWalletId)
-      };
-      this.refreshBalance();
-    }
+    this.wallet = {
+        id: tmpWalletId,
+        balance: this.blockchainService.getAccountBalance(tmpWalletId)
+    };
+    this.refreshBalance();
 
-    placeBet = () => {
-      this.wagerService.placeBet(
-        {
-          artist: this.betArtist,
-          walletId: this.wallet.id,
-          password: this.pKey
-        });
-    }
+    const sub = this.registerService.getAccountRegisteredEmitter()
+      .subscribe(result => console.log(result));
+  }
 
-    like = (song: AudioSong) => {
-        console.log('liked');
-        console.log(song);
-    }
+  placeBet = () => {
+    this.wagerService.placeBet(
+      {
+        artist: this.betArtist,
+        walletId: this.wallet.id,
+        password: this.pKey
+      });
+  }
 
-    dislike = (song: AudioSong) => {
-        console.log('disliked');
-        console.log(song);
-    }
+  like = (song: AudioSong) => {
+      console.log('liked');
+      console.log(song);
+  }
 
-    registerAccount = (registration: Registration) => {
-      this.wallet.id = this.blockchainService.web3.personal.newAccount(registration.password);
-      Cookie.set('walletId', this.wallet.id);
+  dislike = (song: AudioSong) => {
+      console.log('disliked');
+      console.log(song);
+  }
 
-      this.registerService.registerAccount(registration);
-    }
+  registerAccount = (registration: Registration) => {
+    this.wallet.id = this.blockchainService.web3.personal.newAccount(registration.password);
+    Cookie.set('walletId', this.wallet.id);
+    registration.wallet = this.wallet.id;
 
-    refreshBalance = () => {
-        this.wallet.balance = this.blockchainService.getAccountBalance(this.wallet.id);
-    }
+    this.registerService.registerAccount(registration);
+  }
+
+  refreshBalance = () => {
+      this.wallet.balance = this.blockchainService.getAccountBalance(this.wallet.id);
+  }
 }

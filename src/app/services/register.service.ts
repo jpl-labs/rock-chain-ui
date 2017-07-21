@@ -17,7 +17,7 @@ export class RegisterService {
   constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Register.setProvider(this.blockchainService.web3.currentProvider);
-
+    this.setupContractWatchers();
   }
 
   setupContractWatchers = () => {
@@ -37,11 +37,9 @@ export class RegisterService {
   }
 
   registerAccount = (registration: Registration): void => {
-    const wallet = this.blockchainService.web3.personal.newAccount(registration.password);
-
     this.Register.deployed().then((instance) => {
       instance.register.sendTransaction(
-        wallet,
+        registration.wallet,
         registration.charity,
         {
             from: this.blockchainService.web3.eth.accounts[0],

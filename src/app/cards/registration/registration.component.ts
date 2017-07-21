@@ -17,8 +17,9 @@ export class RegistrationComponent implements OnInit {
   @Output() onRegister = new EventEmitter<Registration>();
 
   model = {
-    charity: -1,
-    password: ''
+    wallet: '',
+    password: '',
+    charity: -1
   };
 
   charities = ['animals', 'kids', 'disaster'];
