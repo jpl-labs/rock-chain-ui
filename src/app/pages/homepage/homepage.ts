@@ -57,8 +57,18 @@ export class HomepageComponent implements OnInit {
     };
     this.refreshBalance();
 
-    const sub = this.registerService.getAccountRegisteredEmitter()
+    const regSub = this.registerService.getAccountRegisteredEmitter()
       .subscribe(result => console.log(result));
+
+    const songSub = this.blockchainService.getSongChangedEmitter()
+      .subscribe(result => {
+        if (result.to === this.wagerService.getWagerInstance().address
+          && result.from === this.blockchainService.web3.eth.accounts[0]) {
+          const jsonAscii = this.blockchainService.web3.toAscii(result.input.match(new RegExp('7b22.+227d'))[0]);
+          const songData = JSON.parse(jsonAscii);
+          this.currentSong = songData;
+        }
+      });
   }
 
   placeBet = () => {

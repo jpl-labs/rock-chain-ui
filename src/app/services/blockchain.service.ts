@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, Inject, EventEmitter, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +7,7 @@ import 'rxjs/add/observable/fromEvent.js';
 const Web3 = require('web3');
 
 @Injectable()
-export class BlockchainService {
+export class BlockchainService implements OnInit {
   web3: any;
   nowPlaying: AudioSong;
   songChanged: EventEmitter<any> = new EventEmitter();
@@ -18,12 +18,16 @@ export class BlockchainService {
     this.setupBlockchainFilters();
   }
 
+  ngOnInit() {
+
+  }
+
   setupBlockchainFilters = () => {
     // Log the transaction hash of any new pending transaction on the blockchain
     this.web3.eth.filter('pending').watch((error, result) => {
       if (!error) {
         const tx = this.web3.eth.getTransaction(result);
-        /*if (tx.to === this.wagerService.instance.address && tx.from === this.web3.eth.accounts[0]) {
+        /*if (tx.to === this.instance.address && tx.from === this.web3.eth.accounts[0]) {
           const jsonAscii = this.web3.toAscii(tx.input.match(new RegExp('7b22.+227d'))[0]);
           const songData = JSON.parse(jsonAscii);
           this.nowPlaying = songData;

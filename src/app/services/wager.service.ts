@@ -1,4 +1,4 @@
-import { Injectable, Inject, EventEmitter } from '@angular/core';
+import { Injectable, Inject, EventEmitter, OnInit } from '@angular/core';
 import { Wager } from 'tc2017-contract-artifacts';
 import { BlockchainService } from './blockchain.service';
 import { Bet } from '../../models/Bet';
@@ -9,7 +9,7 @@ import * as Cookie from 'js-cookie';
 const contract = require('truffle-contract');
 
 @Injectable()
-export class WagerService {
+export class WagerService implements OnInit {
   Wager = contract(Wager);
   blockchainService: BlockchainService;
   betPlaced: EventEmitter<any> = new EventEmitter();
@@ -18,6 +18,10 @@ export class WagerService {
   constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
+  }
+
+  ngOnInit = () => {
+    this.setupContractWatchers();
   }
 
   setupContractWatchers = () => {
@@ -46,6 +50,12 @@ export class WagerService {
 
   getRoundOverEmitter = () => {
     return this.roundOver;
+  }
+
+  getWagerInstance = (): any => {
+    this.Wager.deployed().then((instance) => {
+      return instance;
+    });
   }
 
   placeBet = (bet: Bet)  => {

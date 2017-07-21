@@ -1,3 +1,14 @@
-<p>
-  wallet-standings works!
-</p>
+<md-card style=margin-top:8px>
+  <md-card-header>
+    <md-card-title>Individual Wallet Standings</md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <md-list>
+      <md-list-item *ngFor="let balance of balances">
+        <h4 md-line>{{balance.account}}</h4>
+        <p md-line style="display: flex"><span style="flex-grow: 1"></span>{{balance.balance}}</p>
+        <md-progress-bar md-line mode="determinate" value="getBalancePercentage({{balance.balance}})"></md-progress-bar>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>

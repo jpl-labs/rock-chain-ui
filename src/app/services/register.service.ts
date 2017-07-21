@@ -17,6 +17,9 @@ export class RegisterService {
   constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Register.setProvider(this.blockchainService.web3.currentProvider);
+  }
+
+  ngOnInit = () => {
     this.setupContractWatchers();
   }
 
@@ -34,6 +37,12 @@ export class RegisterService {
 
   getAccountRegisteredEmitter = () => {
     return this.accountRegistered;
+  }
+
+  getInstance = () => {
+    this.Register.deployed().then((instance) => {
+      return instance;
+    });
   }
 
   registerAccount = (registration: Registration): void => {
