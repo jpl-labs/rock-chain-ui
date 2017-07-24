@@ -1,4 +1,8 @@
-<app-wallet [wallet]="wallet"></app-wallet>
+<app-wallet *ngIf="wallet && wallet.id" [wallet]="wallet"></app-wallet>
+
+<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
+
+<app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
 <app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
@@ -32,6 +36,6 @@
   </md-card-actions>
 </md-card>
 
-<app-registration *ngIf="wallet.id === null" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
-
 <app-wallet-standings></app-wallet-standings>
+
+<app-faq *ngIf="wallet && wallet.id"></app-faq>
