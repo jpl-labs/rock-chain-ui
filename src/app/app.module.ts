@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
-import { NavBarModule } from './shared/navbar/navbar';
 import { FooterModule } from './shared/footer/footer';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,6 +11,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { ROCK_CHAIN_ROUTES } from './routes';
 import { HomepageComponent } from './pages/homepage/homepage';
+import { NavBarComponent } from './shared/navbar/navbar';
 import { NowPlayingComponent } from './cards/now-playing/now-playing.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -34,6 +34,7 @@ import { BetListComponent } from './cards/bet-list/bet-list.component';
     WalletComponent,
     CharityStandingsComponent,
     HomepageComponent,
+    NavBarComponent,
     RegistrationComponent,
     RegistrationDialogComponent,
     SongFeedbackComponent,
@@ -50,10 +51,10 @@ import { BetListComponent } from './cards/bet-list/bet-list.component';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NavBarModule,
     FooterModule,
     RouterModule.forRoot(ROCK_CHAIN_ROUTES),
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule
   ],
   providers: [WagerService, BlockchainService, RegisterService],

@@ -2,12 +2,29 @@
 
 
 <md-toolbar color="primary" style="position:fixed; z-index: 1;">
-  <button md-icon-button (click)="toggleSidenav.emit()">
+  <button *ngIf="!searching" md-icon-button (click)="toggleSidenav.emit()">
     <md-icon>menu</md-icon>
   </button>
-  RockChain by Omni
-  <div class="flex-spacer"></div>
-  <button md-icon-button>
+  <span *ngIf="!searching">RockChain by Omni</span>
+  <div *ngIf="!searching" class="flex-spacer"></div>
+
+
+  <button md-icon-button (click)="search(false)" *ngIf="searching">
+    <md-icon>keyboard_backspace</md-icon>
+  </button>
+  <md-input-container *ngIf="searching" class="artist-search">
+    <input mdInput placeholder="Artist" [mdAutocomplete]="auto" [formControl]="artistCtrl">
+  </md-input-container>
+
+  <md-autocomplete #auto="mdAutocomplete">
+    <md-option *ngFor="let artist of filteredArtists | async" [value]="artist">
+      {{ artist }}
+    </md-option>
+  </md-autocomplete>
+  <button md-icon-button (click)="artistCtrl.reset()" *ngIf="searching">
+    <md-icon>close</md-icon>
+  </button>
+  <button md-icon-button (click)="search(true)" *ngIf="!searching">
     <md-icon>search</md-icon>
   </button>
 </md-toolbar>

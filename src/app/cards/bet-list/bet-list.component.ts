@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AudioSong } from '../../../models/PlayerStatus';
 
 @Component({
   selector: 'app-bet-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BetListComponent implements OnInit {
 
+  @Output() onLike = new EventEmitter<AudioSong>();
+
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  placeBet = () => {
+
   }
 
 }
