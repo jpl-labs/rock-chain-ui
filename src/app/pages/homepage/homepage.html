@@ -1,44 +1,12 @@
-<app-wallet [wallet]="wallet"></app-wallet>
+<app-wallet *ngIf="wallet && wallet.id" [wallet]="wallet"></app-wallet>
+
+<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
+
+<app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
 <app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
-<md-card style="margin-top:8px">
-  <md-card-header>
-    <md-card-title>Standings</md-card-title>
-  </md-card-header>
-  <md-card-content>
-    <md-list>
-      <md-list-item>
-        <md-icon md-list-icon color="green">fingerprint</md-icon>
-        <h4 md-line>Inconspicuous Scientology Front</h4>
-        <p md-line style="display: flex"> 18 backers<span style="flex-grow: 1"></span>$1439 </p>
-        <md-progress-bar md-line mode="determinate" value=50></md-progress-bar>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>gavel</md-icon>
-        <h4 md-line>Westboro Baptist Church</h4>
-        <p md-line style="display: flex"> 7 backers<span style="flex-grow: 1"></span>$956 </p>
-        <md-progress-bar md-line mode="determinate" value=22></md-progress-bar>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>album</md-icon>
-        <h4 md-line>The NRA Foundation</h4>
-        <p md-line style="display: flex">9 backers<span style="flex-grow: 1"></span>$918 </p>
-        <md-progress-bar md-line mode="determinate" value=18></md-progress-bar>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>pregnant_woman</md-icon>
-        <h4 md-line> Planned Parenthood </h4>
-        <p md-line style="display: flex"> 3 backers<span style="flex-grow: 1"></span>$312 </p>
-        <md-progress-bar md-line mode="determinate" value=10></md-progress-bar>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-  <md-card-actions align="end">
-    <button md-button>CHOSE MY CHARITY</button>
-    <button md-button>RECRUIT</button>
-  </md-card-actions>
-</md-card>
+<app-charity-standings> </app-charity-standings>
 
 <md-card style="margin-top:8px">
   <md-card-header>
@@ -68,6 +36,6 @@
   </md-card-actions>
 </md-card>
 
-<app-registration *ngIf="wallet.id === null" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
-
 <app-wallet-standings></app-wallet-standings>
+
+<app-faq *ngIf="wallet && wallet.id"></app-faq>

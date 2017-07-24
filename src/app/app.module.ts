@@ -24,6 +24,7 @@ import { BlockchainService } from './services/blockchain.service';
 import { RegisterService } from './services/register.service';
 import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standings.component';
 import { BetListComponent } from './cards/bet-list/bet-list.component';
+import { FaqComponent } from './cards/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BetListComponent } from './cards/bet-list/bet-list.component';
     RegistrationDialogComponent,
     SongFeedbackComponent,
     WalletStandingsComponent,
-    BetListComponent
+    BetListComponent,
+    FaqComponent
   ],
   entryComponents: [
     SongFeedbackComponent,

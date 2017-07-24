@@ -7,7 +7,7 @@ import 'rxjs/add/observable/fromEvent.js';
 const Web3 = require('web3');
 
 @Injectable()
-export class BlockchainService implements OnInit {
+export class BlockchainService {
   web3: any;
   nowPlaying: AudioSong;
   songChanged: EventEmitter<any> = new EventEmitter();
@@ -16,10 +16,6 @@ export class BlockchainService implements OnInit {
   constructor() {
     this.web3 = new Web3(new Web3.providers.HttpProvider('http://tc20175xj.eastus.cloudapp.azure.com:8545'));
     this.setupBlockchainFilters();
-  }
-
-  ngOnInit() {
-
   }
 
   setupBlockchainFilters = () => {
