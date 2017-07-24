@@ -2,10 +2,10 @@
   <md-sidenav #sidenav class="docs-component-viewer-sidenav" [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'">
     
     <md-grid-list cols="3" >
-  <md-grid-tile
+  <md-grid-tile *ngIf="wallet && wallet.id"
       [colspan]="3"
       [rowspan]="1">
-    0x123f681646d4a755815f9cb19e1acc8565a0c2ac
+    {{wallet.id}}
   </md-grid-tile>
   <md-grid-tile
       [colspan]="1"
@@ -21,10 +21,10 @@
     
     <md-list>
       <h3 md-subheader>Folders</h3>
-            <md-list-item>
+      <md-list-item *ngIf="wallet && wallet.id">
         <md-icon md-list-icon>account_balance_wallet</md-icon>
         <h4 md-line>Wallet</h4>
-        <p md-line>$6,542</p>
+        <p md-line>{{wallet.balance}}</p>
       </md-list-item>
       <md-list-item>
         <md-icon md-list-icon>equalizer</md-icon>
