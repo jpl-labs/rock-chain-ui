@@ -4,7 +4,7 @@
   </md-card-header>
   <md-card-content>
     <md-list>
-      <md-list-item *ngFor="let charity of charities">
+      <md-list-item *ngFor="let charity of charities | async">
         <md-icon md-list-icon>{{charity.icon}}</md-icon>
         <h4 md-line>{{charity.name}}</h4>
         <p md-line style="display: flex"> {{charity.backers}} backers  <span style="flex-grow: 1"> </span> €{{charity.amount}}</p>

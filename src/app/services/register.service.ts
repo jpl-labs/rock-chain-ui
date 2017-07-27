@@ -5,6 +5,7 @@ import { Registration } from '../../models/Registration';
 import { AppComponent } from '../app.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise.js';
+import 'rxjs/add/operator/mergeMap.js';
 
 const contract = require('truffle-contract');
 
@@ -14,7 +15,7 @@ export class RegisterService {
   blockchainService: BlockchainService;
   accountRegistered: EventEmitter<any> = new EventEmitter();
 
-  constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
+  constructor( @Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Register.setProvider(this.blockchainService.web3.currentProvider);
     this.setupContractWatchers();
@@ -48,18 +49,14 @@ export class RegisterService {
         registration.wallet,
         registration.charity,
         {
-            from: this.blockchainService.web3.eth.accounts[0],
-            gas: 4712388
+          from: this.blockchainService.web3.eth.accounts[0],
+          gas: 4712388
         }
       );
     });
   }
 
-  getAccountsForCharity = (charity: number): Observable<any> => {
-    return Observable.fromPromise(this.Register.deployed().then((instance) => {
-      instance.getAccountsByCharity.call(0).then((result) => {
-        return result;
-      });
-    }));
-  }
+  getAccountsForCharity = (charity: number): Observable<string[]> =>
+    Observable.fromPromise(this.Register.deployed())
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getAccountsByCharity(charity)));
 }

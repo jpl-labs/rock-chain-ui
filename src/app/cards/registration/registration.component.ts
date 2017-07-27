@@ -22,7 +22,7 @@ export class RegistrationComponent implements OnInit {
     charity: -1
   };
 
-  charities = ['animals', 'kids', 'disaster'];
+  charities = ['Humane Society', 'Make-A-Wish', 'Electronic Frontier Foundation'];
 
   waitingForRegistration = false;
 

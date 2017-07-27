@@ -29,7 +29,7 @@ export class WalletStandingsComponent implements OnInit {
 
     this.blockchainService.getAccounts()
       .flatMap(account => account)
-      .filter(account => account !== '0x72e98c3c1be92b3195fa3a6dc62ca90e77e6f9be')
+      .filter(account => account !== this.blockchainService.getGenesisAccount())
       .mergeMap((account) =>
         this.blockchainService.getAccountBalance(account)
           .map(balance => {

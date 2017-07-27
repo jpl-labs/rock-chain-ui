@@ -69,4 +69,8 @@ export class BlockchainService {
 
   getAccounts = (): Observable<string[]> =>
     this.getAccountsAsObservable()
+
+  getGenesisAccount = () => {
+    return '0x72e98c3c1be92b3195fa3a6dc62ca90e77e6f9be';
+  }
 }
