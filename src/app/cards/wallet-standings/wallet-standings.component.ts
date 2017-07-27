@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BlockchainService } from '../../services/blockchain.service';
 import { Balance } from '../../../models/Balance';
+import { Observable } from 'rxjs/Observable';
+import { MdProgressSpinnerModule } from '@angular/material';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/toArray';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-wallet-standings',
@@ -18,20 +24,31 @@ export class WalletStandingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.blockchainService.getAccounts().map(account => {
-      const balance = this.blockchainService.getAccountBalance(account);
-      if (balance > 0 && account !== this.blockchainService.web3.eth.accounts[0]) {
-        this.balances.push({
-          account: account,
-          balance: balance
-        });
-      }
-    });
-    this.balances.sort((a, b) => {
-      return (a.balance < b.balance) ? 1 : ((b.balance < a.balance) ? -1 : 0);
-    });
-    this.balances = this.balances.splice(0, 5);
-    this.topBalance = this.balances[0].balance;
+
+
+
+    this.blockchainService.getAccounts()
+      .flatMap(account => account)
+      .filter(account => account !== '0x72e98c3c1be92b3195fa3a6dc62ca90e77e6f9be')
+      .mergeMap((account) =>
+        this.blockchainService.getAccountBalance(account)
+          .map(balance => {
+            return {
+              account: account,
+              balance: balance
+            };
+          })
+      )
+      .filter(wallet => wallet.balance > 0)
+      .toArray()
+      .map(wallets =>
+        wallets
+          .sort((a, b) => b.balance - a.balance)
+          .splice(0, 5))
+      .subscribe((wallets) => {
+        this.balances = wallets;
+        this.topBalance = this.balances[0].balance;
+      });
   }
 
   getBalancePercentage = (balance: number) => {

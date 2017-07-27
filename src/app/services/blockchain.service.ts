@@ -2,27 +2,40 @@ import { Injectable, Inject, EventEmitter, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent.js';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/bindNodeCallback';
 
-const Web3 = require('web3');
+import * as Web3 from 'web3';
+
+import { BigNumber } from 'bignumber.js';
+import { providers, Transaction, AbstractBlock } from 'web3';
 
 @Injectable()
 export class BlockchainService {
-  web3: any;
+  web3: Web3;
   nowPlaying: AudioSong;
-  songChanged: EventEmitter<any> = new EventEmitter();
-  blockMined: EventEmitter<any> = new EventEmitter();
+  songChanged: EventEmitter<Transaction> = new EventEmitter();
+  blockMined: EventEmitter<AbstractBlock> = new EventEmitter();
+  getBalanceAsObservable: (address: string) => Observable<BigNumber>;
+  getAccountsAsObservable: () => Observable<string[]>;
+  getBlockAsObservable: (v1: string | number) => Observable<AbstractBlock>;
 
   constructor() {
-    this.web3 = new Web3(new Web3.providers.HttpProvider('http://tc20175xj.eastus.cloudapp.azure.com:8545'));
+    this.web3 = new Web3(new providers.HttpProvider('http://tc20175xj.eastus.cloudapp.azure.com:8545'));
+
+    this.getBalanceAsObservable = Observable.bindNodeCallback(this.web3.eth.getBalance);
+    this.getAccountsAsObservable = Observable.bindNodeCallback(this.web3.eth.getAccounts);
+    this.getBlockAsObservable = Observable.bindNodeCallback(this.web3.eth.getBlock);
+
     this.setupBlockchainFilters();
   }
 
   setupBlockchainFilters = () => {
     // Log the transaction hash of any new pending transaction on the blockchain
-    this.web3.eth.filter('pending').watch((error, result) => {
+    this.web3.eth.filter('pending').watch((error, result: any) => {
       if (!error) {
         const tx = this.web3.eth.getTransaction(result);
+
         /*if (tx.to === this.instance.address && tx.from === this.web3.eth.accounts[0]) {
           const jsonAscii = this.web3.toAscii(tx.input.match(new RegExp('7b22.+227d'))[0]);
           const songData = JSON.parse(jsonAscii);
@@ -33,10 +46,10 @@ export class BlockchainService {
     });
 
     // Log the object representing the most recently mined block on the blockchain
-    this.web3.eth.filter('latest').watch((error, result) => {
+    this.web3.eth.filter('latest').watch((error, result: any) => {
       if (!error) {
-        const block = this.web3.eth.getBlock(result);
-        this.blockMined.emit(block);
+        this.getBlockAsObservable(result)
+          .subscribe((block) => this.blockMined.emit(block));
       }
     });
   }
@@ -45,19 +58,15 @@ export class BlockchainService {
     return this.web3.personal.newAccount(password);
   }
 
-  getSongChangedEmitter = () => {
-    return this.songChanged;
-  }
+  getSongChangedEmitter = () =>
+    this.songChanged
 
-  getBlockMinedEmitter = () => {
-    return this.blockMined;
-  }
+  getBlockMinedEmitter = () =>
+    this.blockMined
 
-  getAccountBalance = (walletId: string): number => {
-    return this.web3.fromWei(this.web3.eth.getBalance(walletId).toNumber(), 'ether');
-  }
+  getAccountBalance = (walletId: string): Observable<number> =>
+    this.getBalanceAsObservable(walletId).map((balance: BigNumber) => this.web3.fromWei(balance, 'ether').toNumber())
 
-  getAccounts = (): string[] => {
-    return this.web3.eth.accounts;
-  }
+  getAccounts = (): Observable<string[]> =>
+    this.getAccountsAsObservable()
 }

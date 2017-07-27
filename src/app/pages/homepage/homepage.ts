@@ -57,10 +57,12 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     const tmpWallet = Cookie.get('walletId');
     if (tmpWallet) {
-      this.wallet = {
-        id: tmpWallet,
-        balance: this.blockchainService.getAccountBalance(tmpWallet)
-      };
+      this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
+        this.wallet = {
+          id: tmpWallet,
+          balance: balance
+        };
+      });
     }
 
     const regSub = this.registerService.getAccountRegisteredEmitter()
@@ -75,6 +77,8 @@ export class HomepageComponent implements OnInit {
           this.currentSong = songData;
         }
       });
+
+    const testSub = this.blockchainService.getBlockMinedEmitter().subscribe(console.log);
 
     const betSub = this.wagerService.getBetPlacedEmitter()
       .subscribe(result => {
@@ -109,10 +113,12 @@ export class HomepageComponent implements OnInit {
 
   registerAccount = (registration: Registration) => {
     const newAcct = this.blockchainService.web3.personal.newAccount(registration.password);
-    this.wallet = {
-      id: newAcct,
-      balance: this.blockchainService.getAccountBalance(newAcct)
-    };
+      this.blockchainService.getAccountBalance(newAcct).subscribe(balance => {
+        this.wallet = {
+          id: newAcct,
+          balance: balance
+        };
+      });
     Cookie.set('walletId', this.wallet.id);
     registration.wallet = this.wallet.id;
 

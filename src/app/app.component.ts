@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
-import { MdSidenav, MdSidenavModule } from '@angular/material';
+import { MdSidenav, MdSidenavModule, MdChipsModule } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';
 import * as Cookie from 'js-cookie';
 import { Wallet } from '../models/Wallet';
@@ -28,10 +28,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const tmpWallet = Cookie.get('walletId');
     if (tmpWallet) {
-      this.wallet = {
-        id: tmpWallet,
-        balance: this.blockchainService.getAccountBalance(tmpWallet)
-      };
+      this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
+        this.wallet = {
+          id: tmpWallet,
+          balance: balance
+        };
+      });
     }
 
 
