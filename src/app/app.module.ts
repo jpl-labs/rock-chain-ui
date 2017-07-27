@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { FooterModule } from './shared/footer/footer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,41 +26,43 @@ import { RegisterService } from './services/register.service';
 import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standings.component';
 import { BetListComponent } from './cards/bet-list/bet-list.component';
 import { FaqComponent } from './cards/faq/faq.component';
+import { StandingsComponent } from './pages/standings/standings.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NowPlayingComponent,
-    HomeComponent,
-    AboutComponent,
-    WalletComponent,
-    CharityStandingsComponent,
-    HomepageComponent,
-    NavBarComponent,
-    RegistrationComponent,
-    RegistrationDialogComponent,
-    SongFeedbackComponent,
-    WalletStandingsComponent,
-    BetListComponent,
-    FaqComponent
-  ],
-  entryComponents: [
-    SongFeedbackComponent,
-    RegistrationComponent,
-    RegistrationDialogComponent,
-    HomepageComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    FooterModule,
-    RouterModule.forRoot(ROCK_CHAIN_ROUTES),
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule
-  ],
-  providers: [WagerService, BlockchainService, RegisterService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NowPlayingComponent,
+        HomeComponent,
+        AboutComponent,
+        WalletComponent,
+        CharityStandingsComponent,
+        HomepageComponent,
+        NavBarComponent,
+        RegistrationComponent,
+        RegistrationDialogComponent,
+        SongFeedbackComponent,
+        WalletStandingsComponent,
+        BetListComponent,
+        FaqComponent,
+        StandingsComponent
+    ],
+    entryComponents: [
+        SongFeedbackComponent,
+        RegistrationComponent,
+        RegistrationDialogComponent,
+        HomepageComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FooterModule,
+        RouterModule.forRoot(ROCK_CHAIN_ROUTES),
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule
+    ],
+    providers: [WagerService, BlockchainService, RegisterService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
