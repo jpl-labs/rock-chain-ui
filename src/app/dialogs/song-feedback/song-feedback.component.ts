@@ -10,7 +10,7 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 export class SongFeedbackComponent {
 
   constructor(
-    @Optional() @Inject(MD_DIALOG_DATA) private dialogData: any,
+    @Optional() @Inject(MD_DIALOG_DATA) public dialogData: any,
     private dialogRef: MdDialogRef<SongFeedbackComponent>
   ) { }
 
