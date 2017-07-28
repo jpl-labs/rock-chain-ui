@@ -27,6 +27,7 @@ import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standi
 import { BetListComponent } from './cards/bet-list/bet-list.component';
 import { FaqComponent } from './cards/faq/faq.component';
 import { StandingsComponent } from './pages/standings/standings.component';
+import { PlayingComponent } from './pages/playing/playing.component';
 import { BetPlacementComponent } from './cards/bet-placement/bet-placement.component';
 
 @NgModule({
@@ -46,6 +47,7 @@ import { BetPlacementComponent } from './cards/bet-placement/bet-placement.compo
         BetListComponent,
         FaqComponent,
         StandingsComponent,
+        PlayingComponent,
         BetPlacementComponent
     ],
     entryComponents: [
