@@ -28,6 +28,7 @@ import { BetListComponent } from './cards/bet-list/bet-list.component';
 import { FaqComponent } from './cards/faq/faq.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { PlayingComponent } from './pages/playing/playing.component';
+import { BetPlacementComponent } from './cards/bet-placement/bet-placement.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { PlayingComponent } from './pages/playing/playing.component';
         BetListComponent,
         FaqComponent,
         StandingsComponent,
-        PlayingComponent
+        PlayingComponent,
+        BetPlacementComponent
     ],
     entryComponents: [
         SongFeedbackComponent,

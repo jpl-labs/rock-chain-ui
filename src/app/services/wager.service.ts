@@ -1,7 +1,7 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { Wager } from 'tc2017-contract-artifacts';
 import { BlockchainService } from './blockchain.service';
-import { Bet } from '../../models/Bet';
+import { Bet, BetByRound } from '../../models/Bet';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise.js';
 import * as Cookie from 'js-cookie';
@@ -16,7 +16,7 @@ export class WagerService {
   betPlaced: EventEmitter<any> = new EventEmitter();
   roundOver: EventEmitter<any> = new EventEmitter();
 
-  constructor(@Inject(BlockchainService) _blockchainService: BlockchainService) {
+  constructor( @Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
     this.setupContractWatchers();
@@ -57,7 +57,12 @@ export class WagerService {
     });
   }
 
-  placeBet = (bet: Bet)  => {
+  getLastSong = (): Observable<string> => {
+    return Observable.fromPromise(this.Wager.deployed())
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()));
+  }
+
+  placeBet = (bet: Bet) => {
     this.Wager.deployed().then((instance) => {
       const artist = bet.artist;
       const pKey = bet.password;
@@ -67,12 +72,74 @@ export class WagerService {
       instance.bet.sendTransaction(
         this.blockchainService.web3.toHex(artist),
         {
-            from: wallet,
-            to: instance.address,
-            value: this.blockchainService.web3.toWei(1, 'ether'),
-            gas: 4712388
+          from: wallet,
+          to: instance.address,
+          value: this.blockchainService.web3.toWei(1, 'ether'),
+          gas: 4712388
         }
       );
     });
   }
+
+  placeBetMultiRounds = (betByRound: BetByRound) => {
+    this.Wager.deployed().then((instance) => {
+      const artist = betByRound.artist;
+      const pKey = betByRound.password;
+      const wallet = betByRound.walletId;
+      const numberOfRounds = betByRound.numberOfRounds;
+
+      console.log(numberOfRounds);
+
+      this.blockchainService.web3.personal.unlockAccount(wallet, pKey, 2);
+      instance.betFuture.sendTransaction(
+        this.blockchainService.web3.toHex(artist),
+        this.blockchainService.web3.toBigNumber(numberOfRounds),
+        {
+          from: wallet,
+          to: instance.address,
+          value: this.blockchainService.web3.toWei(1, 'ether'),
+          gas: 4712388
+        }
+      );
+    });
+  }
+
+  artists = [
+    'Emancipator',
+    'Daft Punk',
+    'Kyle Dixon & Michael Stein',
+    'Nightmares On Wax',
+    'Luis Fonsi & Daddy Yankee',
+    'Tycho',
+    'The xx',
+    'Port Blue',
+    'Don Omar',
+    'Decco',
+    'Alex Midi',
+    'Daddy Yankee',
+    'J-Kwon',
+    'Yntendo & Sam F',
+    'Alesso',
+    'Russ',
+    'Ice Cube',
+    'The Notorious B.I.G.',
+    'Cypress Hill',
+    'Dr. Dre',
+    '2Pac (Tupac)',
+    'Juvenile',
+    'Snoop Dogg',
+    'Ginuwine',
+    'Bone Thugs-N-Harmony',
+    'Tag Team',
+    'DMX',
+    'Drake',
+    'Kendrick Lamar',
+    'Gucci Mane',
+    'Dr. Dre',
+    'A$AP Rocky',
+    'J. Cole',
+    "Ol' Dirty B**tard",
+    '2 Chainz'
+  ].sort();
+
 }

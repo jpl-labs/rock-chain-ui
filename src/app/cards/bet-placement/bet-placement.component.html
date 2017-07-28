@@ -1,0 +1,26 @@
+<md-card style="margin-top:8px">
+  <md-card-header>
+    <md-card-title>Place A Bet</md-card-title>
+  </md-card-header>
+  <form (ngSubmit)="onSubmit()" #betPlacementForm="ngForm">
+    <md-card-content>
+      <md-input-container>
+        <input mdInput placeholder="Artist" [mdAutocomplete]="auto" required [formControl]="artistCtrl" > 
+      </md-input-container>
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let artist of filteredArtists | async" [value]="artist">
+          {{ artist }}
+        </md-option>
+      </md-autocomplete>
+      <md-input-container>
+        <input mdInput id="numOfRounds" min="1" placeholder="Number Of Rounds" required type="number" [formControl]="numberOfRoundsCtrl" >
+      </md-input-container>
+      <md-input-container>
+        <input mdInput placeholder="Password" id="password" required type="password" [formControl]="passwordCtrl" >
+      </md-input-container>
+    </md-card-content>
+    <md-card-actions align="end">
+      <button type="submit" md-button>PLACE BET</button>
+    </md-card-actions>
+  </form>
+</md-card>
