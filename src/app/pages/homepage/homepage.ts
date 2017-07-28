@@ -118,10 +118,9 @@ export class HomepageComponent implements OnInit {
           id: newAcct,
           balance: balance
         };
+        Cookie.set('walletId', this.wallet.id);
+        registration.wallet = this.wallet.id;
+        this.registerService.registerAccount(registration);
       });
-    Cookie.set('walletId', this.wallet.id);
-    registration.wallet = this.wallet.id;
-
-    this.registerService.registerAccount(registration);
   }
 }
