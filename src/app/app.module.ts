@@ -27,6 +27,7 @@ import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standi
 import { BetListComponent } from './cards/bet-list/bet-list.component';
 import { FaqComponent } from './cards/faq/faq.component';
 import { StandingsComponent } from './pages/standings/standings.component';
+import { BetPlacementComponent } from './cards/bet-placement/bet-placement.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import { StandingsComponent } from './pages/standings/standings.component';
         WalletStandingsComponent,
         BetListComponent,
         FaqComponent,
-        StandingsComponent
+        StandingsComponent,
+        BetPlacementComponent
     ],
     entryComponents: [
         SongFeedbackComponent,

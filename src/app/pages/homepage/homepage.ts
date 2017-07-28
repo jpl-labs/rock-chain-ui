@@ -17,15 +17,16 @@ import { canBeNumber } from '../../../util/validation';
 import * as Cookie from 'js-cookie';
 import { RegistrationComponent } from '../../cards/registration/registration.component';
 import { Registration } from '../../../models/Registration';
-import { Bet, PlacedBet } from '../../../models/Bet';
+import { Bet, PlacedBet, BetByRound } from '../../../models/Bet';
 import { WagerService } from '../../services/wager.service';
 import { RegisterService } from '../../services/register.service';
 import { BlockchainService } from '../../services/blockchain.service';
+import { BetPlacementComponent } from '../../cards/bet-placement/bet-placement.component';
 
 @Component({
-    selector: 'app-homepage',
-    templateUrl: './homepage.html',
-    styleUrls: ['./homepage.scss']
+  selector: 'app-homepage',
+  templateUrl: './homepage.html',
+  styleUrls: ['./homepage.scss']
 })
 export class HomepageComponent implements OnInit {
   betArtist: string;
@@ -44,10 +45,10 @@ export class HomepageComponent implements OnInit {
   snackBar: MdSnackBar;
 
   constructor(
-      private _wagerService: WagerService,
-      private _registerService: RegisterService,
-      private _blockchainService: BlockchainService,
-      private _snackBar: MdSnackBar) {
+    private _wagerService: WagerService,
+    private _registerService: RegisterService,
+    private _blockchainService: BlockchainService,
+    private _snackBar: MdSnackBar) {
     this.registerService = _registerService;
     this.wagerService = _wagerService;
     this.blockchainService = _blockchainService;
@@ -66,7 +67,7 @@ export class HomepageComponent implements OnInit {
     }
 
     const regSub = this.registerService.getAccountRegisteredEmitter()
-      .subscribe(result => console.log(result));
+      .subscribe(result => result);
 
     this.wagerService.getLastSong()
       .subscribe(result => {
@@ -91,11 +92,11 @@ export class HomepageComponent implements OnInit {
       .subscribe(result => {
         this.recentBets.push(result);
         const snackBarRef = this.snackBar.open(result.args.from
-            + ' just placed a bet on '
-            + result.args.artist
-            + ', bringing the total pot to '
-            + this.blockchainService.web3.fromWei(result.args.totalPot, 'ether')
-            + ' OmniCoin');
+          + ' just placed a bet on '
+          + result.args.artist
+          + ', bringing the total pot to '
+          + this.blockchainService.web3.fromWei(result.args.totalPot, 'ether')
+          + ' OmniCoin');
       });
   }
 
@@ -109,25 +110,40 @@ export class HomepageComponent implements OnInit {
   }
 
   like = (song: AudioSong) => {
-      console.log('liked');
-      console.log(song);
+    console.log('liked');
+    console.log(song);
   }
 
   dislike = (song: AudioSong) => {
-      console.log('disliked');
-      console.log(song);
+    console.log('disliked');
+    console.log(song);
   }
 
   registerAccount = (registration: Registration) => {
     const newAcct = this.blockchainService.web3.personal.newAccount(registration.password);
-      this.blockchainService.getAccountBalance(newAcct).subscribe(balance => {
-        this.wallet = {
-          id: newAcct,
-          balance: balance
-        };
-        Cookie.set('walletId', this.wallet.id);
-        registration.wallet = this.wallet.id;
-        this.registerService.registerAccount(registration);
+
+    this.blockchainService.getAccountBalance(newAcct).subscribe(balance => {
+      this.wallet = {
+        id: newAcct,
+        balance: balance
+      };
+      Cookie.set('walletId', this.wallet.id);
+      registration.wallet = this.wallet.id;
+      this.registerService.registerAccount(registration);
+    });
+  }
+
+  placeBetByRound = (betByRound: BetByRound) => {
+    this.wagerService.placeBetMultiRounds(
+      {
+        artist: betByRound.artist,
+        walletId: this.wallet.id,
+        password: betByRound.password,
+        numberOfRounds: betByRound.numberOfRounds
       });
+      const rounds = (betByRound.numberOfRounds > 1) ? betByRound.numberOfRounds + ' rounds' : 'round';
+      this.snackBar.open('Bet placed on the artist '
+          + betByRound.artist
+          + ' for the next ' + rounds);
   }
 }
