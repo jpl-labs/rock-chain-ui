@@ -7,7 +7,7 @@
     </md-progress-spinner>
     <md-list *ngIf="balances">
       <md-list-item *ngFor="let balance of balances; index as i">
-        <md-icon *ngIf="i === 0" md-list-icon>star_rate</md-icon>
+        <md-icon *ngIf="i === 0" md-list-icon>stars</md-icon>
         <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
         <md-icon *ngIf="i > 1" md-list-icon>looks_{{i+1}}</md-icon>
         <h4 md-line>{{balance.account}}</h4>

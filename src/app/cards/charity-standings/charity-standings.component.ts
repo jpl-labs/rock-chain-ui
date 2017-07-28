@@ -41,7 +41,7 @@ export class CharityStandingsComponent implements OnInit {
         name: 'Make-A-Wish',
         amount: 0,
         backers: 0,
-        icon: 'child_care'
+        icon: 'star_border'
       } as Charity,
       {
         id: 2,
