@@ -93,11 +93,11 @@ export class WagerService {
       this.blockchainService.web3.personal.unlockAccount(wallet, pKey, 2);
       instance.betFuture.sendTransaction(
         this.blockchainService.web3.toHex(artist),
-        this.blockchainService.web3.toBigNumber(numberOfRounds),
+        numberOfRounds,
         {
           from: wallet,
           to: instance.address,
-          value: this.blockchainService.web3.toWei(1, 'ether'),
+          value: this.blockchainService.web3.toWei(numberOfRounds, 'ether'),
           gas: 4712388
         }
       );
