@@ -66,7 +66,12 @@ export class CharityStandingsComponent implements OnInit {
           charity.backers = count;
           return charity;
         });
-      }).toArray();
+      }).toArray().map((sortCharities) => {
+        sortCharities.sort((a, b) => {
+          return b.amount - a.amount;
+        });
+        return sortCharities;
+      });
 
     this.charities
       .flatMap(charity => charity)

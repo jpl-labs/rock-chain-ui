@@ -4,6 +4,13 @@ export interface Bet {
     walletId: string;
 }
 
+export interface BetByRound {
+    password: string;
+    artist: string;
+    walletId: string;
+    numberOfRounds: number;
+}
+
 export interface PlacedBet {
     from: string;
     artist: string;
