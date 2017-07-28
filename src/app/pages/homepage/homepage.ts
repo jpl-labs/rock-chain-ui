@@ -68,6 +68,13 @@ export class HomepageComponent implements OnInit {
     const regSub = this.registerService.getAccountRegisteredEmitter()
       .subscribe(result => console.log(result));
 
+    this.wagerService.getLastSong()
+      .subscribe(result => {
+        const jsonAscii = this.blockchainService.web3.toAscii(result.match(new RegExp('7b22.+227d'))[0]);
+        const songData = JSON.parse(jsonAscii);
+        this.currentSong = songData;
+      });
+
     const songSub = this.blockchainService.getSongChangedEmitter()
       .subscribe(result => {
         if (result.to === this.wagerService.instance.address

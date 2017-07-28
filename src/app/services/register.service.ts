@@ -58,5 +58,5 @@ export class RegisterService {
 
   getAccountsForCharity = (charity: number): Observable<string[]> =>
     Observable.fromPromise(this.Register.deployed())
-      .mergeMap((instance: any) => Observable.fromPromise(instance.getAccountsByCharity(charity)));
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getAccountsByCharity(charity)))
 }

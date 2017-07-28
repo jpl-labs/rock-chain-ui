@@ -57,6 +57,11 @@ export class WagerService {
     });
   }
 
+  getLastSong = (): Observable<string> => {
+    return Observable.fromPromise(this.Wager.deployed())
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()));
+  }
+
   placeBet = (bet: Bet)  => {
     this.Wager.deployed().then((instance) => {
       const artist = bet.artist;
