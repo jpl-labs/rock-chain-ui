@@ -27,7 +27,7 @@
       <a md-list-item routerLink="/playing" routerLinkActive="active">
         <md-icon md-list-icon>equalizer</md-icon>
         <h4 md-line>Now Playing</h4>
-        <p md-line>deadmau5</p>
+        <p md-line>{{currentSong.artist}} - {{currentSong.title}}</p>        
       </a>
       <a md-list-item routerLink="/wallet" routerLinkActive="active">
         <md-icon md-list-icon>account_balance_wallet</md-icon>
