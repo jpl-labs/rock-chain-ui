@@ -13,7 +13,7 @@
     <md-input-container>
       <input mdInput placeholder="Password" id="password"
               required
-              [(ngModel)]="model.password" name="password"
+              [(ngModel)]="model.password" name="password" type="password"
               #password="ngModel">
       <div [hidden]="password.valid || password.pristine"
             class="alert alert-danger">
