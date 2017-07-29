@@ -45,7 +45,8 @@ export class AppComponent implements OnInit {
   @ViewChild(MdSidenav) sidenav: MdSidenav;
 
   ngOnInit() {
-    const tmpWallet = Cookie.get('walletId');
+    // const tmpWallet = Cookie.get('walletId');
+    const tmpWallet = localStorage.getItem('walletId');
     if (tmpWallet) {
       this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
         this.wallet = {
