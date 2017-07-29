@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { WagerService } from '../../services/wager.service';
-import { FormControl, FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormsModule, NgForm, Validators  } from '@angular/forms';
 import { BetByRound } from '../../../models/Bet';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -32,9 +32,9 @@ export class BetPlacementComponent implements OnInit {
 
   constructor(private _wagerService: WagerService) {
     this.wagerService = _wagerService;
-    this.artistCtrl = new FormControl();
-    this.numberOfRoundsCtrl = new FormControl();
-    this.passwordCtrl = new FormControl();
+    this.artistCtrl = new FormControl('', [<any>Validators.required]);
+    this.numberOfRoundsCtrl = new FormControl('', [<any>Validators.required]);
+    this.passwordCtrl = new FormControl('', [<any>Validators.required]);
     this.artists = this.wagerService.artists;
     this.filteredArtists = this.artistCtrl.valueChanges
       .startWith(this.artistCtrl.value)
@@ -47,6 +47,12 @@ export class BetPlacementComponent implements OnInit {
   }
 
   onSubmit = () => {
+    if (!this.artistCtrl.valid || 
+      !this.passwordCtrl.valid || 
+      !this.numberOfRoundsCtrl.valid) {
+        return;
+      }
+
     this.betByRound = {
       artist: this.artistCtrl.value,
       password: this.passwordCtrl.value,
