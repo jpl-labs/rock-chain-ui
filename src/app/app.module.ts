@@ -29,6 +29,8 @@ import { FaqComponent } from './cards/faq/faq.component';
 import { StandingsComponent } from './pages/standings/standings.component';
 import { PlayingComponent } from './pages/playing/playing.component';
 import { BetPlacementComponent } from './cards/bet-placement/bet-placement.component';
+import { LoginPageComponent } from './pages/loginpage/loginpage.component';
+import { LoginComponent } from './cards/login/login.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +50,9 @@ import { BetPlacementComponent } from './cards/bet-placement/bet-placement.compo
         FaqComponent,
         StandingsComponent,
         PlayingComponent,
-        BetPlacementComponent
+        BetPlacementComponent,
+        LoginPageComponent,
+        LoginComponent
     ],
     entryComponents: [
         SongFeedbackComponent,

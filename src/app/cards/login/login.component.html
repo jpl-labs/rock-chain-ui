@@ -1,0 +1,35 @@
+<md-card style="margin-top:8px">
+  <md-card-header>
+    <md-card-title>Login to RockChain</md-card-title>
+  </md-card-header>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <md-card-content>
+    <p>
+      Please enter the password and wallet hash associated with your account.
+    </p>    
+    <md-input-container>
+      <input mdInput placeholder="Password" id="password"
+              required
+              [(ngModel)]="model.password" name="password" type="password"
+              #password="ngModel">
+      <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger">
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder="Wallet Hash" id="walletHash"
+              required
+              [(ngModel)]="model.walletHash" name="walletHash" type="text"
+              #walletHash="ngModel">
+      <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger">
+      </div>
+    </md-input-container>
+    
+  </md-card-content>
+  <md-card-actions align="end">
+    <button type="submit" md-button>LOGIN</button>
+  </md-card-actions>
+  </form>
+</md-card>
