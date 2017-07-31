@@ -31,6 +31,7 @@ import { PlayingComponent } from './pages/playing/playing.component';
 import { BetPlacementComponent } from './cards/bet-placement/bet-placement.component';
 import { LoginPageComponent } from './pages/loginpage/loginpage.component';
 import { LoginComponent } from './cards/login/login.component';
+import { CurrentRoundComponent } from './cards/current-round/current-round.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { LoginComponent } from './cards/login/login.component';
         PlayingComponent,
         BetPlacementComponent,
         LoginPageComponent,
-        LoginComponent
+        LoginComponent,
+        CurrentRoundComponent
     ],
     entryComponents: [
         SongFeedbackComponent,

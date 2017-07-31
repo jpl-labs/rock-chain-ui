@@ -6,6 +6,8 @@
 
 <app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
+<app-current-round></app-current-round>
+
 <app-charity-standings> </app-charity-standings>
 
 <app-bet-placement *ngIf="wallet && wallet.id" #betPlacementComponent (onBet)="placeBetByRound($event)"></app-bet-placement>

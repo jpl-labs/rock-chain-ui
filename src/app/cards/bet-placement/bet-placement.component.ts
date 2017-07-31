@@ -47,8 +47,8 @@ export class BetPlacementComponent implements OnInit {
   }
 
   onSubmit = () => {
-    if (!this.artistCtrl.valid || 
-      !this.passwordCtrl.valid || 
+    if (!this.artistCtrl.valid ||
+      !this.passwordCtrl.valid ||
       !this.numberOfRoundsCtrl.valid) {
         return;
       }
