@@ -41,10 +41,10 @@ export class NowPlayingComponent implements OnInit, OnChanges {
         if (this.song) {
             Vibrant.from(`https://cors.now.sh/${this.song.cover}`).getPalette()
                 .then((palette) => {
-                    this.background = palette.Vibrant.getHex();
-                    this.foreground = palette.DarkMuted.getHex();
-                }
-                );
+                    if (palette.Vibrant) {
+                        this.background = palette.Vibrant.getHex();
+                    }
+                });
         }
     }
 

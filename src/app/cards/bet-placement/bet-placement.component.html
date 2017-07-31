@@ -4,7 +4,7 @@
   </md-card-header>
   <form (ngSubmit)="onSubmit()" #betPlacementForm="ngForm">
     <md-card-content>
-      <md-input-container>
+      <md-input-container style="width: 100%">
         <input mdInput placeholder="Artist" [mdAutocomplete]="auto" required [formControl]="artistCtrl" > 
       </md-input-container>
       <md-autocomplete #auto="mdAutocomplete">
@@ -12,12 +12,13 @@
           {{ artist }}
         </md-option>
       </md-autocomplete>
-      <md-input-container>
+      <md-input-container style="width: 100%">
         <input mdInput id="numOfRounds" min="1" placeholder="Number Of Rounds" required type="number" [formControl]="numberOfRoundsCtrl" >
       </md-input-container>
-      <md-input-container>
+      <md-input-container style="width: 100%">
         <input mdInput placeholder="Password" id="password" required type="password" [formControl]="passwordCtrl" >
       </md-input-container>
+      <h4>Your password is your private key/password that you entered when you registered your wallet. This value is used to validate the transaction being sent from your public wallet address.</h4>
     </md-card-content>
     <md-card-actions align="end">
       <button type="submit" md-button>PLACE BET</button>

@@ -53,10 +53,10 @@ export class HomepageComponent implements OnInit {
     this.wagerService = _wagerService;
     this.blockchainService = _blockchainService;
     this.snackBar = _snackBar;
+    this.recentBets = new Array<PlacedBet>();
   }
 
   ngOnInit() {
-    // const tmpWallet = Cookie.get('walletId');
     const tmpWallet = localStorage.getItem('walletId');
     if (tmpWallet) {
       this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
@@ -85,19 +85,6 @@ export class HomepageComponent implements OnInit {
           const songData = JSON.parse(jsonAscii);
           this.currentSong = songData;
         }
-      });
-
-    const testSub = this.blockchainService.getBlockMinedEmitter().subscribe(console.log);
-
-    const betSub = this.wagerService.getBetPlacedEmitter()
-      .subscribe(result => {
-        this.recentBets.push(result);
-        const snackBarRef = this.snackBar.open(result.args.from
-          + ' just placed a bet on '
-          + result.args.artist
-          + ', bringing the total pot to '
-          + this.blockchainService.web3.fromWei(result.args.totalPot, 'ether')
-          + ' OmniCoin');
       });
   }
 
@@ -128,7 +115,6 @@ export class HomepageComponent implements OnInit {
         id: newAcct,
         balance: balance
       };
-      // Cookie.set('walletId', this.wallet.id);
       localStorage.setItem('walletId', this.wallet.id);
       registration.wallet = this.wallet.id;
       this.registerService.registerAccount(registration);
@@ -147,5 +133,8 @@ export class HomepageComponent implements OnInit {
       this.snackBar.open('Bet placed on the artist '
           + betByRound.artist
           + ' for the next ' + rounds);
+      setTimeout(() => {
+        this.snackBar.dismiss();
+      }, 5000);
   }
 }
