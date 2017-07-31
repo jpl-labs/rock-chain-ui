@@ -4,6 +4,7 @@ import { FormControl, FormsModule, NgForm, Validators  } from '@angular/forms';
 import { BetByRound } from '../../../models/Bet';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+const diacritics = require('diacritics');
 
 @Component({
   selector: 'app-bet-placement',
@@ -54,7 +55,7 @@ export class BetPlacementComponent implements OnInit {
       }
 
     this.betByRound = {
-      artist: this.artistCtrl.value,
+      artist: diacritics.remove(this.artistCtrl.value).replace(/[^\w]/gi, '').toLowerCase(),
       password: this.passwordCtrl.value,
       walletId: '',
       numberOfRounds: this.numberOfRoundsCtrl.value

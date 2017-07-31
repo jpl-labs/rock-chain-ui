@@ -34,10 +34,9 @@ export class AppComponent implements OnInit {
   wagerService: WagerService;
 
   constructor(
-    private _router: Router, 
+    private _router: Router,
     private _blockchainService: BlockchainService,
-    private _wagerService: WagerService)
-  {
+    private _wagerService: WagerService) {
     this.blockchainService = _blockchainService;
     this.wagerService = _wagerService;
   }
@@ -60,7 +59,7 @@ export class AppComponent implements OnInit {
       .subscribe(result => {
         const jsonAscii = this.blockchainService.web3.toAscii(result.match(new RegExp('7b22.+227d'))[0]);
         const songData = JSON.parse(jsonAscii);
-        this.currentSong = songData;        
+        this.currentSong = songData;
       });
 
     const songSub = this.blockchainService.getSongChangedEmitter()
@@ -69,7 +68,7 @@ export class AppComponent implements OnInit {
           && result.from === this.blockchainService.web3.eth.accounts[0]) {
           const jsonAscii = this.blockchainService.web3.toAscii(result.input.match(new RegExp('7b22.+227d'))[0]);
           const songData = JSON.parse(jsonAscii);
-          this.currentSong = songData;          
+          this.currentSong = songData;
         }
       });
 

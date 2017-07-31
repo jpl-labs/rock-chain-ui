@@ -20,6 +20,10 @@ export class CurrentRoundComponent implements OnInit {
 
   betsArr: Array<string>;
   recentBets: Array<string>;
+
+  winnersArr: Array<string>;
+  recentWinners: Array<string>;
+
   roundNumber: string;
   roundPot: string;
 
@@ -36,6 +40,8 @@ export class CurrentRoundComponent implements OnInit {
     this.snackBar = _snackBar;
     this.recentBets = new Array<string>();
     this.betsArr = new Array<string>();
+    this.recentWinners = new Array<string>();
+    this.winnersArr = new Array<string>();
     this.roundNumber = 'Waiting for blockchain to update...';
     this.roundPot = 'Waiting for blockchain to update...';
   }
@@ -76,5 +82,32 @@ export class CurrentRoundComponent implements OnInit {
         this.betsArr.push(result.args.from.substring(0, 20) + '... => ' + result.args.artist);
       });
 
+    const roundOverSub = this.wagerService.getRoundOverEmitter()
+      .subscribe(result => {
+        const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
+        if (payout > 0) {
+          const winnerStr = `${result.args.artist} for Ꮻ ${result.args.payout}
+            \n ${result.args.winners.foreach(winner => winner.substring(0, 10) + ',')} \n`;
+
+          this.recentWinners.push(winnerStr);
+
+          localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));
+
+          if (this.winnersArr.length >= 5) {
+            this.winnersArr.shift();
+          }
+
+          this.winnersArr.push(winnerStr);
+
+          result.args.winners.forEach(element => {
+            if (element === localStorage.getItem('walletId')) {
+              this.snackBar.open(`You won Ꮻ ${result.args.payout} because ${result.args.artist} played!`);
+              setTimeout(() => {
+                this.snackBar.dismiss();
+              }, 15000);
+            }
+          });
+        }
+      });
   }
 }

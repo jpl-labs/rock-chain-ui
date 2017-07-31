@@ -21,6 +21,11 @@
         <md-icon *ngIf="i > 1" md-list-icon>looks_{{i+1}}</md-icon>
         <h4 md-line style="font-size:x-small">{{bet}}</h4>
       </md-list-item>
+      <h4 md-line>Recent Winners</h4>
+      <md-list-item *ngFor="let winner of winnersArr">
+        <md-icon md-list-icon>stars</md-icon>
+        <h4 md-line style="font-size:x-small">{{winner}}</h4>
+      </md-list-item>
     </md-list>
   </md-card-content>
 </md-card>
