@@ -12,8 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   model = {
-    walletHash: '',
-    password: ''
+    walletHash: ''  
   };
 
   wallet: Wallet;

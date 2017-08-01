@@ -5,24 +5,14 @@
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
   <md-card-content>
     <p>
-      Please enter the password and wallet hash associated with your account.
+      Please enter the wallet hash associated with your account.
     </p>    
-    <md-input-container>
-      <input mdInput placeholder="Password" id="password"
-              required
-              [(ngModel)]="model.password" name="password" type="password"
-              #password="ngModel">
-      <div [hidden]="password.valid || password.pristine"
-            class="alert alert-danger">
-      </div>
-    </md-input-container>
-
     <md-input-container>
       <input mdInput placeholder="Wallet Hash" id="walletHash"
               required
               [(ngModel)]="model.walletHash" name="walletHash" type="text"
               #walletHash="ngModel">
-      <div [hidden]="password.valid || password.pristine"
+      <div [hidden]="walletHash.valid || walletHash.pristine"
             class="alert alert-danger">
       </div>
     </md-input-container>
