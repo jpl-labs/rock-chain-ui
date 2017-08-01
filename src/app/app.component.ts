@@ -22,11 +22,12 @@ export class AppComponent implements OnInit {
     artist: '',
     title: '',
     album: '',
-    cover:'',
+    cover: '',
     feedback: '',
     allowFeedback: true,
     sleep: false,
-    id: '' 
+    id: '' ,
+    style: ''
   };
 
   blockchainService: BlockchainService;
