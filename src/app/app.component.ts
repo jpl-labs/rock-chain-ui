@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
 import { MdSidenav, MdSidenavModule, MdChipsModule } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';
-import * as Cookie from 'js-cookie';
 import { Wallet } from '../models/Wallet';
 import { BlockchainService } from './services/blockchain.service';
 import { WagerService } from './services/wager.service';
@@ -43,8 +42,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild(MdSidenav) sidenav: MdSidenav;
 
-  ngOnInit() {
-    // const tmpWallet = Cookie.get('walletId');
+  ngOnInit() {    
     const tmpWallet = localStorage.getItem('walletId');
     if (tmpWallet) {
       this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
