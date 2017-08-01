@@ -4,7 +4,6 @@ import { BlockchainService } from './blockchain.service';
 import { Bet, BetByRound } from '../../models/Bet';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise.js';
-import * as Cookie from 'js-cookie';
 
 const contract = require('truffle-contract');
 
