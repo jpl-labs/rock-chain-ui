@@ -2,6 +2,8 @@
 
 <app-faq *ngIf="!wallet || !wallet.id"></app-faq>
 
+<app-login *ngIf="!wallet || !wallet.id"></app-login>
+
 <app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
 <app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>

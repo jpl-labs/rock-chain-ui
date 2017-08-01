@@ -14,7 +14,6 @@ import { AudioSong } from '../../../models/PlayerStatus';
 import { Wallet } from '../../../models/Wallet';
 import { Wager, Register } from 'tc2017-contract-artifacts';
 import { canBeNumber } from '../../../util/validation';
-import * as Cookie from 'js-cookie';
 import { RegistrationComponent } from '../../cards/registration/registration.component';
 import { Registration } from '../../../models/Registration';
 import { Bet, PlacedBet, BetByRound } from '../../../models/Bet';
