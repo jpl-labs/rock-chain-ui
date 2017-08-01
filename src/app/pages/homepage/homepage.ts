@@ -80,7 +80,7 @@ export class HomepageComponent implements OnInit {
     const songSub = this.blockchainService.getSongChangedEmitter()
       .subscribe(result => {
         if (result.to === this.wagerService.instance.address
-          && result.from === this.blockchainService.web3.eth.accounts[0]) {
+          && result.from === this.blockchainService.getGenesisAccount()) {
           const jsonAscii = this.blockchainService.web3.toAscii(result.input.match(new RegExp('7b22.+227d'))[0]);
           const songData = JSON.parse(jsonAscii);
           this.currentSong = songData;

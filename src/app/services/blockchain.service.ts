@@ -15,10 +15,10 @@ export class BlockchainService {
   web3: Web3;
   nowPlaying: AudioSong;
   songChanged: EventEmitter<Transaction> = new EventEmitter();
-  blockMined: EventEmitter<AbstractBlock> = new EventEmitter();
   getBalanceAsObservable: (address: string) => Observable<BigNumber>;
   getAccountsAsObservable: () => Observable<string[]>;
   getBlockAsObservable: (v1: string | number) => Observable<AbstractBlock>;
+  unlockAccountAsObservable: (v1: string, v2: string, v3: number) => Observable<boolean>;
 
   constructor() {
     this.web3 = new Web3(new providers.HttpProvider('http://tc20175xj.eastus.cloudapp.azure.com:8545'));
@@ -26,6 +26,7 @@ export class BlockchainService {
     this.getBalanceAsObservable = Observable.bindNodeCallback(this.web3.eth.getBalance);
     this.getAccountsAsObservable = Observable.bindNodeCallback(this.web3.eth.getAccounts);
     this.getBlockAsObservable = Observable.bindNodeCallback(this.web3.eth.getBlock);
+    this.unlockAccountAsObservable = Observable.bindNodeCallback(this.web3.personal.unlockAccount);
 
     this.setupBlockchainFilters();
   }
@@ -35,21 +36,7 @@ export class BlockchainService {
     this.web3.eth.filter('pending').watch((error, result: any) => {
       if (!error) {
         const tx = this.web3.eth.getTransaction(result);
-
-        /*if (tx.to === this.instance.address && tx.from === this.web3.eth.accounts[0]) {
-          const jsonAscii = this.web3.toAscii(tx.input.match(new RegExp('7b22.+227d'))[0]);
-          const songData = JSON.parse(jsonAscii);
-          this.nowPlaying = songData;
-        }*/
         this.songChanged.emit(tx);
-      }
-    });
-
-    // Log the object representing the most recently mined block on the blockchain
-    this.web3.eth.filter('latest').watch((error, result: any) => {
-      if (!error) {
-        this.getBlockAsObservable(result)
-          .subscribe((block) => this.blockMined.emit(block));
       }
     });
   }
@@ -61,9 +48,6 @@ export class BlockchainService {
   getSongChangedEmitter = () =>
     this.songChanged
 
-  getBlockMinedEmitter = () =>
-    this.blockMined
-
   getAccountBalance = (walletId: string): Observable<number> =>
     this.getBalanceAsObservable(walletId).map((balance: BigNumber) => this.web3.fromWei(balance, 'ether').toNumber())
 
@@ -72,5 +56,9 @@ export class BlockchainService {
 
   getGenesisAccount = () => {
     return '0x72e98c3c1be92b3195fa3a6dc62ca90e77e6f9be';
+  }
+
+  unlockAccount = (wallet: string, password: string, time: number): Observable<boolean> => {
+    return this.unlockAccountAsObservable(wallet, password, time).map((success: boolean) => success);
   }
 }

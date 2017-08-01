@@ -88,7 +88,6 @@ export class WagerService {
       const wallet = betByRound.walletId;
       const numberOfRounds = betByRound.numberOfRounds;
 
-      this.blockchainService.web3.personal.unlockAccount(wallet, pKey, 2);
       instance.betFuture.sendTransaction(
         this.blockchainService.web3.toHex(artist),
         numberOfRounds,

@@ -2,6 +2,7 @@
   <md-card-header *ngIf="song">
     <md-card-title>{{song.title}}</md-card-title>
     <md-card-subtitle>{{song.artist}}</md-card-subtitle>
+    <md-card-subtitle>{{song.style}}</md-card-subtitle>
   </md-card-header>
   <img md-card-image *ngIf="song" src={{song.cover}}>
   <md-card-actions align="end">

@@ -85,28 +85,31 @@ export class CurrentRoundComponent implements OnInit {
     const roundOverSub = this.wagerService.getRoundOverEmitter()
       .subscribe(result => {
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
-        if (payout > 0) {
-          const winnerStr = `${result.args.artist} for Ꮻ ${result.args.payout}
-            \n ${result.args.winners.foreach(winner => winner.substring(0, 10) + ',')} \n`;
-
-          this.recentWinners.push(winnerStr);
-
-          localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));
-
-          if (this.winnersArr.length >= 5) {
-            this.winnersArr.shift();
-          }
-
-          this.winnersArr.push(winnerStr);
+        if (payout > 0 && result.args.winners.length > 0) {
+          const songData = JSON.parse(result.args.songData);
 
           result.args.winners.forEach(element => {
+            const winnerStr = `${songData.artist} wins for Ꮻ ${payout}
+            to ${element.substring(0, 10)}...`;
+
+            this.recentWinners.push(winnerStr);
+
+            if (this.winnersArr.length >= 5) {
+              this.winnersArr.shift();
+            }
+
+            this.winnersArr.push(winnerStr);
+
             if (element === localStorage.getItem('walletId')) {
-              this.snackBar.open(`You won Ꮻ ${result.args.payout} because ${result.args.artist} played!`);
+              this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`);
               setTimeout(() => {
                 this.snackBar.dismiss();
               }, 15000);
             }
           });
+
+          localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));
+
         }
       });
   }

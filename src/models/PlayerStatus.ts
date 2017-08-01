@@ -7,6 +7,7 @@ export interface AudioSong {
     id: string;
     sleep: boolean;
     title: string;
+    style: string;
 }
 
 export interface AudioStyle {
