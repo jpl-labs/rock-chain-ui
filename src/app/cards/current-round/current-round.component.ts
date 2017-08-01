@@ -18,8 +18,8 @@ export class CurrentRoundComponent implements OnInit {
   registerService: RegisterService;
   blockchainService: BlockchainService;
 
-  betsArr: Array<string>;
-  recentBets: Array<string>;
+  betsArr: Array<{}>;
+  recentBets: Array<{}>;
 
   winnersArr: Array<string>;
   recentWinners: Array<string>;
@@ -50,7 +50,18 @@ export class CurrentRoundComponent implements OnInit {
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
       for (let i = 0; i < bets.length; i ++) {
+        if (this.betsArr.length >= 5) {
+          this.betsArr.shift();
+        }
         this.betsArr.push(bets[i]);
+      }
+
+      const winners = JSON.parse(localStorage.getItem('recentWinners'));
+      for (let j = 0; j < winners.length; j++) {
+        if (this.winnersArr.length >= 5) {
+          this.winnersArr.shift();
+        }
+        this.winnersArr.push(winners[j]);
       }
     }
 
@@ -58,7 +69,10 @@ export class CurrentRoundComponent implements OnInit {
       .subscribe(result => {
         this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
-        this.recentBets.push(result.args.from.substring(0, 20) + '... => ' + result.args.artist);
+        this.recentBets.push({
+          wallet: result.args.from,
+          artist: result.args.artist
+        });
 
         localStorage.setItem('recentBets', JSON.stringify(this.recentBets));
 
@@ -79,7 +93,10 @@ export class CurrentRoundComponent implements OnInit {
         if (this.betsArr.length >= 5) {
           this.betsArr.shift();
         }
-        this.betsArr.push(result.args.from.substring(0, 20) + '... => ' + result.args.artist);
+        this.betsArr.push({
+          wallet: result.args.from,
+          artist: result.args.artist
+        });
       });
 
     const roundOverSub = this.wagerService.getRoundOverEmitter()

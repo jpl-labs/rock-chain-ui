@@ -63,8 +63,6 @@ export class BetPlacementComponent implements OnInit {
         return;
     }
 
-    //this.blockchainService.web3.personal.unlockAccount(localStorage.getItem('walletId'), this.passwordCtrl.value, 2);
-
     this.blockchainService.unlockAccount(localStorage.getItem('walletId'), this.passwordCtrl.value, 2)
       .subscribe(success => {
         if (success) {
