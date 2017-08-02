@@ -14,17 +14,15 @@ import { providers, Transaction, AbstractBlock, SolidityEvent } from 'web3';
 
 const contract = require('truffle-contract');
 
-
 @Injectable()
 export class WagerService {
   Wager = contract(Wager);
   instance: any;
 
-  private songChangedSource = new BehaviorSubject<AudioSong>({} as AudioSong);
   private betPlacedSource = new Subject<SolidityEvent<any>>();
   private roundOverSource = new Subject<SolidityEvent<any>>();
 
-  songChanged$ = this.songChangedSource.asObservable();
+  songChanged$: Observable<AudioSong>;
   betPlaced$ = this.betPlacedSource.asObservable();
   roundOver$ = this.roundOverSource.asObservable();
 
@@ -34,24 +32,18 @@ export class WagerService {
     this.getWagerInstance();
 
     const lastSong = Observable.fromPromise(this.Wager.deployed())
-      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()))
-      .map(this.parseSongHex);
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()));
 
     const futureSongs = this.blockchainService.pendingTransaction$
-      .do(console.log)
-      .do(x => console.log(this.instance.address))
       .filter(result => result.to === this.instance.address
         && result.from === this.blockchainService.genesisAccount)
-      .map(result => result.input)
-      .map(this.parseSongHex);
+      .map(result => result.input);
 
-    lastSong.concat(futureSongs).subscribe(this.songChangedSource);
+    this.songChanged$ = lastSong.concat(futureSongs).map(this.parseSongHex);
   }
 
-  parseSongHex = (hexString: string): AudioSong => {
-    const jsonAscii = this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]);
-    return JSON.parse(jsonAscii);
-  }
+  parseSongHex = (hexString: string): AudioSong =>
+    JSON.parse(this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]))
 
   setupContractWatchers = () => {
     this.Wager.deployed().then((instance) => {
