@@ -10,8 +10,8 @@
         <md-icon *ngIf="i === 0" md-list-icon>stars</md-icon>
         <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
         <md-icon *ngIf="i > 1" md-list-icon>looks_{{i+1}}</md-icon>
-        <h4 md-line style="font-size:x-small">{{balance.account}}</h4>
-        <p md-line style="display: flex"><span style="flex-grow: 1"></span>{{balance.balance}}</p>
+        <h4 md-line >{{balance.account}}</h4>
+        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Ꮻ{{balance.balance}}</p>
         <md-progress-bar md-line mode="determinate" value="{{getBalancePercentage(balance.balance)}}"></md-progress-bar>
       </md-list-item>
     </md-list>
