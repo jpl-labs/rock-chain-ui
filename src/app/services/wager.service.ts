@@ -39,8 +39,6 @@ export class WagerService {
       .map(this.parseSongHex);
 
     const futureSongs = this.blockchainService.pendingTransaction$
-      .do(console.log)
-      .do(x => console.log(this.instance.address))
       .filter(result => result.to === this.instance.address
         && result.from === this.blockchainService.genesisAccount)
       .map(result => result.input)

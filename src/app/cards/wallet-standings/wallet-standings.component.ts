@@ -41,7 +41,7 @@ export class WalletStandingsComponent implements OnInit {
       .map(wallets =>
         wallets
           .sort((a, b) => b.balance - a.balance)
-          .splice(0, 5))
+          .splice(0, 20))
       .subscribe((wallets) => {
         this.balances = wallets;
         this.topBalance = this.balances[0].balance;
@@ -50,5 +50,9 @@ export class WalletStandingsComponent implements OnInit {
 
   getBalancePercentage = (balance: number) => {
     return Math.floor((balance / this.topBalance) * 100);
+  }
+
+  isMyWallet = (wallet: string): boolean => {
+    return wallet === localStorage.getItem('walletId');
   }
 }
