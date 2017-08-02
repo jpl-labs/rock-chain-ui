@@ -20,9 +20,8 @@ const contract = require('truffle-contract');
 export class WagerService {
   Wager = contract(Wager);
   instance: any;
-  blockchainService: BlockchainService;
 
-  private songChangedSource = new Subject<AudioSong>();
+  private songChangedSource = new BehaviorSubject<AudioSong>({} as AudioSong);
   private betPlacedSource = new Subject<SolidityEvent<any>>();
   private roundOverSource = new Subject<SolidityEvent<any>>();
 
@@ -30,8 +29,7 @@ export class WagerService {
   betPlaced$ = this.betPlacedSource.asObservable();
   roundOver$ = this.roundOverSource.asObservable();
 
-  constructor( @Inject(BlockchainService) _blockchainService: BlockchainService) {
-    this.blockchainService = _blockchainService;
+  constructor(private blockchainService: BlockchainService) {
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
     this.getWagerInstance();
     this.setupContractWatchers();
@@ -53,7 +51,6 @@ export class WagerService {
 
   parseSongHex = (hexString: string): AudioSong => {
     const jsonAscii = this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]);
-    console.log(JSON.parse(jsonAscii));
     return JSON.parse(jsonAscii);
   }
 
@@ -128,59 +125,105 @@ export class WagerService {
     });
   }
 
-  artists = [
-    '2Pac (Tupac)',
+  artists = ['2Pac (Tupac)',
+    '3 Doors Down',
+    '311',
+    '4 Non Blondes',
     'AC/DC',
     'Aerosmith',
+    'Alanis Morissette',
     'Alice In Chains',
     'All Time Low',
     'America',
     'Bachman-Turner Overdrive',
+    'Bad Company',
+    'Barenaked Ladies',
     'Better Than Ezra',
     'Billy Squier',
     'Blink-182',
     'Blue October',
+    'Blue Oyster Cult',
+    'Blues Traveler',
     'Blur',
+    'Bob Seger & The Silver Bullet Band',
     'Boston',
     'Bush',
+    'Cake',
+    'Candlebox',
+    'Chumbawamba',
     'Cinderella',
+    'Coldplay',
     'Collective Soul',
+    'Counting Crows',
     'Cracker',
     'Crazy Town',
     'Cream',
+    'Dave Matthews Band',
     'Dead Or Alive',
+    'Deep Blue Something',
     'Def Leppard',
+    'Del Amitri',
+    'Dido',
+    'Duncan Sheik',
+    'Eagle-Eye Cherry',
     'Eagles',
     'Elton John',
     'Eve 6',
     'Everclear',
+    'Fastball',
+    'Fiona Apple',
     'Firehouse',
+    'Five Finger Death Punch',
+    'Fleetwood Mac',
     'Foo Fighters',
     'Foreigner',
     'Free',
     'Fuel',
     'Gin Blossoms',
+    'Green Day',
     'Guns N\' Roses',
+    'Harvey Danger',
+    'Hole',
+    'Hootie & The Blowfish',
+    'Incubus',
     'Jimmy Eat World',
     'Joan Jett',
+    'Johnny Cash',
+    'Journey',
+    'Led Zeppelin',
+    'Lisa Loeb',
     'Live',
     'Lynyrd Skynyrd',
     'Marcy Playground',
     'Matchbox Twenty',
     'Metallica',
     'Mötley Crüe',
+    'Natalie Imbruglia',
     'Naughty By Nature',
+    'Nine Inch Nails',
     'Nirvana',
+    'No Doubt',
+    'Norman Greenbaum',
     'Oasis',
+    'Orgy',
     'Ozzy Osbourne',
     'P.O.D.',
     'Pearl Jam',
     'Pink Floyd',
+    'Queen',
+    'Red Hot Chili Peppers',
+    'Rob Zombie',
     'Scorpions',
     'Semisonic',
+    'Seven Mary Three',
+    'Sheryl Crow',
+    'Silverchair',
+    'Smash Mouth',
     'Smashing Pumpkins',
     'Soft Cell',
     'Soundgarden',
+    'Spacehog',
+    'Spin Doctors',
     'Staind',
     'Steve Miller Band',
     'Stone Temple Pilots',
@@ -188,23 +231,38 @@ export class WagerService {
     'Styx',
     'Sublime',
     'Sugar Ray',
+    'Tal Bachman',
+    'Temple Of The Dog',
     'Tesla',
     'The Academy Is...',
     'The Allman Brothers Band',
+    'The Black Crowes',
     'The Cars',
+    'The Cranberries',
+    'The Cure',
     'The Doobie Brothers',
     'The Fray',
+    'The Goo Goo Dolls',
     'The Notorious B.I.G.',
     'The Offspring',
     'The Outfield',
     'The Police',
+    'The Presidents Of The United States Of America',
+    'The Verve Pipe',
     'The Wallflowers',
     'Third Eye Blind',
+    'Toad The Wet Sprocket',
     'Toadies',
+    'Tom Petty',
+    'Tonic',
     'Tonight Alive',
+    'Tool',
     'Toto',
+    'Tracy Chapman',
+    'Train',
     'Van Halen',
-    'Weezer'
+    'Vertical Horizon',
+    'Weezer',
   ].sort();
 
 }
