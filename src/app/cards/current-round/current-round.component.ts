@@ -57,7 +57,7 @@ export class CurrentRoundComponent implements OnInit {
 
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
-      for (let i = 0; i < bets.length; i ++) {
+      for (let i = 0; i < bets.length; i++) {
         if (this.betsArr.length >= 5) {
           this.betsArr.shift();
         }
@@ -119,7 +119,7 @@ export class CurrentRoundComponent implements OnInit {
 
           result.args.winners.forEach(element => {
             const winnerStr = `${songData.artist} wins for Ꮻ ${payout}
-            to ${element.substring(0, 10)}...`;
+            to ${element}`;
 
             this.recentWinners.push(winnerStr);
 
