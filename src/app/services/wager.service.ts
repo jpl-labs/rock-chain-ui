@@ -19,9 +19,8 @@ const contract = require('truffle-contract');
 export class WagerService {
   Wager = contract(Wager);
   instance: any;
-  blockchainService: BlockchainService;
 
-  private songChangedSource = new Subject<AudioSong>();
+  private songChangedSource = new BehaviorSubject<AudioSong>({}as AudioSong);
   private betPlacedSource = new Subject<SolidityEvent<any>>();
   private roundOverSource = new Subject<SolidityEvent<any>>();
 
@@ -29,8 +28,7 @@ export class WagerService {
   betPlaced$ = this.betPlacedSource.asObservable();
   roundOver$ = this.roundOverSource.asObservable();
 
-  constructor( @Inject(BlockchainService) _blockchainService: BlockchainService) {
-    this.blockchainService = _blockchainService;
+  constructor( private blockchainService: BlockchainService) {
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
     this.setupContractWatchers();
     this.getWagerInstance();
@@ -52,7 +50,6 @@ export class WagerService {
 
   parseSongHex = (hexString: string): AudioSong => {
     const jsonAscii = this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]);
-    console.log(JSON.parse(jsonAscii));
     return JSON.parse(jsonAscii);
   }
 
