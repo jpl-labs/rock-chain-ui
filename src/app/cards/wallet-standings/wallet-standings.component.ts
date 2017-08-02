@@ -26,7 +26,7 @@ export class WalletStandingsComponent implements OnInit {
   ngOnInit() {
     this.blockchainService.getAccounts()
       .flatMap(account => account)
-      .filter(account => account !== this.blockchainService.getGenesisAccount())
+      .filter(account => account !== this.blockchainService.genesisAccount)
       .mergeMap((account) =>
         this.blockchainService.getAccountBalance(account)
           .map(balance => {

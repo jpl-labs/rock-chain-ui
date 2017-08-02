@@ -38,7 +38,7 @@ export class NowPlayingComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.song) {
+        if (this.song && this.song.cover) {
             Vibrant.from(`https://cors.now.sh/${this.song.cover}`).getPalette()
                 .then((palette) => {
                     if (palette.Vibrant) {

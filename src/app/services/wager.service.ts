@@ -2,24 +2,58 @@ import { Injectable, Inject, EventEmitter } from '@angular/core';
 import { Wager } from 'tc2017-contract-artifacts';
 import { BlockchainService } from './blockchain.service';
 import { Bet, BetByRound } from '../../models/Bet';
+import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/fromPromise.js';
+import 'rxjs/add/operator/do.js';
+import 'rxjs/add/operator/concat.js';
+
+import { providers, Transaction, AbstractBlock, SolidityEvent } from 'web3';
 
 const contract = require('truffle-contract');
+
 
 @Injectable()
 export class WagerService {
   Wager = contract(Wager);
   instance: any;
   blockchainService: BlockchainService;
-  betPlaced: EventEmitter<any> = new EventEmitter();
-  roundOver: EventEmitter<any> = new EventEmitter();
+
+  private songChangedSource = new Subject<AudioSong>();
+  private betPlacedSource = new Subject<SolidityEvent<any>>();
+  private roundOverSource = new Subject<SolidityEvent<any>>();
+
+  songChanged$ = this.songChangedSource.asObservable();
+  betPlaced$ = this.betPlacedSource.asObservable();
+  roundOver$ = this.roundOverSource.asObservable();
 
   constructor( @Inject(BlockchainService) _blockchainService: BlockchainService) {
     this.blockchainService = _blockchainService;
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
     this.setupContractWatchers();
     this.getWagerInstance();
+
+    const lastSong = Observable.fromPromise(this.Wager.deployed())
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()))
+      .map(this.parseSongHex);
+
+    const futureSongs = this.blockchainService.pendingTransaction$
+      .do(console.log)
+      .do(x => console.log(this.instance.address))
+      .filter(result => result.to === this.instance.address
+        && result.from === this.blockchainService.genesisAccount)
+      .map(result => result.input)
+      .map(this.parseSongHex);
+
+    lastSong.concat(futureSongs).subscribe(this.songChangedSource);
+  }
+
+  parseSongHex = (hexString: string): AudioSong => {
+    const jsonAscii = this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]);
+    console.log(JSON.parse(jsonAscii));
+    return JSON.parse(jsonAscii);
   }
 
   setupContractWatchers = () => {
@@ -28,7 +62,7 @@ export class WagerService {
 
       betPlaced.watch((error, result) => {
         if (!error) {
-          this.betPlaced.emit(result);
+          this.betPlacedSource.next(result);
         }
       });
 
@@ -36,29 +70,16 @@ export class WagerService {
 
       roundOver.watch((error, result) => {
         if (!error) {
-          this.roundOver.emit(result);
+          this.roundOverSource.next(result);
         }
       });
     });
-  }
-
-  getBetPlacedEmitter = () => {
-    return this.betPlaced;
-  }
-
-  getRoundOverEmitter = () => {
-    return this.roundOver;
   }
 
   getWagerInstance = (): any => {
     this.Wager.deployed().then((instance) => {
       this.instance = instance;
     });
-  }
-
-  getLastSong = (): Observable<string> => {
-    return Observable.fromPromise(this.Wager.deployed())
-      .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()));
   }
 
   placeBet = (bet: Bet) => {

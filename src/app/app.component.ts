@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     feedback: '',
     allowFeedback: true,
     sleep: false,
-    id: '' ,
+    id: '',
     style: ''
   };
 
@@ -54,23 +54,8 @@ export class AppComponent implements OnInit {
       });
     }
 
-    this.wagerService.getLastSong()
-      .subscribe(result => {
-        const jsonAscii = this.blockchainService.web3.toAscii(result.match(new RegExp('7b22.+227d'))[0]);
-        const songData = JSON.parse(jsonAscii);
-        this.currentSong = songData;
-      });
-
-    const songSub = this.blockchainService.getSongChangedEmitter()
-      .subscribe(result => {
-        if (result.to === this.wagerService.instance.address
-          && result.from === this.blockchainService.web3.eth.accounts[0]) {
-          const jsonAscii = this.blockchainService.web3.toAscii(result.input.match(new RegExp('7b22.+227d'))[0]);
-          const songData = JSON.parse(jsonAscii);
-          this.currentSong = songData;
-        }
-      });
-
+    const songSub = this.wagerService.songChanged$
+      .subscribe(song => this.currentSong = song);
 
     this._router.events.subscribe(() => {
       if (this.isScreenSmall()) {

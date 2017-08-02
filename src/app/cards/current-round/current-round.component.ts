@@ -65,7 +65,7 @@ export class CurrentRoundComponent implements OnInit {
       }
     }
 
-    const betSub = this.wagerService.getBetPlacedEmitter()
+    const betSub = this.wagerService.betPlaced$
       .subscribe(result => {
         this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
@@ -88,7 +88,7 @@ export class CurrentRoundComponent implements OnInit {
         }, 5000);
       });
 
-    const betSub2 = this.wagerService.getBetPlacedEmitter()
+    const betSub2 = this.wagerService.betPlaced$
       .subscribe(result => {
         if (this.betsArr.length >= 5) {
           this.betsArr.shift();
@@ -99,7 +99,7 @@ export class CurrentRoundComponent implements OnInit {
         });
       });
 
-    const roundOverSub = this.wagerService.getRoundOverEmitter()
+    const roundOverSub = this.wagerService.roundOver$
       .subscribe(result => {
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
         if (payout > 0 && result.args.winners.length > 0) {
