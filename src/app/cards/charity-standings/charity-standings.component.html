@@ -7,7 +7,7 @@
       <md-list-item *ngFor="let charity of charities | async">
         <md-icon md-list-icon>{{charity.icon}}</md-icon>
         <h4 md-line>{{charity.name}}</h4>
-        <p md-line style="display: flex"> {{charity.backers}} backers  <span style="flex-grow: 1"> </span> €{{charity.amount}}</p>
+        <p md-line style="display: flex"> {{charity.backers}} backers  <span style="flex-grow: 1"> </span> Ꮻ{{charity.amount}}</p>
         <md-progress-bar md-line mode="determinate" value="{{charity.amount / totalCharityAmount * 100}}" ></md-progress-bar>
       </md-list-item>
     </md-list>
