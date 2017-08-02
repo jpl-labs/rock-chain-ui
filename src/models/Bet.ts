@@ -17,3 +17,9 @@ export interface PlacedBet {
     roundNum: number;
     pot: number;
 }
+
+export interface MyBet {
+    artist: string;
+    startRound: number;
+    endRound: number;
+}

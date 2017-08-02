@@ -9,6 +9,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/fromPromise.js';
 import 'rxjs/add/operator/do.js';
 import 'rxjs/add/operator/concat.js';
+import { BigNumber } from 'bignumber.js';
 
 import { providers, Transaction, AbstractBlock, SolidityEvent } from 'web3';
 
@@ -28,8 +29,8 @@ export class WagerService {
 
   constructor(private blockchainService: BlockchainService) {
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
-    this.setupContractWatchers();
     this.getWagerInstance();
+    this.setupContractWatchers();
 
     const lastSong = Observable.fromPromise(this.Wager.deployed())
       .mergeMap((instance: any) => Observable.fromPromise(instance.getLastSong()));
@@ -69,6 +70,12 @@ export class WagerService {
     this.Wager.deployed().then((instance) => {
       this.instance = instance;
     });
+  }
+
+  getRoundNumber = (): Observable<BigNumber> => {
+    return Observable.from(this.Wager.deployed().then((instance) => {
+      return instance.roundNumber();
+    }));
   }
 
   placeBet = (bet: Bet) => {

@@ -51,6 +51,10 @@ export class CurrentRoundComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.wagerService.getRoundNumber().subscribe(num => {
+      this.roundNumber = num.toNumber().toString();
+    });
+
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
       for (let i = 0; i < bets.length; i ++) {
@@ -132,7 +136,6 @@ export class CurrentRoundComponent implements OnInit {
               }, 15000);
             }
           });
-
           localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));
 
         }

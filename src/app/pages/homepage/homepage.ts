@@ -16,7 +16,7 @@ import { Wager, Register } from 'tc2017-contract-artifacts';
 import { canBeNumber } from '../../../util/validation';
 import { RegistrationComponent } from '../../cards/registration/registration.component';
 import { Registration } from '../../../models/Registration';
-import { Bet, PlacedBet, BetByRound } from '../../../models/Bet';
+import { Bet, PlacedBet, MyBet, BetByRound } from '../../../models/Bet';
 import { WagerService } from '../../services/wager.service';
 import { RegisterService } from '../../services/register.service';
 import { BlockchainService } from '../../services/blockchain.service';
@@ -36,6 +36,7 @@ export class HomepageComponent implements OnInit {
   canBeNumber = canBeNumber;
 
   wallet: Wallet;
+  myBets: Array<MyBet>;
 
   constructor(
     private wagerService: WagerService,
@@ -106,6 +107,7 @@ export class HomepageComponent implements OnInit {
       this.snackBar.open('Bet placed on the artist '
           + betByRound.artist
           + ' for the next ' + rounds);
+      this.myBets = JSON.parse(localStorage.getItem('myBets'));
       setTimeout(() => {
         this.snackBar.dismiss();
       }, 5000);

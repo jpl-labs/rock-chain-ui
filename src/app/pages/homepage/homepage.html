@@ -10,10 +10,8 @@
 
 <app-current-round></app-current-round>
 
-<app-charity-standings> </app-charity-standings>
-
 <app-bet-placement *ngIf="wallet && wallet.id" #betPlacementComponent (onBet)="placeBetByRound($event)"></app-bet-placement>
 
-<app-wallet-standings></app-wallet-standings>
+<app-bet-list [myBets]="myBets"></app-bet-list>
 
 <app-faq *ngIf="wallet && wallet.id"></app-faq>
