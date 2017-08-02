@@ -3,7 +3,7 @@ import { WagerService } from '../../services/wager.service';
 import { BlockchainService } from '../../services/blockchain.service';
 import { FormControl, FormsModule, NgForm, Validators  } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
-import { BetByRound } from '../../../models/Bet';
+import { BetByRound, MyBet } from '../../../models/Bet';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -35,6 +35,7 @@ export class BetPlacementComponent implements OnInit {
   numberOfRounds: number;
   snackBar: MdSnackBar;
   filter: any;
+  myBets: Array<MyBet>;
 
   artists: string[];
 
@@ -52,6 +53,7 @@ export class BetPlacementComponent implements OnInit {
     this.filteredArtists = this.artistCtrl.valueChanges
       .startWith(this.artistCtrl.value)
       .map(name => this.filterArtists(name));
+    this.myBets = new Array<MyBet>();
   }
 
   filterArtists = (val: string) => val ? this.artists.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0) : this.artists;
@@ -62,7 +64,7 @@ export class BetPlacementComponent implements OnInit {
   onSubmit = () => {
     if (!this.artistCtrl.valid ||
       !this.passwordCtrl.valid ||
-      !this.numberOfRoundsCtrl.valid) {
+      !this.numberOfRoundsCtrl.valid || this.numberOfRoundsCtrl.value > 50) {
         return;
     }
 
@@ -80,7 +82,17 @@ export class BetPlacementComponent implements OnInit {
             walletId: '',
             numberOfRounds: this.numberOfRoundsCtrl.value
           };
-          this.onBet.emit(this.betByRound);
+
+          this.wagerService.getRoundNumber().subscribe(num => {
+            this.myBets.push({
+              artist: this.betByRound.artist,
+              startRound: num.toNumber(),
+              endRound: num.toNumber() + this.betByRound.numberOfRounds
+            });
+            localStorage.setItem('myBets', JSON.stringify(this.myBets));
+            this.onBet.emit(this.betByRound);
+          });
+
         } else {
           this.snackBar.open('Unable to place bet - invalid password!');
         }
