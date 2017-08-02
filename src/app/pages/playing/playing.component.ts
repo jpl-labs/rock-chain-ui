@@ -19,17 +19,6 @@ export class PlayingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.subscriptions.push(this.wagerService.getLastSong()
-      .subscribe(result => {
-        const jsonAscii = this.blockchainService.web3.toAscii(result.match(new RegExp('7b22.+227d'))[0]);
-        const songData = JSON.parse(jsonAscii);
-        this.currentSong = songData;
-      }));
-
-    this.subscriptions.push(this.blockchainService.getSongChangedEmitter()
-      .filter(result => result.to === this.wagerService.instance.address
-        && result.from === this.blockchainService.web3.eth.accounts[0])
-      .subscribe(result => this.currentSong = this.parseSongHex(result.input)));
   }
 
   public ngOnDestroy(): void {
@@ -37,12 +26,6 @@ export class PlayingComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
   }
-
-  parseSongHex = (hexString: string): AudioSong => {
-    const jsonAscii = this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]);
-    return JSON.parse(jsonAscii);
-  }
-
 
   like = (song: AudioSong) => {
     console.log('liked');

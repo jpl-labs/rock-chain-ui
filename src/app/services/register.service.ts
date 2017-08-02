@@ -49,7 +49,7 @@ export class RegisterService {
         registration.wallet,
         registration.charity,
         {
-          from: this.blockchainService.web3.eth.accounts[0],
+          from: this.blockchainService.genesisAccount,
           gas: 4712388
         }
       );

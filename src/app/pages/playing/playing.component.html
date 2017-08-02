@@ -1,1 +1,1 @@
-<app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
+<app-now-playing [song]="wagerService.songChanged$ | async" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>

@@ -53,7 +53,7 @@ export class CharityStandingsComponent implements OnInit {
 
         const accounts = this.registerService.getAccountsForCharity(charity.id)
           .flatMap(account => account)
-          .filter(account => account !== this.blockchainService.getGenesisAccount());
+          .filter(account => account !== this.blockchainService.genesisAccount);
 
         const sumObservable = accounts.mergeMap(account => this.blockchainService.getAccountBalance(account))
           .filter(balance => balance > 0)

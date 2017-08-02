@@ -6,7 +6,7 @@
 
 <app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
-<app-now-playing [song]="currentSong" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
+<app-now-playing [song]="wagerService.songChanged$ | async" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
 <app-current-round></app-current-round>
 
