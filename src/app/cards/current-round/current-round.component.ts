@@ -7,6 +7,7 @@ import { RegisterService } from '../../services/register.service';
 import { BlockchainService } from '../../services/blockchain.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/takeLast';
+const Filter = require('bad-words');
 
 @Component({
   selector: 'app-current-round',
@@ -29,6 +30,8 @@ export class CurrentRoundComponent implements OnInit {
 
   snackBar: MdSnackBar;
 
+  filter: any;
+
   constructor(
     private _wagerService: WagerService,
     private _registerService: RegisterService,
@@ -44,6 +47,7 @@ export class CurrentRoundComponent implements OnInit {
     this.winnersArr = new Array<string>();
     this.roundNumber = 'Waiting for blockchain to update...';
     this.roundPot = 'Waiting for blockchain to update...';
+    this.filter = new Filter();
   }
 
   ngOnInit() {
@@ -67,6 +71,10 @@ export class CurrentRoundComponent implements OnInit {
 
     const betSub = this.wagerService.getBetPlacedEmitter()
       .subscribe(result => {
+        if (this.filter.isProfane(result.args.artist)) {
+          return;
+        }
+
         this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
         this.recentBets.push({

@@ -136,4 +136,10 @@ export class HomepageComponent implements OnInit {
         this.snackBar.dismiss();
       }, 5000);
   }
+
+  updateBalance = () => {
+    this.blockchainService.getAccountBalance(this.wallet.id).subscribe(balance => {
+      this.wallet.balance = balance;
+    });
+  }
 }

@@ -4,6 +4,7 @@
   </md-card-header>
   <form (ngSubmit)="onSubmit()" #betPlacementForm="ngForm">
     <md-card-content>
+      <h4>To place a bet, enter an artist you think will be played, the number of rounds you would like to place that wager for, and your password to validate the transaction as authentic. Each bet will cost Ꮻ 10, multiplied by the number of rounds you are wagering.</h4>
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Artist" [mdAutocomplete]="auto" required [formControl]="artistCtrl" > 
       </md-input-container>
