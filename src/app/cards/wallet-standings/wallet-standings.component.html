@@ -18,7 +18,8 @@
         <md-icon *ngIf="isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>tag_faces</md-icon>
         <md-icon *ngIf="!isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>label</md-icon>
         <h4 md-line>{{balance.account}}</h4>
-        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Ꮻ{{balance.balance}}</p>
+        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Ꮻ {{balance.balance}}</p>
+        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Chance to Win: {{balance.winProb}}%</p>
         <md-progress-bar md-line mode="determinate" value="{{getBalancePercentage(balance.balance)}}"></md-progress-bar>
       </md-list-item>
     </md-list>
