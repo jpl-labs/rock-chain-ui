@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 const Vibrant = require('node-vibrant');
+const diacritics = require('diacritics');
 
 @Component({
     selector: 'app-now-playing',
@@ -18,6 +19,7 @@ export class NowPlayingComponent implements OnInit, OnChanges {
     @Output() onLike = new EventEmitter<AudioSong>();
     @Output() onDislike = new EventEmitter<AudioSong>();
 
+    albumArtKey: string;
     selectedOption: string;
     background: string;
     foreground: string;
@@ -39,7 +41,10 @@ export class NowPlayingComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.song && this.song.cover) {
-            Vibrant.from(`https://cors.now.sh/${this.song.cover}`).getPalette()
+            this.albumArtKey = diacritics.remove(`${this.song.artist}${this.song.album}`)
+                .replace(/[^\w]/gi, '')
+                .toLowerCase();
+            Vibrant.from(`https://rockchain.blob.core.windows.net/albumart/${this.albumArtKey}`).getPalette()
                 .then((palette) => {
                     if (palette.Vibrant) {
                         this.background = palette.Vibrant.getHex();

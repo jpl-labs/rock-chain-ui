@@ -4,7 +4,7 @@
     <md-card-subtitle>{{song.artist}}</md-card-subtitle>
     <md-card-subtitle>{{song.style}}</md-card-subtitle>
   </md-card-header>
-<img md-card-image *ngIf="song" src={{song.cover}} align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+<img md-card-image *ngIf="song" src="https://rockchain.blob.core.windows.net/albumart/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <!--<md-card-actions align="end">
     <button md-button (click)="feedback(true)" [disabled]="!song"><md-icon>thumbs_up</md-icon>CHEERS</button>
     <button md-button (click)="feedback(false)" [disabled]="!song">BOO</button>
