@@ -87,7 +87,10 @@ export class BetPlacementComponent implements OnInit {
           };
 
           this.wagerService.getRoundNumber().subscribe(num => {
-            this.myBets = JSON.parse(localStorage.getItem('myBets'));
+            if (localStorage.getItem('myBets')) {
+              this.myBets = JSON.parse(localStorage.getItem('myBets')).filter(bet => bet.endRound >= num);
+            }
+
             this.myBets.push({
               artist: this.betByRound.artist,
               startRound: num.toNumber(),
