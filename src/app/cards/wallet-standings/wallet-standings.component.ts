@@ -33,7 +33,7 @@ export class WalletStandingsComponent implements OnInit {
             return {
               account: account,
               balance: balance,
-              winProb: ''
+              winProb: 0
             };
           })
       )
@@ -46,15 +46,17 @@ export class WalletStandingsComponent implements OnInit {
 
 
 
-      top20.subscribe((wallets) => {
-        top20.flatMap(x => x).map(x => x.balance).reduce((a, b) => a + b).subscribe(total => {
+    top20.subscribe((wallets) => {
+      top20.flatMap(x => x).map(x => x.balance)
+        .reduce((a, b) => a + b)
+        .subscribe(total => {
           wallets.forEach(wallet => {
-            wallet.winProb = ((wallet.balance / total) * 100).toPrecision(4);
+            wallet.winProb = (wallet.balance / total);
           });
           this.balances = wallets;
           this.topBalance = this.balances[0].balance;
         });
-      });
+    });
   }
 
   getBalancePercentage = (balance: number) => {

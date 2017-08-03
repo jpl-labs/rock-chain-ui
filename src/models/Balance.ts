@@ -1,5 +1,5 @@
 export class Balance {
     account: string;
     balance: number;
-    winProb: string;
+    winProb: number;
 }

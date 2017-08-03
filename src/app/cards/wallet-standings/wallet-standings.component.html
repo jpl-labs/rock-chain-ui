@@ -1,9 +1,7 @@
 <md-card style=margin-top:8px>
   <md-card-header>
     <md-card-title>
-      <md-toolbar color="primary">
         Wallet Leaderboard
-      </md-toolbar>
     </md-card-title>
   </md-card-header>
   <md-card-content>
@@ -18,8 +16,7 @@
         <md-icon *ngIf="isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>tag_faces</md-icon>
         <md-icon *ngIf="!isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>label</md-icon>
         <h4 md-line>{{balance.account}}</h4>
-        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Ꮻ {{balance.balance}}</p>
-        <p md-line style="display: flex"><span style="flex-grow: 1"></span>Chance to Win: {{balance.winProb}}%</p>
+        <p md-line style="display: flex">Win Probability: {{balance.winProb | percent: '1.2-2'}}<span style="flex-grow: 1"></span>Ꮻ {{balance.balance | number : '1.4-4'}}</p>
         <md-progress-bar md-line mode="determinate" value="{{getBalancePercentage(balance.balance)}}"></md-progress-bar>
       </md-list-item>
     </md-list>
