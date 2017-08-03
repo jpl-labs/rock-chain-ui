@@ -120,6 +120,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.wagerService.roundOver$
       .subscribe(result => {
         this.roundNumber = result.args.roundNumber.toNumber() + 1;
+        this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot.toNumber(), 'ether');
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
         if (payout > 0 && result.args.winners.length > 0) {
           const songData = JSON.parse(result.args.songData);
