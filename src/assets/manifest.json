@@ -2,12 +2,12 @@
     "name": "Rockchain",
     "icons": [
         {
-            "src": "/assets/android-chrome-192x192.png?v=XBzBayYmJW",
+            "src": "/android-chrome-192x192.png?v=XBzBayYmJW",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/assets/android-chrome-512x512.png?v=XBzBayYmJW",
+            "src": "/android-chrome-512x512.png?v=XBzBayYmJW",
             "sizes": "512x512",
             "type": "image/png"
         }

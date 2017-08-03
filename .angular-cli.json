@@ -8,9 +8,11 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico",
-        "manifest.json"
+        {
+          "glob": "**/*",
+          "input": "./assets/",
+          "output": "./"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
