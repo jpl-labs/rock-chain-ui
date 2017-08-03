@@ -64,13 +64,16 @@ export class BetPlacementComponent implements OnInit {
   onSubmit = () => {
     if (!this.artistCtrl.valid ||
       !this.passwordCtrl.valid ||
-      !this.numberOfRoundsCtrl.valid || this.numberOfRoundsCtrl.value > 50) {
+      !this.numberOfRoundsCtrl.valid ||
+      this.numberOfRoundsCtrl.value > 50) {
         return;
     }
 
     this.blockchainService.getAccountBalance(localStorage.getItem('walletId')).subscribe(balance => {
       if (balance < this.numberOfRoundsCtrl.value * 10) {
-        this.snackBar.open('Unable to place bet - not enough Ꮻ!');
+        this.snackBar.open('Unable to place bet - not enough Ꮻ!', ' ', {
+          duration: 5000
+        });
         return;
       }
       this.blockchainService.unlockAccount(localStorage.getItem('walletId'), this.passwordCtrl.value, 2)
@@ -95,13 +98,17 @@ export class BetPlacementComponent implements OnInit {
           });
 
         } else {
-          this.snackBar.open('Unable to place bet - invalid password!');
+          this.snackBar.open('Unable to place bet - invalid password!', '', {
+            duration: 5000
+          });
         }
         this.artistCtrl.reset();
         this.passwordCtrl.reset();
         this.numberOfRoundsCtrl.reset();
       }, error => {
-        this.snackBar.open('Unable to place bet - invalid password!');
+        this.snackBar.open('Unable to place bet - invalid password!', '', {
+          duration: 5000
+        });
       });
     });
   }

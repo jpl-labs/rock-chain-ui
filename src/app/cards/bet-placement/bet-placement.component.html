@@ -1,6 +1,10 @@
 <md-card style="margin-top:8px">
   <md-card-header>
-    <md-card-title>Place A Bet</md-card-title>
+    <md-card-title>
+      <md-toolbar color="primary">
+          Place a Bet
+      </md-toolbar>
+    </md-card-title>
   </md-card-header>
   <form (ngSubmit)="onSubmit()" #betPlacementForm="ngForm">
     <md-card-content>
@@ -22,7 +26,7 @@
       <h4>Your password is your private key/password that you entered when you registered your wallet. This value is used to validate the transaction being sent from your public wallet address.</h4>
     </md-card-content>
     <md-card-actions align="end">
-      <button type="submit" md-button>PLACE BET</button>
+      <button type="submit" color="primary" md-button>PLACE BET</button>
     </md-card-actions>
   </form>
 </md-card>

@@ -101,11 +101,9 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
           + result.args.artist
           + ', bringing the total pot to '
           + this.blockchainService.web3.fromWei(result.args.totalPot, 'ether')
-          + ' OmniCoin');
-
-        setTimeout(() => {
-          this.snackBar.dismiss();
-        }, 5000);
+          + ' OmniCoin', '', {
+            duration: 5000
+          });
       }));
 
     this.subscriptions.push(this.wagerService.betPlaced$
@@ -140,10 +138,9 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
             this.winnersArr.unshift(winnerStr);
 
             if (element === localStorage.getItem('walletId')) {
-              this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`);
-              setTimeout(() => {
-                this.snackBar.dismiss();
-              }, 15000);
+              this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`, '', {
+                duration: 15000
+              });
             }
           });
           localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));

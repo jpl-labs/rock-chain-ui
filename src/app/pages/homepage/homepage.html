@@ -14,4 +14,4 @@
 
 <app-bet-list [myBets]="myBets"></app-bet-list>
 
-<app-faq *ngIf="wallet && wallet.id"></app-faq>
+<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
