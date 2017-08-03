@@ -15,6 +15,7 @@ export class BetListComponent implements OnInit {
   @Input() myBets: Array<MyBet>;
 
   wagerService: WagerService;
+  displayedColumns = ['artist', 'startRound', 'endRound'];
 
   constructor( @Inject(WagerService) _wagerService: WagerService) {
     this.wagerService = _wagerService;

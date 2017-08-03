@@ -1,6 +1,10 @@
 <md-card style="margin-top:8px">
   <md-card-header>
-    <md-card-title>Current Round</md-card-title>
+    <md-card-title>
+      <md-toolbar color="primary">
+        Current Round
+      </md-toolbar>
+    </md-card-title>
   </md-card-header>
   <md-card-content>
     <md-list>
@@ -14,19 +18,36 @@
         <h4 md-line>Round Pot</h4>
         <p md-line>{{roundPot}}</p>
       </md-list-item>
-      <h4 md-line>Recent Bets</h4>
-      <md-list-item *ngFor="let bet of betsArr; index as i">
-        <md-icon *ngIf="i === 0" md-list-icon>looks_one</md-icon>
-        <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
-        <md-icon *ngIf="i > 1" md-list-icon>looks_{{i+1}}</md-icon>
-        <h4 md-line style="font-size:x-small">{{bet.wallet}}</h4>
-        <p md-line style="font-size:x-small">{{bet.artist}}</p>
-      </md-list-item>
-      <h4 md-line>Recent Winners</h4>
-      <md-list-item *ngFor="let winner of winnersArr">
-        <md-icon md-list-icon>stars</md-icon>
-        <h4 md-line style="font-size:x-small">{{winner}}</h4>
-      </md-list-item>
     </md-list>
   </md-card-content>
+  <md-tab-group>
+    <md-tab label="Recent Bets">
+      <md-card-content>
+        <md-list>
+          <md-list-item *ngFor="let bet of betsArr; index as i">
+            <!--<md-icon *ngIf="i === 0" md-list-icon>looks_one</md-icon>
+            <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
+            <md-icon *ngIf="i > 1 && i < 5" md-list-icon>looks_{{i+1}}</md-icon>
+            <md-icon *ngIf="i >= 5" md-list-icon>keyboard_arrow_right</md-icon>-->
+            <md-icon md-list-icon>local_play</md-icon>
+            <md-icon [ngStyle]="{ 'color': '#' + bet.wallet.substring(2,8) }" md-list-icon>label</md-icon>
+            <h4 md-line>{{bet.wallet}}</h4>
+            <p md-line>{{bet.artist}}</p>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-tab>
+    <md-tab label="Recent Winners">
+      <md-card-content>
+        <md-list>
+          <md-list-item *ngFor="let winner of winnersArr">
+            <md-icon md-list-icon>grade</md-icon>
+            <md-icon [ngStyle]="{ 'color': '#' + winner.wallet.substring(2,8) }" md-list-icon>label</md-icon>
+            <h4 md-line>{{winner.wallet}}</h4>
+            <p md-line>{{winner.win}}</p>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-tab>
+  </md-tab-group>
 </md-card>

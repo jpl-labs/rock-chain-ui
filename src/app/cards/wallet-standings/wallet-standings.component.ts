@@ -24,7 +24,7 @@ export class WalletStandingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.blockchainService.getAccounts()
+    const top20 = this.blockchainService.getAccounts()
       .flatMap(account => account)
       .filter(account => account !== this.blockchainService.genesisAccount)
       .mergeMap((account) =>
@@ -32,7 +32,8 @@ export class WalletStandingsComponent implements OnInit {
           .map(balance => {
             return {
               account: account,
-              balance: balance
+              balance: balance,
+              winProb: ''
             };
           })
       )
@@ -41,10 +42,18 @@ export class WalletStandingsComponent implements OnInit {
       .map(wallets =>
         wallets
           .sort((a, b) => b.balance - a.balance)
-          .splice(0, 20))
-      .subscribe((wallets) => {
-        this.balances = wallets;
-        this.topBalance = this.balances[0].balance;
+          .splice(0, 20));
+
+
+
+      top20.subscribe((wallets) => {
+        top20.flatMap(x => x).map(x => x.balance).reduce((a, b) => a + b).subscribe(total => {
+          wallets.forEach(wallet => {
+            wallet.winProb = ((wallet.balance / total) * 100).toPrecision(4);
+          });
+          this.balances = wallets;
+          this.topBalance = this.balances[0].balance;
+        });
       });
   }
 

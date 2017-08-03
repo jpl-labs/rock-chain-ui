@@ -24,8 +24,8 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
   betsArr: Array<{}>;
   recentBets: Array<{}>;
 
-  winnersArr: Array<string>;
-  recentWinners: Array<string>;
+  winnersArr: Array<{}>;
+  recentWinners: Array<{}>;
 
   roundNumber: string;
   roundPot: string;
@@ -44,10 +44,10 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     this.wagerService = _wagerService;
     this.blockchainService = _blockchainService;
     this.snackBar = _snackBar;
-    this.recentBets = new Array<string>();
-    this.betsArr = new Array<string>();
-    this.recentWinners = new Array<string>();
-    this.winnersArr = new Array<string>();
+    this.recentBets = new Array<{}>();
+    this.betsArr = new Array<{}>();
+    this.recentWinners = new Array<{}>();
+    this.winnersArr = new Array<{}>();
     this.roundNumber = 'Waiting for blockchain to update...';
     this.roundPot = 'Waiting for blockchain to update...';
     this.filter = new Filter();
@@ -61,7 +61,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
       for (let i = 0; i < bets.length; i++) {
-        if (this.betsArr.length >= 5) {
+        if (this.betsArr.length >= 10) {
           this.betsArr.shift();
         }
         this.betsArr.push(bets[i]);
@@ -71,7 +71,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
 
       if (winners) {
         for (let j = 0; j < winners.length; j++) {
-          if (this.winnersArr.length >= 5) {
+          if (this.winnersArr.length >= 10) {
             this.winnersArr.shift();
           }
           this.winnersArr.push(winners[j]);
@@ -88,7 +88,10 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
         this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
 
-        this.recentBets = JSON.parse(localStorage.getItem('recentBets'));
+        if (localStorage.getItem('recentBets')) {
+          this.recentBets = JSON.parse(localStorage.getItem('recentBets'));
+        }
+
         this.recentBets.unshift({
           wallet: result.args.from,
           artist: result.args.artist
@@ -101,11 +104,9 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
           + result.args.artist
           + ', bringing the total pot to '
           + this.blockchainService.web3.fromWei(result.args.totalPot, 'ether')
-          + ' OmniCoin');
-
-        setTimeout(() => {
-          this.snackBar.dismiss();
-        }, 5000);
+          + ' OmniCoin', '', {
+            duration: 5000
+          });
       }));
 
     this.subscriptions.push(this.wagerService.betPlaced$
@@ -128,22 +129,24 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
           const songData = JSON.parse(result.args.songData);
 
           result.args.winners.forEach(element => {
-            const winnerStr = `${songData.artist} wins for Ꮻ ${payout}
-            to ${element}`;
-
-            this.recentWinners.unshift(winnerStr);
+            this.recentWinners.unshift({
+              wallet: element,
+              win: `${songData.artist}  for Ꮻ ${payout}`
+            });
 
             if (this.winnersArr.length >= 5) {
               this.winnersArr.pop();
             }
 
-            this.winnersArr.unshift(winnerStr);
+            this.winnersArr.unshift({
+              wallet: element,
+              win: `${songData.artist}  for Ꮻ ${payout}`
+            });
 
             if (element === localStorage.getItem('walletId')) {
-              this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`);
-              setTimeout(() => {
-                this.snackBar.dismiss();
-              }, 15000);
+              this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`, '', {
+                duration: 15000
+              });
             }
           });
           localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));

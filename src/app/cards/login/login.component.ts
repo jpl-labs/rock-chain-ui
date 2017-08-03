@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   model = {
-    walletHash: ''  
+    walletHash: ''
   };
 
   wallet: Wallet;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _blockchainService: BlockchainService,
     private _router: Router
-  ) { 
+  ) {
     this.blockchainService = _blockchainService;
     this.router = _router;
     this.submitDisabled = false;
@@ -33,18 +33,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit = () => {    
+  onSubmit = () => {
     if (this.model.walletHash) {
-      this.blockchainService.getAccountBalance(this.model.walletHash).subscribe(balance => {      
+      this.blockchainService.getAccountBalance(this.model.walletHash).subscribe(balance => {
         this.submitDisabled = true;
-        
+
         this.wallet = {
           id: this.model.walletHash,
           balance: balance
         };
 
-        localStorage.setItem('walletId', this.wallet.id);        
-        this.router.navigate(['/?refresh=1']);              
+        localStorage.setItem('walletId', this.wallet.id);
+        this.router.navigate(['/?refresh=1']);
       }, err => {
         alert(`There was an error retrieving your wallet: ${err.message}`);
       });
