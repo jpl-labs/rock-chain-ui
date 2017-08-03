@@ -113,6 +113,7 @@ export class CurrentRoundComponent implements OnInit {
 
     const roundOverSub = this.wagerService.roundOver$
       .subscribe(result => {
+        this.roundNumber = result.args.roundNumber.toNumber() + 1;
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
         if (payout > 0 && result.args.winners.length > 0) {
           const songData = JSON.parse(result.args.songData);
