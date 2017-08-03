@@ -4,9 +4,9 @@
     <md-card-subtitle>{{song.artist}}</md-card-subtitle>
     <md-card-subtitle>{{song.style}}</md-card-subtitle>
   </md-card-header>
-  <img md-card-image *ngIf="song" src={{song.cover}}>
-  <md-card-actions align="end">
+  <img md-card-image *ngIf="song" src={{song.cover}} align="middle" style="margin: 5%; width:90%">
+  <!--<md-card-actions align="end">
     <button md-button (click)="feedback(true)" [disabled]="!song"><md-icon>thumbs_up</md-icon>CHEERS</button>
     <button md-button (click)="feedback(false)" [disabled]="!song">BOO</button>
-  </md-card-actions>
+  </md-card-actions>-->
 </md-card>

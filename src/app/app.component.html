@@ -21,17 +21,17 @@
       <md-divider></md-divider>
       <h3 md-subheader>Dashboards</h3>
       <a md-list-item routerLink="/playing" routerLinkActive="active">
-        <md-icon md-list-icon>equalizer</md-icon>
+        <md-icon md-list-icon>audiotrack</md-icon>
         <h4 md-line>Now Playing</h4>
         <p md-line>{{currentSong.artist}} - {{currentSong.title}}</p>        
       </a>
       <a md-list-item routerLink="/wallet" routerLinkActive="active">
-        <md-icon md-list-icon>account_balance_wallet</md-icon>
+        <md-icon md-list-icon>local_atm</md-icon>
         <h4 md-line>My Wallet</h4>
         <p md-line *ngIf="wallet">{{wallet.id}}</p>
       </a>
       <a md-list-item routerLink="/standings" routerLinkActive="active">
-        <md-icon md-list-icon>donut_large</md-icon>
+        <md-icon md-list-icon>sort</md-icon>
         <h4 md-line>Standings</h4>
       </a>
       <!--<md-divider></md-divider>
