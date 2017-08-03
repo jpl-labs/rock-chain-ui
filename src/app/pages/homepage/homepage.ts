@@ -39,9 +39,9 @@ export class HomepageComponent implements OnInit {
   myBets: Array<MyBet>;
 
   constructor(
-    private wagerService: WagerService,
-    private registerService: RegisterService,
-    private blockchainService: BlockchainService,
+    public wagerService: WagerService,
+    public registerService: RegisterService,
+    public blockchainService: BlockchainService,
     private snackBar: MdSnackBar) {
 
     this.recentBets = new Array<PlacedBet>();

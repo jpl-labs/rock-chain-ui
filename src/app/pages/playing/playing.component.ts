@@ -15,7 +15,7 @@ export class PlayingComponent implements OnInit, OnDestroy {
 
   private subscriptions: Array<Subscription> = [];
 
-  constructor(private wagerService: WagerService, private blockchainService: BlockchainService) { }
+  constructor(public wagerService: WagerService, public blockchainService: BlockchainService) { }
 
   ngOnInit() {
 
