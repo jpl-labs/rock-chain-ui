@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   MdSnackBar
 } from '@angular/material';
@@ -7,6 +7,8 @@ import { RegisterService } from '../../services/register.service';
 import { BlockchainService } from '../../services/blockchain.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/takeLast';
+import { Subscription } from 'rxjs/Subscription';
+
 const Filter = require('bad-words');
 
 @Component({
@@ -14,7 +16,7 @@ const Filter = require('bad-words');
   templateUrl: './current-round.component.html',
   styleUrls: ['./current-round.component.css']
 })
-export class CurrentRoundComponent implements OnInit {
+export class CurrentRoundComponent implements OnInit, OnDestroy {
   wagerService: WagerService;
   registerService: RegisterService;
   blockchainService: BlockchainService;
@@ -31,6 +33,7 @@ export class CurrentRoundComponent implements OnInit {
   snackBar: MdSnackBar;
 
   filter: any;
+  private subscriptions: Array<Subscription> = [];
 
   constructor(
     private _wagerService: WagerService,
@@ -57,7 +60,7 @@ export class CurrentRoundComponent implements OnInit {
 
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
-      for (let i = 0; i < bets.length; i ++) {
+      for (let i = 0; i < bets.length; i++) {
         if (this.betsArr.length >= 5) {
           this.betsArr.shift();
         }
@@ -65,15 +68,18 @@ export class CurrentRoundComponent implements OnInit {
       }
 
       const winners = JSON.parse(localStorage.getItem('recentWinners'));
-      for (let j = 0; j < winners.length; j++) {
-        if (this.winnersArr.length >= 5) {
-          this.winnersArr.shift();
+
+      if (winners) {
+        for (let j = 0; j < winners.length; j++) {
+          if (this.winnersArr.length >= 5) {
+            this.winnersArr.shift();
+          }
+          this.winnersArr.push(winners[j]);
         }
-        this.winnersArr.push(winners[j]);
       }
     }
 
-    const betSub = this.wagerService.betPlaced$
+    this.subscriptions.push(this.wagerService.betPlaced$
       .subscribe(result => {
         if (this.filter.isProfane(result.args.artist)) {
           return;
@@ -98,9 +104,9 @@ export class CurrentRoundComponent implements OnInit {
         setTimeout(() => {
           this.snackBar.dismiss();
         }, 5000);
-      });
+      }));
 
-    const betSub2 = this.wagerService.betPlaced$
+    this.subscriptions.push(this.wagerService.betPlaced$
       .subscribe(result => {
         if (this.betsArr.length >= 5) {
           this.betsArr.shift();
@@ -109,9 +115,9 @@ export class CurrentRoundComponent implements OnInit {
           wallet: result.args.from,
           artist: result.args.artist
         });
-      });
+      }));
 
-    const roundOverSub = this.wagerService.roundOver$
+    this.subscriptions.push(this.wagerService.roundOver$
       .subscribe(result => {
         this.roundNumber = result.args.roundNumber.toNumber() + 1;
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
@@ -120,7 +126,7 @@ export class CurrentRoundComponent implements OnInit {
 
           result.args.winners.forEach(element => {
             const winnerStr = `${songData.artist} wins for Ꮻ ${payout}
-            to ${element.substring(0, 10)}...`;
+            to ${element}`;
 
             this.recentWinners.push(winnerStr);
 
@@ -140,6 +146,12 @@ export class CurrentRoundComponent implements OnInit {
           localStorage.setItem('recentWinners', JSON.stringify(this.recentWinners));
 
         }
-      });
+      }));
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }

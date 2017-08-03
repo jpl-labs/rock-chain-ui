@@ -16,16 +16,17 @@ export class BetListComponent implements OnInit {
 
   wagerService: WagerService;
 
-  constructor(@Inject(WagerService) _wagerService: WagerService) {
+  constructor( @Inject(WagerService) _wagerService: WagerService) {
     this.wagerService = _wagerService;
     this.myBets = new Array<MyBet>();
   }
 
   ngOnInit() {
     this.wagerService.getRoundNumber().subscribe(num => {
-      this.myBets = JSON.parse(localStorage.getItem('myBets')).filter(bet => {
-        return bet.endRound >= num.toNumber();
-      });
+      const myBets = localStorage.getItem('myBets');
+      if (myBets) {
+        this.myBets = JSON.parse(myBets).filter(bet => bet.endRound >= num.toNumber());
+      }
     });
   }
 }
