@@ -87,7 +87,9 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
 
         this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
-        this.recentBets.push({
+
+        this.recentBets = JSON.parse(localStorage.getItem('recentBets'));
+        this.recentBets.unshift({
           wallet: result.args.from,
           artist: result.args.artist
         });
@@ -109,9 +111,9 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.wagerService.betPlaced$
       .subscribe(result => {
         if (this.betsArr.length >= 5) {
-          this.betsArr.shift();
+          this.betsArr.pop();
         }
-        this.betsArr.push({
+        this.betsArr.unshift({
           wallet: result.args.from,
           artist: result.args.artist
         });
@@ -119,6 +121,8 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.wagerService.roundOver$
       .subscribe(result => {
+        this.roundNumber = result.args.roundNumber.toNumber() + 1;
+        this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot.toNumber(), 'ether');
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
         if (payout > 0 && result.args.winners.length > 0) {
           const songData = JSON.parse(result.args.songData);
@@ -127,13 +131,13 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
             const winnerStr = `${songData.artist} wins for Ꮻ ${payout}
             to ${element}`;
 
-            this.recentWinners.push(winnerStr);
+            this.recentWinners.unshift(winnerStr);
 
             if (this.winnersArr.length >= 5) {
-              this.winnersArr.shift();
+              this.winnersArr.pop();
             }
 
-            this.winnersArr.push(winnerStr);
+            this.winnersArr.unshift(winnerStr);
 
             if (element === localStorage.getItem('walletId')) {
               this.snackBar.open(`You won Ꮻ ${payout} because ${songData.artist} played!`);

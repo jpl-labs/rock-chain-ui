@@ -84,6 +84,7 @@ export class BetPlacementComponent implements OnInit {
           };
 
           this.wagerService.getRoundNumber().subscribe(num => {
+            this.myBets = JSON.parse(localStorage.getItem('myBets'));
             this.myBets.push({
               artist: this.betByRound.artist,
               startRound: num.toNumber(),
