@@ -4,8 +4,8 @@
       <h3>Now Playing {{song.style}}</h3>
     </md-card-title>
   </md-card-header>
-  <div class="albumArtInfo">
-    <img md-card-image *ngIf="song" src="https://media-rockchain.azureedge.net/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="albumArtInfo" *ngIf="song">
+    <img md-card-image  src="https://media-rockchain.azureedge.net/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <h2>
       <span>{{song.title}} <br /> {{song.artist}}</span>
     </h2>
