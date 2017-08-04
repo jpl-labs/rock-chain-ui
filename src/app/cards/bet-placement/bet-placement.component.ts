@@ -70,7 +70,7 @@ export class BetPlacementComponent implements OnInit {
     }
 
     this.blockchainService.getAccountBalance(localStorage.getItem('walletId')).subscribe(balance => {
-      if (balance < this.numberOfRoundsCtrl.value * 10) {
+      if (balance < this.numberOfRoundsCtrl.value * 1) {
         this.snackBar.open('Unable to place bet - not enough Ꮻ!', ' ', {
           duration: 5000
         });

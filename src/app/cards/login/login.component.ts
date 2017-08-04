@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         };
 
         localStorage.setItem('walletId', this.wallet.id);
-        this.router.navigate(['/?refresh=1']);
+        window.location.reload();
       }, err => {
         alert(`There was an error retrieving your wallet: ${err.message}`);
       });

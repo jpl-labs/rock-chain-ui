@@ -1,22 +1,20 @@
 <md-card >
   <md-card-header>
     <md-card-title>
-      <md-toolbar color="primary">
-        My Wallet
-      </md-toolbar>
+      <h2>My Wallet</h2>
     </md-card-title>
   </md-card-header>
   <md-card-content>
     <md-list align="middle">
       <md-list-item style="text-align:center">
         <md-icon [ngStyle]="{ 'color': '#' + wallet.id.substring(2,8) }">label</md-icon>
-        <h3>
+        <h5>
           {{wallet.id}}
-        </h3>
+        </h5>
       </md-list-item>
       <md-list-item style="text-align:center">
         <h1>
-          Ꮻ {{wallet.balance}}
+          Ꮻ {{wallet.balance | number : '1.4-4'}}
         </h1>
       </md-list-item>
     </md-list>

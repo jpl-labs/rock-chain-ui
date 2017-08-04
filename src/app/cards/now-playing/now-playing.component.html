@@ -1,15 +1,13 @@
 <md-card  [style.background]="background" style="margin-top:8px"> 
   <md-card-header>
     <md-card-title color="primary">
-      <md-toolbar color="primary">
-        Now Playing
-      </md-toolbar>
+      <h2>Now Playing</h2>
     </md-card-title>
   </md-card-header>
   <md-card-content *ngIf="song" style="text-align: center; text-shadow: black">
-    <h2>{{song.title}}</h2>
-    <h2>{{song.artist}}</h2>
-    <h3 style="font-style: italic">{{song.style}}</h3>
+    <h3>{{song.title}}</h3>
+    <h3>{{song.artist}}</h3>
+    <h4 style="font-style: italic">{{song.style}}</h4>
   </md-card-content>
   <img md-card-image *ngIf="song" src="https://rockchain.blob.core.windows.net/albumart/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <!--<md-card-actions align="end">
