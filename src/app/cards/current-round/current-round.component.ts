@@ -47,7 +47,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     this.betsArr = new Array<{}>();
     this.recentWinners = new Array<{}>();
     this.winnersArr = new Array<{}>();
-    this.roundPot = 'Waiting for blockchain to update...';
+    this.roundPot = null;
     this.filter = new Filter();
   }
 
