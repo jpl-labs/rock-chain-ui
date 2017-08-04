@@ -44,7 +44,7 @@ export class NowPlayingComponent implements OnInit, OnChanges {
             this.albumArtKey = diacritics.remove(`${this.song.artist}${this.song.album}`)
                 .replace(/[^\w]/gi, '')
                 .toLowerCase();
-            Vibrant.from(`https://rockchain.blob.core.windows.net/albumart/${this.albumArtKey}`).getPalette()
+            Vibrant.from(`https://media-rockchain.azureedge.net/${this.albumArtKey}`).getPalette()
                 .then((palette) => {
                     if (palette.Vibrant) {
                         this.background = palette.Vibrant.getHex();
