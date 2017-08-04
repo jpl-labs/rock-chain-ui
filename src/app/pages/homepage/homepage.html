@@ -6,6 +6,6 @@
 
 <app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
-<app-now-playing [song]="wagerService.songChanged$ | async" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
+<app-bet-list [myBets]="myBets"></app-bet-list>
 
 <app-faq *ngIf="!wallet || !wallet.id"></app-faq>

@@ -61,25 +61,6 @@ export class HomepageComponent implements OnInit {
 
   }
 
-  placeBet = () => {
-    this.wagerService.placeBet(
-      {
-        artist: this.betArtist,
-        walletId: this.wallet.id,
-        password: this.pKey
-      });
-  }
-
-  like = (song: AudioSong) => {
-    console.log('liked');
-    console.log(song);
-  }
-
-  dislike = (song: AudioSong) => {
-    console.log('disliked');
-    console.log(song);
-  }
-
   registerAccount = (registration: Registration) => {
     const newAcct = this.blockchainService.web3.personal.newAccount(registration.password);
 
