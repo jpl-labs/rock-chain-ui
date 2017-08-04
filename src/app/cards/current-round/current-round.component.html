@@ -1,22 +1,19 @@
 <md-card style="margin-top:8px">
-  <md-card-header>
-    <md-card-title>
-        <h2>Current Round</h2>
-    </md-card-title>
-  </md-card-header>
   <md-card-content>
-    <md-list>
-      <md-list-item>
-        <md-icon md-list-icon>notifications</md-icon>
-        <h4 md-line>Round Number</h4>
-        <p md-line>{{wagerService.currentRound$ | async}}</p>
-      </md-list-item>
-      <md-list-item>
-        <md-icon md-list-icon>casino</md-icon>
-        <h4 md-line>Round Pot</h4>
-        <p md-line>{{roundPot}}</p>
-      </md-list-item>
-    </md-list>
+    <md-grid-list cols="2" rowHeight="150px">
+      <md-grid-tile colspan="1" rowspan="1">
+        <md-grid-tile-header>
+          Current Round
+        </md-grid-tile-header>
+        {{wagerService.currentRound$ | async}}
+      </md-grid-tile>
+        <md-grid-tile colspan="1" rowspan="1">
+          <md-grid-tile-header>
+            Pot
+          </md-grid-tile-header>
+        {{roundPot}}
+      </md-grid-tile>
+    </md-grid-list>
   </md-card-content>
   <md-tab-group>
     <md-tab label="Recent Bets">
