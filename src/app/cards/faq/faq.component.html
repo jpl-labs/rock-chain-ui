@@ -13,14 +13,22 @@
       After you register, feel free to place bets on your favorite artist from the genre playing each day (check the Omni Resources booth for more information) and watch the blockchain go!
     </p>
     <h3 md-line>
-      How do I win?
+      How do I win more OmniCoin?
     </h3>
     <p>
       If you picked the correct artist for the current round, your wallet will be automatically paid out by our smart contract (also on the blockchain) and the next round will commence. Since data from the blockchain is streaming to the web client on an ongoing basis, there is little record of past rounds in the app, although we would have implemented that if we had more time!
     </p>
     <h3 md-line>
+      How can I win a prize?
+    </h3>
+    <p>
+      We will be giving away an Amazon Echo Show to one player at 2pm on Wednesday at the Omni Resources booth. This prize will be awared to a player in the top 20 leaderboard standings at that time and their odds of being chosen are weighted based upon the total percentage of all coins in the top 20 wallets that they own. So if you own 10% of all coins in the top 20 wallets on Wednesday at 2pm, you have a 10% chance of winning the prize.
+    <h3 md-line>
       Why do I pick a charity?
     </h3>
+    <p>
+      In an attempt to keep players interested throughout the entire game time, encourage late sign-ups, create tribes within the game, and because we were talking about charitable giving anyway, we decided to implement this system to allow players to pick a charity for their coins to count towards (as a percentage of 500 real dollars).
+    </p>
     <h3 md-line>
       How do I know which genre will be playing next?
     </h3>
@@ -45,16 +53,31 @@
       How accurate are the genres?
     </h3>
     <p>
-      Very, but please be aware that the music algorithm may play songs outside the decade of the listed daily genre - this is almost entirely out of our control. Luckily, this should be an uncommon occurance.
-    </p>
-    <p>
-      In an attempt to keep players interested throughout the entire game time, encourage late sign-ups, create tribes within the game, and because we were talking about charitable giving anyway, we decided to implement this system to allow players to pick a charity for their coins to count towards (as a percentage of 500 real dollars).
+      Very, but please be aware that the music algorithm may play songs outside the decade of the listed daily genre - this is almost entirely out of our control. Luckily, this should be an uncommon occurrence.
     </p>
     <h3 md-line>
       Why are there small fractions of OmniCoin deducted from my wallet?
     </h3>
     <p>
       Every time you transact with our blockchain network in a way that impacts the state of the contract brokering the game, there is a cost associated with that transaction that is paid to miners who validate the authenticity of the transaction. This cost is paid in an increment of OmniCoin/Ether called Gas, which is normally a very small amount of OmniCoin/Ether. This is the cost of doing business on the blockchain!
+    </p>
+    <h3 md-line>
+      What's with the colored labels next to wallet hashes?
+    </h3>
+    <p>
+      Since the unique wallet hashes describing a semi-anonymous player are kind of tedious to look at and we don't want to memorize them, we've turned the first six non-prefx ('0x') characters into html colors for visual appeal and leaderboard differentiation.
+    </p>
+    <h3 md-line>
+      Why is the data in 'Recent Bets' and 'Recent Winners' different than what my friend sees there?
+    </h3>
+    <p>
+      Rockchain is constantly polling the blockchain directly with no server component in between storing blockchain data. Because of the way the blockchain functions, it is difficult to query previously written data without knowing specific transaction/block keys and so what you see in these sections is whatever the app witnesses happening on our blockchain while it is open.
+    </p>
+    <h3 md-line>
+      I have a question you didn't answer here!
+    </h3>
+    <p>
+      If you would like to chat about the app or have more questions, please visit Kevin and Travis at the Omni Resources booth and bug them! They will be holding an open spaces conversation about Rockchain during the conference (date/time TBD).
     </p>
   </md-card-content>
 </md-card>
