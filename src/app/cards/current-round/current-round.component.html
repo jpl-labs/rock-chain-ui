@@ -19,8 +19,7 @@
         <md-card-content>
           <md-list>
             <md-list-item *ngFor="let bet of betsArr; index as i">
-              <md-icon md-list-icon>local_play</md-icon>
-              <md-icon *ngIf="bet.wallet" [ngStyle]="{ 'color': '#' + bet.wallet.substring(2,8) }" md-list-icon>label</md-icon>
+              <md-icon *ngIf="bet.wallet" md-list-icon [ngStyle]="{ 'color': '#' + bet.wallet.substring(2,8) }">local_play</md-icon>
               <h4 md-line>{{bet.wallet}}</h4>
               <p md-line>{{bet.artist}}</p>
             </md-list-item>
@@ -31,8 +30,7 @@
         <md-card-content>
           <md-list>
             <md-list-item *ngFor="let winner of winnersArr">
-              <md-icon md-list-icon>grade</md-icon>
-              <md-icon *ngIf="winner.wallet" [ngStyle]="{ 'color': '#' + winner.wallet.substring(2,8) }" md-list-icon>label</md-icon>
+              <md-icon *ngIf="winner.wallet" [ngStyle]="{ 'color': '#' + winner.wallet.substring(2,8) }" md-list-icon>grade</md-icon>
               <h4 md-line>{{winner.wallet}}</h4>
               <p md-line>{{winner.win}}</p>
             </md-list-item>
