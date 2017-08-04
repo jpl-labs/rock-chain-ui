@@ -1,17 +1,11 @@
 <md-card [style.background]="background" style="margin-top:8px">
-  <md-card-header>
-    <md-card-title color="primary" *ngIf="song" >
-      <h2>Now Playing {{song.style}}</h2>
-    </md-card-title>
-  </md-card-header>
+  <md-card-title color="primary" *ngIf="song" >
+    Now Playing <span style="font-style: italic">- {{song.style}}</span>
+  </md-card-title>
   <div class="albumArtInfo" *ngIf="song">
     <img md-card-image  src="https://media-rockchain.azureedge.net/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <h2 class="albumInfo">
       <span class="albumSpan">{{song.title}} <br /> {{song.artist}}</span>
     </h2>
-    <!--<md-card-actions align="end">
-    <button md-button (click)="feedback(true)" [disabled]="!song"><md-icon>thumbs_up</md-icon>CHEERS</button>
-    <button md-button (click)="feedback(false)" [disabled]="!song">BOO</button>
-  </md-card-actions>-->
   </div>
 </md-card>
