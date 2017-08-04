@@ -26,10 +26,10 @@ export class BetListComponent implements OnInit {
     this.wagerService.getRoundNumber().subscribe(num => {
       const myBets = localStorage.getItem('myBets');
       if (myBets) {
-        let loadedBets = JSON.parse(myBets).filter(bet => bet.endRound >= num.toNumber());
-                          
-        // sort by end round, ascending
-        this.myBets = loadedBets.sort((b1, b2) => {
+        this.myBets = JSON.parse(myBets)
+                          .filter(bet => bet.endRound >= num.toNumber())
+                          .sort((b1, b2) => {
+                            // sort by end round, ascending
                             if (b1.endRound > b2.endRound) {
                               return 1;
                             }
