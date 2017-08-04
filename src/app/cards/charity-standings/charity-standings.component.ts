@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { BlockchainService } from '../../services/blockchain.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/reduce';
@@ -8,6 +9,8 @@ import 'rxjs/add/observable/zip';
 import { Charity } from '../../../models/Charity';
 import { RegisterService } from '../../services/register.service';
 import { Balance } from '../../../models/Balance';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MdIconRegistry} from '@angular/material';
 
 @Component({
   selector: 'app-charity-standings',
@@ -22,7 +25,16 @@ export class CharityStandingsComponent implements OnInit, OnChanges {
   totalCharityAmount: number;
 
 
-  constructor() {
+  constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'eff',
+      sanitizer.bypassSecurityTrustResourceUrl('eff.svg'));
+    iconRegistry.addSvgIcon(
+      'maw',
+      sanitizer.bypassSecurityTrustResourceUrl('maw.svg'));
+    iconRegistry.addSvgIcon(
+      'hsi',
+      sanitizer.bypassSecurityTrustResourceUrl('hsi.svg'));
   }
 
   ngOnInit() {

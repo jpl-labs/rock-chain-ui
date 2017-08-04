@@ -9,7 +9,7 @@
     </md-progress-spinner>
     <md-list>
       <md-list-item *ngFor="let charity of charities">
-        <md-icon md-list-icon>{{charity.icon}}</md-icon>
+        <md-icon svgIcon="{{charity.icon}}" md-list-icon style="height: 100px; width: 100px;"></md-icon>
         <h4 md-line>{{charity.name}}</h4>
         <p md-line style="display: flex"> {{charity.backers}} backers <span style="flex-grow: 1"> </span>Ꮻ {{charity.amount | number : '1.4-4'}}</p>
         <md-progress-bar md-line mode="determinate" value="{{charity.amount / totalCharityAmount * 100}}"></md-progress-bar>

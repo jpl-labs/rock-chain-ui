@@ -12,7 +12,10 @@
           "glob": "**/*",
           "input": "./assets/",
           "output": "./"
-        }
+        },
+        "eff.svg",
+        "hsi.svg",
+        "maw.svg"
       ],
       "index": "index.html",
       "main": "main.ts",
