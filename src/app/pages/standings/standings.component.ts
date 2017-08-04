@@ -22,6 +22,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       name: 'Humane Society',
       amount: 0,
       backers: 0,
+      backerAccounts: [],
       icon: 'pets'
     },
     {
@@ -29,6 +30,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       name: 'Make-A-Wish',
       amount: 0,
       backers: 0,
+      backerAccounts: [],
       icon: 'star_border'
     },
     {
@@ -36,6 +38,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       name: 'Electronic Frontier Foundation',
       amount: 0,
       backers: 0,
+      backerAccounts: [],
       icon: 'computer'
     }
   ]);
@@ -50,29 +53,28 @@ export class StandingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    /*
+        this.accounts$ = this.wagerService.currentRound$.mergeMap(round =>
 
-    this.accounts$ = this.wagerService.currentRound$.mergeMap(round =>
+          this.blockchainService.getAccounts()
+            .flatMap(account => account)
+            .filter(account => account !== this.blockchainService.genesisAccount)
+            .mergeMap((account) =>
+              this.blockchainService.getAccountBalance(account)
+                .map(balance => {
+                  return {
+                    account: account,
+                    balance: balance,
+                  };
+                })
+            )
+            .filter(wallet => wallet.balance > 0)
+            .toArray()
+            .map(wallets =>
+              wallets
+                .sort((a, b) => b.balance - a.balance))
 
-      this.blockchainService.getAccounts()
-        .flatMap(account => account)
-        .filter(account => account !== this.blockchainService.genesisAccount)
-        .mergeMap((account) =>
-          this.blockchainService.getAccountBalance(account)
-            .map(balance => {
-              return {
-                account: account,
-                balance: balance,
-                winProb: 0
-              };
-            })
-        )
-        .filter(wallet => wallet.balance > 0)
-        .toArray()
-        .map(wallets =>
-          wallets
-            .sort((a, b) => b.balance - a.balance))
-
-    );
+        );*/
 
     this.charities$ = this.wagerService.currentRound$.mergeMap(round =>
 
@@ -82,15 +84,24 @@ export class StandingsComponent implements OnInit, OnDestroy {
           .flatMap(account => account)
           .filter(account => account !== this.blockchainService.genesisAccount);
 
-        const sumObservable = accounts.mergeMap(account => this.blockchainService.getAccountBalance(account))
-          .filter(balance => balance > 0)
+        const backerObservable = accounts.mergeMap(account => this.blockchainService.getAccountBalance(account)
+          .map(balance => {
+            return {
+              account: account,
+              balance: balance,
+            };
+          }))
+          .filter(wallet => wallet.balance !== 1000);
+
+        const sumObservable = backerObservable.map(backer => backer.balance)
           .reduce((acc, one) => acc + one);
 
-        const countObservable = accounts.count();
+        const countObservable = backerObservable.count();
 
-        return Observable.zip(sumObservable, countObservable, (sum, count) => {
+        return Observable.zip(sumObservable, countObservable, backerObservable.toArray(), (sum, count, backerAccounts) => {
           charity.amount = sum;
           charity.backers = count;
+          charity.backerAccounts = backerAccounts;
           return charity;
         });
       }).toArray().map((sortCharities) => {
@@ -100,6 +111,12 @@ export class StandingsComponent implements OnInit, OnDestroy {
         return sortCharities;
       })
 
+    );
+
+    this.accounts$ = this.charities$.map(x =>
+      x.map(c => c.backerAccounts)
+        .reduce((a, b) => a.concat(b))
+        .sort((a, b) => b.balance - a.balance)
     );
   }
 
