@@ -1,8 +1,10 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
 import { MdSidenav, MdSidenavModule, MdChipsModule } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';
+import { Charity } from '../models/Charity';
 import { Wallet } from '../models/Wallet';
 import { BlockchainService } from './services/blockchain.service';
+import { CharityService } from './services/charity.service';
 import { WagerService } from './services/wager.service';
 import { AudioSong } from '../models/PlayerStatus';
 
@@ -30,15 +32,23 @@ export class AppComponent implements OnInit {
     style: ''
   };
 
+  charityService: CharityService;
   blockchainService: BlockchainService;
   wagerService: WagerService;
+  
+  charity: Charity;
+  charityId: number;
+  charityName: string;
+  charityIcon: string;
 
   constructor(
     private _router: Router,
     private _blockchainService: BlockchainService,
-    private _wagerService: WagerService) {
+    private _wagerService: WagerService,
+    private _charityService: CharityService) {
     this.blockchainService = _blockchainService;
     this.wagerService = _wagerService;
+    this.charityService = _charityService;
   }
 
   @ViewChild(MdSidenav) sidenav: MdSidenav;
@@ -61,6 +71,9 @@ export class AppComponent implements OnInit {
       if (this.isScreenSmall()) {
         this.sidenav.close();
       }
+
+      this.charityId = parseInt(localStorage.getItem('charity'));
+      this.charity = this.charityService.getCharityFromIndex(this.charityId);
     });
   }
 

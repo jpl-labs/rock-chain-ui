@@ -4,12 +4,10 @@
     <md-toolbar color="white">
         <img  src="rockchain-header-logo-300x100-01.png">
 
-      <md-toolbar-row>
-        <span>Make-A-Wish</span>
-        <span class="example-spacer"></span>
-        <md-icon>looks_two</md-icon>
-        <span> of </span>
-        <md-icon>looks_3</md-icon>
+      <md-toolbar-row *ngIf="charity">
+        {{charity.icon}}
+        <md-icon>{{charity.icon}}</md-icon>
+        <span>{{charity.name}}</span>
       </md-toolbar-row>
 
       <md-toolbar-row>
