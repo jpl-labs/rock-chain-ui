@@ -5,8 +5,7 @@
         <img  src="rockchain-header-logo-300x100-01.png">
 
       <md-toolbar-row *ngIf="charity">
-        {{charity.icon}}
-        <md-icon>{{charity.icon}}</md-icon>
+        <md-icon svgIcon="{{charity.icon}}"> </md-icon>
         <span>{{charity.name}}</span>
       </md-toolbar-row>
 

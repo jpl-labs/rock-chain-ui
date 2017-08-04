@@ -42,7 +42,7 @@ charities: string[];
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM') {
         this.onRegister.emit(this.model);
-        localStorage.setItem('charity', JSON.stringify(this.charities[this.model.charity]));
+        localStorage.setItem('charity', JSON.stringify(this.model.charity));
       }
     });
   }
