@@ -1,0 +1,20 @@
+.albumArtInfo { 
+   position: relative; 
+   width:100%;
+}
+
+h2 {
+    position: absolute; 
+    text-align: center;
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    top: 40%; 
+    left: 0; 
+    width: 90%; 
+    margin: 5%;
+}
+
+h2 span { 
+   color: white; 
+   padding: 10px; 
+}

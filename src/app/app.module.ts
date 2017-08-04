@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { FooterModule } from './shared/footer/footer';
@@ -70,7 +71,8 @@ import { CurrentRoundComponent } from './cards/current-round/current-round.compo
         RouterModule.forRoot(ROCK_CHAIN_ROUTES),
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        HttpModule
     ],
     providers: [WagerService, BlockchainService, RegisterService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent]

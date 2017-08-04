@@ -2,7 +2,7 @@
   <md-sidenav #sidenav class="docs-component-viewer-sidenav" [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'">
 
     <md-toolbar color="primary">
-      <span *ngIf="wallet" style="text-align:center">Rockchain by Omni</span>
+        <img  src="rockchain-header-logo-300x100-01.png">
 
       <md-toolbar-row>
         <span>Make-A-Wish</span>
@@ -23,7 +23,7 @@
       <a md-list-item routerLink="/playing" routerLinkActive="active">
         <md-icon md-list-icon>audiotrack</md-icon>
         <h4 md-line>Now Playing</h4>
-        <p md-line>{{currentSong.artist}} - {{currentSong.title}}</p>        
+        <p md-line>{{currentSong.artist}} - {{currentSong.title}}</p>
       </a>
       <a md-list-item routerLink="/wallet" routerLinkActive="active">
         <md-icon md-list-icon>local_atm</md-icon>
