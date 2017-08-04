@@ -5,14 +5,12 @@
     </md-card-title>
   </md-card-header>
   <md-card-content>
-    <md-list color=primary>
-      <md-list-item *ngFor="let bet of myBets;">
-        <md-icon md-list-icon>call_to_action</md-icon>
-        <h4 md-line>Artist: {{bet.artist}}</h4>
-        <p md-line>Start Round: {{bet.startRound}}</p>
-        <p md-line>End Round: {{bet.endRound}}</p>
-      </md-list-item>
-      <md-divider></md-divider>
-    </md-list>
+      <md-card *ngFor="let bet of myBets;">
+        <md-card-header>
+          <md-icon md-card-avatar md-list-icon>queue_music</md-icon>
+          <md-card-title>{{bet.artist}}</md-card-title>
+          <md-card-subtitle>Rounds {{bet.startRound}} - {{bet.endRound}}</md-card-subtitle>
+        </md-card-header>
+      </md-card>
   </md-card-content>
 </md-card>

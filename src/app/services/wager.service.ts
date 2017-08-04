@@ -10,6 +10,7 @@ import 'rxjs/add/observable/fromPromise.js';
 import 'rxjs/add/operator/do.js';
 import 'rxjs/add/operator/concat.js';
 import { BigNumber } from 'bignumber.js';
+import { Wallet } from '../../models/Wallet';
 
 import { providers, Transaction, AbstractBlock, SolidityEvent } from 'web3';
 
@@ -21,10 +22,12 @@ export class WagerService {
   instance: any;
 
   private betPlacedSource = new Subject<SolidityEvent<any>>();
+  private balanceUpdatedSource = new Subject<Wallet>();
   private roundOverSource = new Subject<SolidityEvent<any>>();
 
   songChanged$: Observable<AudioSong>;
   betPlaced$ = this.betPlacedSource.asObservable();
+  balanceUpdated$ = this.balanceUpdatedSource.asObservable();
   roundOver$ = this.roundOverSource.asObservable();
   currentRound$: Observable<BigNumber>;
 
@@ -45,11 +48,24 @@ export class WagerService {
 
     const roundNumber = this.getRoundNumber();
 
+    const balance = this.blockchainService.getAccountBalance(localStorage.getItem('walletId'))
+      .map(b => ({ id: localStorage.getItem('walletId'), balance: b } as Wallet));
+
+    const futureBalances$ = this.betPlaced$.mergeMap(x => {
+      const wallet = localStorage.getItem('walletId');
+      return this.blockchainService.getAccountBalance(wallet).map(b => ({ id: wallet, balance: b } as Wallet));
+    });
+
+    this.balanceUpdated$ = balance.concat(futureBalances$);
+
     this.currentRound$ = roundNumber.concat(this.roundOver$.map((result): BigNumber => result.args.roundNumber.plus(1)));
+
+
   }
 
-  parseSongHex = (hexString: string): AudioSong =>
-    JSON.parse(this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]))
+  parseSongHex = (hexString: string): AudioSong => {
+    return JSON.parse(this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]));
+  }
 
   setupContractWatchers = () => {
     this.Wager.deployed().then((instance) => {

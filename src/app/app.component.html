@@ -13,7 +13,7 @@
       </md-toolbar-row>
 
       <md-toolbar-row>
-        <span *ngIf="wallet">Ꮻ {{wallet.balance}}</span>
+        <span *ngIf="wallet">Ꮻ {{wallet.balance | number : '1.4-4'}}</span>
       </md-toolbar-row>
     </md-toolbar>
 

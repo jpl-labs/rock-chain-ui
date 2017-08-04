@@ -3,7 +3,7 @@
    width:100%;
 }
 
-h2 {
+.albumInfo {
     position: absolute; 
     text-align: center;
     background: rgb(0, 0, 0); /* fallback color */
@@ -14,7 +14,7 @@ h2 {
     margin: 5%;
 }
 
-h2 span { 
+.albumSpan { 
    color: white; 
    padding: 10px; 
 }

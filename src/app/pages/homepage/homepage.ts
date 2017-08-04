@@ -50,16 +50,15 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     const tmpWallet = localStorage.getItem('walletId');
     if (tmpWallet) {
-      this.blockchainService.getAccountBalance(tmpWallet).subscribe(balance => {
-        this.wallet = {
+      this.wallet = {
           id: tmpWallet,
-          balance: balance
-        };
-      });
+          balance: 0
+      };
     }
 
     const regSub = this.registerService.getAccountRegisteredEmitter()
       .subscribe(result => result);
+
   }
 
   placeBet = () => {
@@ -92,14 +91,6 @@ export class HomepageComponent implements OnInit {
       localStorage.setItem('walletId', this.wallet.id);
       registration.wallet = this.wallet.id;
       this.registerService.registerAccount(registration);
-    });
-  }
-
-
-
-  updateBalance = () => {
-    this.blockchainService.getAccountBalance(this.wallet.id).subscribe(balance => {
-      this.wallet.balance = balance;
     });
   }
 }

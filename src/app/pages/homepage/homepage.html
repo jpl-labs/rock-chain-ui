@@ -1,4 +1,4 @@
-<app-wallet *ngIf="wallet && wallet.id" [wallet]="wallet"></app-wallet>
+<app-wallet *ngIf="wallet && wallet.id" [wallet]="wagerService.balanceUpdated$ | async"></app-wallet>
 
 <app-faq *ngIf="!wallet || !wallet.id"></app-faq>
 
