@@ -8,10 +8,4 @@
 
 <app-now-playing [song]="wagerService.songChanged$ | async" (onLike)="like($event)" (onDislike)="dislike($event)"></app-now-playing>
 
-<app-current-round></app-current-round>
-
-<app-bet-placement *ngIf="wallet && wallet.id" #betPlacementComponent (onBet)="placeBetByRound($event)"></app-bet-placement>
-
-<app-bet-list [myBets]="myBets"></app-bet-list>
-
 <app-faq *ngIf="!wallet || !wallet.id"></app-faq>
