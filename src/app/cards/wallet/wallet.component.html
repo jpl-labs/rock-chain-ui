@@ -4,7 +4,7 @@
       <h2>My Wallet</h2>
     </md-card-title>
   </md-card-header>
-  <md-card-content>
+  <md-card-content *ngIf="wallet">
     <md-list align="middle">
       <md-list-item style="text-align:center">
         <md-icon [ngStyle]="{ 'color': '#' + wallet.id.substring(2,8) }">label</md-icon>
