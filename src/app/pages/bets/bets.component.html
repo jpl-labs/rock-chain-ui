@@ -1,0 +1,3 @@
+<app-bet-placement *ngIf="wallet && wallet.id" #betPlacementComponent (onBet)="placeBetByRound($event)"></app-bet-placement>
+<app-bet-list [myBets]="myBets"></app-bet-list>
+<app-current-round></app-current-round>

@@ -95,23 +95,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  placeBetByRound = (betByRound: BetByRound) => {
-    this.wagerService.placeBetMultiRounds(
-      {
-        artist: betByRound.artist,
-        walletId: this.wallet.id,
-        password: betByRound.password,
-        numberOfRounds: betByRound.numberOfRounds
-      });
-      const rounds = (betByRound.numberOfRounds > 1) ? betByRound.numberOfRounds + ' rounds' : 'round';
-      this.snackBar.open('Bet placed on the artist '
-          + betByRound.artist
-          + ' for the next ' + rounds);
-      this.myBets = JSON.parse(localStorage.getItem('myBets'));
-      setTimeout(() => {
-        this.snackBar.dismiss();
-      }, 5000);
-  }
+
 
   updateBalance = () => {
     this.blockchainService.getAccountBalance(this.wallet.id).subscribe(balance => {
