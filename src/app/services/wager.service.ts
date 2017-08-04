@@ -26,6 +26,7 @@ export class WagerService {
   songChanged$: Observable<AudioSong>;
   betPlaced$ = this.betPlacedSource.asObservable();
   roundOver$ = this.roundOverSource.asObservable();
+  currentRound$: Observable<BigNumber>;
 
   constructor(private blockchainService: BlockchainService) {
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
@@ -41,6 +42,10 @@ export class WagerService {
       .map(result => result.input);
 
     this.songChanged$ = lastSong.concat(futureSongs).map(this.parseSongHex);
+
+    const roundNumber = this.getRoundNumber();
+
+    this.currentRound$ = roundNumber.concat(this.roundOver$.map((result): BigNumber => result.args.roundNumber.plus(1)));
   }
 
   parseSongHex = (hexString: string): AudioSong =>

@@ -9,7 +9,7 @@
       <md-list-item>
         <md-icon md-list-icon>notifications</md-icon>
         <h4 md-line>Round Number</h4>
-        <p md-line>{{roundNumber}}</p>
+        <p md-line>{{wagerService.currentRound$ | async}}</p>
       </md-list-item>
       <md-list-item>
         <md-icon md-list-icon>casino</md-icon>

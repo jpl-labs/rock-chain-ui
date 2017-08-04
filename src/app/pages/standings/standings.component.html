@@ -1,3 +1,3 @@
-<app-charity-standings> </app-charity-standings>
+<app-charity-standings [charities]="charities$ | async"> </app-charity-standings>
 
-<app-wallet-standings></app-wallet-standings>
+<app-wallet-standings [accounts]="accounts$ | async"></app-wallet-standings>

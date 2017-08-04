@@ -5,10 +5,10 @@
     </md-card-title>
   </md-card-header>
   <md-card-content>
-    <md-progress-spinner *ngIf="!balances.length" mode="indeterminate">
+    <md-progress-spinner *ngIf="!top20 || !top20.length" mode="indeterminate">
     </md-progress-spinner>
-    <md-list *ngIf="balances">
-      <md-list-item *ngFor="let balance of balances; index as i">
+    <md-list *ngIf="top20">
+      <md-list-item *ngFor="let balance of top20; index as i">
         <md-icon *ngIf="i === 0" md-list-icon>stars</md-icon>
         <md-icon *ngIf="i === 1" md-list-icon>looks_two</md-icon>
         <md-icon *ngIf="i > 1 && i < 5" md-list-icon>looks_{{i+1}}</md-icon>
@@ -16,8 +16,8 @@
         <md-icon *ngIf="isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>tag_faces</md-icon>
         <md-icon *ngIf="!isMyWallet(balance.account)" [ngStyle]="{ 'color': '#' + balance.account.substring(2,8) }" md-list-icon>label</md-icon>
         <h4 md-line>{{balance.account}}</h4>
-        <p md-line style="display: flex">Win Probability: {{balance.winProb | percent: '1.2-2'}}<span style="flex-grow: 1"></span>Ꮻ {{balance.balance | number : '1.4-4'}}</p>
-        <md-progress-bar md-line mode="determinate" value="{{getBalancePercentage(balance.balance)}}"></md-progress-bar>
+        <p md-line style="display: flex">Win Probability: {{balance.balance / top20Total | percent: '1.2-2'}}<span style="flex-grow: 1"></span>Ꮻ {{balance.balance | number : '1.4-4'}}</p>
+        <md-progress-bar md-line mode="determinate" value="{{balance.balance / top20Total * 100}}"></md-progress-bar>
       </md-list-item>
     </md-list>
   </md-card-content>

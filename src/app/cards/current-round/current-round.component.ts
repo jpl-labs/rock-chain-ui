@@ -27,7 +27,6 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
   winnersArr: Array<{}>;
   recentWinners: Array<{}>;
 
-  roundNumber: string;
   roundPot: string;
 
   snackBar: MdSnackBar;
@@ -48,15 +47,11 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     this.betsArr = new Array<{}>();
     this.recentWinners = new Array<{}>();
     this.winnersArr = new Array<{}>();
-    this.roundNumber = 'Waiting for blockchain to update...';
     this.roundPot = 'Waiting for blockchain to update...';
     this.filter = new Filter();
   }
 
   ngOnInit() {
-    this.wagerService.getRoundNumber().subscribe(num => {
-      this.roundNumber = num.toNumber().toString();
-    });
 
     if (localStorage.getItem('recentBets') && this.recentBets.length === 0) {
       const bets = JSON.parse(localStorage.getItem('recentBets'));
@@ -85,7 +80,6 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
           return;
         }
 
-        this.roundNumber = result.args.roundNum.toNumber().toString();
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot, 'ether');
 
         if (localStorage.getItem('recentBets')) {
@@ -122,7 +116,6 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.wagerService.roundOver$
       .subscribe(result => {
-        this.roundNumber = result.args.roundNumber.toNumber() + 1;
         this.roundPot = this.blockchainService.web3.fromWei(result.args.totalPot.toNumber(), 'ether');
         const payout = parseInt(this.blockchainService.web3.fromWei(result.args.payout.toNumber(), 'ether'), 10);
         if (payout > 0 && result.args.winners.length > 0) {
