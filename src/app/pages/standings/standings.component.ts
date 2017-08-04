@@ -23,7 +23,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       amount: 0,
       backers: 0,
       backerAccounts: [],
-      icon: 'pets'
+      icon: 'hsi'
     },
     {
       id: 1,
@@ -31,7 +31,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       amount: 0,
       backers: 0,
       backerAccounts: [],
-      icon: 'star_border'
+      icon: 'maw'
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
       amount: 0,
       backers: 0,
       backerAccounts: [],
-      icon: 'computer'
+      icon: 'eff'
     }
   ]);
 
