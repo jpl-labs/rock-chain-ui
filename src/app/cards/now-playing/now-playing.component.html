@@ -1,7 +1,7 @@
 <md-card [style.background]="background" style="margin-top:8px">
   <md-card-header>
     <md-card-title color="primary" *ngIf="song" >
-      <h2>Now Playing {{song.style}}</h2>
+      <h2>Now Playing <span style="font-style: italic">- {{song.style}}</span></h2>
     </md-card-title>
   </md-card-header>
   <div class="albumArtInfo" *ngIf="song">
