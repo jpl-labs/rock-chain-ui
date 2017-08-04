@@ -15,7 +15,8 @@
         },
         "eff.svg",
         "hsi.svg",
-        "maw.svg"
+        "maw.svg",
+        "rockchain-header-logo-300x100-01.png"
       ],
       "index": "index.html",
       "main": "main.ts",
