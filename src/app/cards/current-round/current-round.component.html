@@ -6,7 +6,12 @@
         Round: {{wagerService.currentRound$ | async}}
       </md-grid-tile>
       <md-grid-tile colspan="1" rowspan="1">
-        Pot: {{roundPot}}
+        <div *ngIf="roundPot; else loading">
+          Pot: {{roundPot}}
+        </div>
+        <ng-template #loading >
+          Pot: <md-progress-spinner mode="indeterminate" class="round-pot-spinner"></md-progress-spinner>
+        </ng-template>
       </md-grid-tile>
     </md-grid-list>
     <md-tab-group>
