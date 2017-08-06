@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
 
   blockchainService: BlockchainService;
   wagerService: WagerService;
+  iPhoneUser: boolean;
 
   constructor(
     private _router: Router,
@@ -62,6 +63,8 @@ export class AppComponent implements OnInit {
         this.sidenav.close();
       }
     });
+
+    this.iPhoneUser = navigator.userAgent.includes('iPhone');
   }
 
   isScreenSmall(): boolean {
