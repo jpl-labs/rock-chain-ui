@@ -1,8 +1,11 @@
 import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
-import { MdSidenav, MdSidenavModule, MdChipsModule } from '@angular/material';
+import { MdSidenav, MdSidenavModule, MdChipsModule, MdIconRegistry } from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
+import { Charity } from '../models/Charity';
 import { Wallet } from '../models/Wallet';
 import { BlockchainService } from './services/blockchain.service';
+import { CharityService } from './services/charity.service';
 import { WagerService } from './services/wager.service';
 import { AudioSong } from '../models/PlayerStatus';
 
@@ -30,15 +33,35 @@ export class AppComponent implements OnInit {
     style: ''
   };
 
+  charityService: CharityService;
   blockchainService: BlockchainService;
   wagerService: WagerService;
+  
+  charity: Charity;
+  charityId: number;
+  charityName: string;
+  charityIcon: string;
 
   constructor(
     private _router: Router,
     private _blockchainService: BlockchainService,
-    private _wagerService: WagerService) {
+    private _wagerService: WagerService,
+    private _charityService: CharityService,
+    iconRegistry: MdIconRegistry,
+    sanitizer: DomSanitizer) {
     this.blockchainService = _blockchainService;
     this.wagerService = _wagerService;
+    this.charityService = _charityService;
+
+    iconRegistry.addSvgIcon(
+      'eff',
+      sanitizer.bypassSecurityTrustResourceUrl('eff.svg'));
+    iconRegistry.addSvgIcon(
+      'maw',
+      sanitizer.bypassSecurityTrustResourceUrl('maw.svg'));
+    iconRegistry.addSvgIcon(
+      'hsi',
+      sanitizer.bypassSecurityTrustResourceUrl('hsi.svg'));
   }
 
   @ViewChild(MdSidenav) sidenav: MdSidenav;
@@ -62,6 +85,9 @@ export class AppComponent implements OnInit {
         this.sidenav.close();
       }
     });
+
+    this.charityId = parseInt(localStorage.getItem('charity'));
+    this.charity = this.charityService.getCharityFromIndex(this.charityId);
   }
 
   isScreenSmall(): boolean {
