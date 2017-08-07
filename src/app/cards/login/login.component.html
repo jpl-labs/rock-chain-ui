@@ -16,7 +16,15 @@
             class="alert alert-danger">
       </div>
     </md-input-container>
-    
+    <md-input-container>
+      <input mdInput placeholder="Password" id="password"
+        required
+        [(ngModel)]="model.password" name="walletHash" type="password"
+              #password="ngModel">
+      <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger">
+      </div>
+    </md-input-container>
   </md-card-content>
   <md-card-actions align="end">
     <button type="submit" [disabled]="submitDisabled" md-button>LOGIN</button>
