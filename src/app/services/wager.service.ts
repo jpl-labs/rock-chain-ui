@@ -62,6 +62,19 @@ export class WagerService {
   }
 
   parseSongHex = (hexString: string): AudioSong => {
+    if (hexString === '0x') {
+      return {
+        album: '',
+        allowFeedback: true,
+        artist: '',
+        cover: '',
+        feedback: '',
+        id: '',
+        sleep: false,
+        title: '',
+        style: '',
+      };
+    }
     return JSON.parse(this.blockchainService.web3.toAscii(hexString.match(new RegExp('7b22.+227d'))[0]));
   }
 
