@@ -23,7 +23,6 @@ import { SongFeedbackComponent } from './dialogs/song-feedback/song-feedback.com
 import { RegistrationComponent, RegistrationDialogComponent } from './cards/registration/registration.component';
 import { WagerService } from './services/wager.service';
 import { BlockchainService } from './services/blockchain.service';
-import { CharityService } from './services/charity.service';
 import { RegisterService } from './services/register.service';
 import { WalletStandingsComponent } from './cards/wallet-standings/wallet-standings.component';
 import { BetListComponent } from './cards/bet-list/bet-list.component';
@@ -77,7 +76,7 @@ import { BetsComponent } from './pages/bets/bets.component';
         BrowserAnimationsModule,
         HttpModule
     ],
-    providers: [WagerService, BlockchainService, RegisterService, CharityService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    providers: [WagerService, BlockchainService, RegisterService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

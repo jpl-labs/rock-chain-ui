@@ -6,7 +6,6 @@ import { Balance } from '../../../models/Balance';
 import { Observable } from 'rxjs/Observable';
 import { BlockchainService } from '../../services/blockchain.service';
 import { RegisterService } from '../../services/register.service';
-import { CharityService } from '../../services/charity.service';
 
 @Component({
   selector: 'app-standings',
@@ -17,15 +16,39 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   private subscriptions: Array<Subscription> = [];
 
-  private charities: Observable<Charity> = Observable.from(this.charityService.charities);
+  private charities: Observable<Charity> = Observable.from([
+    {
+      id: 0,
+      name: 'Humane Society',
+      amount: 0,
+      backers: 0,
+      backerAccounts: [],
+      icon: 'hsi'
+    },
+    {
+      id: 1,
+      name: 'Make-A-Wish',
+      amount: 0,
+      backers: 0,
+      backerAccounts: [],
+      icon: 'maw'
+    },
+    {
+      id: 2,
+      name: 'Electronic Frontier Foundation',
+      amount: 0,
+      backers: 0,
+      backerAccounts: [],
+      icon: 'eff'
+    }
+  ]);
 
   charities$: Observable<Charity[]>;
   accounts$: Observable<Balance[]>;
 
   constructor(private wagerService: WagerService,
     public blockchainService: BlockchainService,
-    public registerService: RegisterService,
-    public charityService: CharityService) {
+    public registerService: RegisterService) {
 
   }
 

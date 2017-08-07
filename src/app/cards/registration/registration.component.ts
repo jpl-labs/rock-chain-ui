@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Registration } from '../../../models/Registration';
-import { CharityService } from '../../services/charity.service';
 import {
   MdInputModule,
   MdDialog,
@@ -16,7 +15,6 @@ const Web3 = require('web3');
 })
 export class RegistrationComponent implements OnInit {
   @Output() onRegister = new EventEmitter<Registration>();
-  charityService: CharityService;
 
   model = {
     wallet: '',
@@ -24,17 +22,16 @@ export class RegistrationComponent implements OnInit {
     charity: -1
   };
 
-charities: string[];
+  charities = ['Humane Society', 'Make-A-Wish', 'Electronic Frontier Foundation'];
 
   waitingForRegistration = false;
 
-  constructor(public dialog: MdDialog, 
-              private _charityService: CharityService) {
-    this.charityService = _charityService;
+  constructor(public dialog: MdDialog) {
+
   }
 
   ngOnInit() {
-    this.charities = this.charityService.charityNames;
+
   }
 
   onSubmit = () => {
@@ -42,7 +39,6 @@ charities: string[];
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'CONFIRM') {
         this.onRegister.emit(this.model);
-        localStorage.setItem('charity', JSON.stringify(this.model.charity));
       }
     });
   }
