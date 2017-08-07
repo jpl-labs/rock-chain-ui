@@ -19,6 +19,15 @@
             class="alert alert-danger">
       </div>
     </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Re-Enter Password" id="password2"
+              required
+              [(ngModel)]="model.password2" name="password2" type="password"
+              #password2="ngModel">
+      <div [hidden]="password2.valid || password2.pristine"
+            class="alert alert-danger">
+      </div>
+    </md-input-container>
     <md-select placeholder="Charity" id="charity"
             required
             [(ngModel)]="model.charity" name="charity"
