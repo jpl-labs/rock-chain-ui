@@ -36,15 +36,11 @@ export class AppComponent implements OnInit {
   charityService: CharityService;
   blockchainService: BlockchainService;
   wagerService: WagerService;
-<<<<<<< HEAD
   iPhoneUser: boolean;
-=======
-  
   charity: Charity;
   charityId: number;
   charityName: string;
   charityIcon: string;
->>>>>>> 80444c7b38276e3783e47f8949a6224ad503adb6
 
   constructor(
     private _router: Router,
@@ -90,12 +86,9 @@ export class AppComponent implements OnInit {
       }
     });
 
-<<<<<<< HEAD
     this.iPhoneUser = navigator.userAgent.includes('iPhone');
-=======
     this.charityId = parseInt(localStorage.getItem('charity'));
     this.charity = this.charityService.getCharityFromIndex(this.charityId);
->>>>>>> 80444c7b38276e3783e47f8949a6224ad503adb6
   }
 
   isScreenSmall(): boolean {

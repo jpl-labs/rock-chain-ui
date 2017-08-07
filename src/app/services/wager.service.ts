@@ -59,8 +59,6 @@ export class WagerService {
     this.balanceUpdated$ = balance.concat(futureBalances$);
 
     this.currentRound$ = roundNumber.concat(this.roundOver$.map((result): BigNumber => result.args.roundNumber.plus(1)));
-
-
   }
 
   parseSongHex = (hexString: string): AudioSong => {

@@ -72,6 +72,7 @@ export class HomepageComponent implements OnInit {
       localStorage.setItem('walletId', this.wallet.id);
       registration.wallet = this.wallet.id;
       this.registerService.registerAccount(registration);
+      window.location.reload();
     });
   }
 }
