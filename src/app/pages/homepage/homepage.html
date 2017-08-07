@@ -1,10 +1,10 @@
-<app-wallet *ngIf="wallet && wallet.id" [wallet]="wagerService.balanceUpdated$ | async"></app-wallet>
-
-<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
+<app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
 
 <app-login *ngIf="!wallet || !wallet.id"></app-login>
 
-<app-registration *ngIf="!wallet || !wallet.id" #registrationComponent (onRegister)="registerAccount($event)"></app-registration>
+<app-wallet *ngIf="wallet && wallet.id" [wallet]="wagerService.balanceUpdated$ | async"></app-wallet>
+
+<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
 
 <app-bet-list [myBets]="myBets"></app-bet-list>
 
