@@ -59,7 +59,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
         const accounts = this.registerService.getAccountsForCharity(charity.id)
           .flatMap(account => account)
-          .filter(account => account !== this.blockchainService.genesisAccount);
+          .filter(account => account !== "0x7d187dd46574684c47f117e09ef4061fed69cbd5");
 
         const backerObservable = accounts.mergeMap(account => this.blockchainService.getAccountBalance(account)
           .map(balance => {
