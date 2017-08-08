@@ -4,7 +4,8 @@ import { CharityService } from '../../services/charity.service';
 import {
   MdInputModule,
   MdDialog,
-  MdDialogRef
+  MdDialogRef,
+  MdSnackBar
 } from '@angular/material';
 const Web3 = require('web3');
 
@@ -18,9 +19,12 @@ export class RegistrationComponent implements OnInit {
   @Output() onRegister = new EventEmitter<Registration>();
   charityService: CharityService;
 
+  snackBar: MdSnackBar;
+
   model = {
     wallet: '',
     password: '',
+    password2: '',
     charity: -1
   };
 
@@ -28,9 +32,11 @@ charities: string[];
 
   waitingForRegistration = false;
 
-  constructor(public dialog: MdDialog, 
-              private _charityService: CharityService) {
+  constructor(public dialog: MdDialog,
+              private _charityService: CharityService,
+              private _snackBar: MdSnackBar) {
     this.charityService = _charityService;
+    this.snackBar = _snackBar;
   }
 
   ngOnInit() {
@@ -38,13 +44,19 @@ charities: string[];
   }
 
   onSubmit = () => {
-    const dialogRef = this.dialog.open(RegistrationDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'CONFIRM') {
-        this.onRegister.emit(this.model);
-        localStorage.setItem('charity', JSON.stringify(this.model.charity));
-      }
-    });
+    if (this.model.password === this.model.password2) {
+      const dialogRef = this.dialog.open(RegistrationDialogComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'CONFIRM') {
+          this.onRegister.emit(this.model);
+          localStorage.setItem('charity', JSON.stringify(this.model.charity));
+        }
+      });
+    } else {
+      const snackBarRef = this.snackBar.open('Passwords do not match!', '', {
+        duration: 5000
+      });
+    }
   }
 }
 

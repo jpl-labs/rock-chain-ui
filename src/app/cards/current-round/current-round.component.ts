@@ -127,7 +127,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
               win: `${songData.artist}  for Ꮻ ${payout}`
             });
 
-            if (this.winnersArr.length >= 5) {
+            if (this.winnersArr.length >= 10) {
               this.winnersArr.pop();
             }
 
