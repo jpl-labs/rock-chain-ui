@@ -14,7 +14,7 @@
     ],
     "theme_color": "#00afdb",
     "background_color": "#00afdb",
-    "start_url": "http://rockchain.omniresources.com",
+    "start_url": "http://rockchain.omniresources.com/index.html",
     "display": "standalone",
     "orientation": "portrait"
 }
