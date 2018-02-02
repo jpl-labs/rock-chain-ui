@@ -1,33 +1,36 @@
-<md-card style="margin-top:8px">
-  <md-card-title>
-    Login
-  </md-card-title>
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <md-card-content>
-    <p>
-      Please enter the wallet hash associated with your account.
-    </p>    
-    <md-input-container>
-      <input mdInput placeholder="Wallet Hash" id="walletHash"
-              required
-              [(ngModel)]="model.walletHash" name="walletHash" type="text"
-              #walletHash="ngModel">
-      <div [hidden]="walletHash.valid || walletHash.pristine"
-            class="alert alert-danger">
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+  <mat-card style="margin-top:8px">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon color="primary">exit_to_app</mat-icon>
       </div>
-    </md-input-container>
-    <md-input-container>
-      <input mdInput placeholder="Password" id="password"
-        required
-        [(ngModel)]="model.password" name="walletHash" type="password"
-              #password="ngModel">
-      <div [hidden]="password.valid || password.pristine"
-            class="alert alert-danger">
-      </div>
-    </md-input-container>
-  </md-card-content>
-  <md-card-actions align="end">
-    <button type="submit" [disabled]="submitDisabled" md-button>LOGIN</button>
-  </md-card-actions>
-  </form>
-</md-card>
+      <mat-card-title>
+        Login
+      </mat-card-title>
+      <mat-card-subtitle>
+        Access an account you made previously
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Enter the wallet hash and password for your account.
+      </p>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Wallet Hash" id="walletHash" required [(ngModel)]="model.walletHash" name="walletHash" type="text"
+          #walletHash="ngModel">
+        <div [hidden]="walletHash.valid || walletHash.pristine" class="alert alert-danger">
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Password" id="password" required [(ngModel)]="model.password" name="walletHash" type="password"
+          #password="ngModel" autocomplete="current-password">
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+        </div>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button color="accent" type="submit" [disabled]="submitDisabled" mat-button>LOGIN</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -9,10 +9,10 @@
       "outDir": "dist",
       "assets": [
         {
-          "glob": "**/*",
-          "input": "./assets/",
-          "output": "./"
-        },
+  "glob": "**/*",
+  "input": "./assets/",
+  "output": "./"
+},
         "eff.svg",
         "hsi.svg",
         "maw.svg",
@@ -26,7 +26,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -58,7 +58,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }

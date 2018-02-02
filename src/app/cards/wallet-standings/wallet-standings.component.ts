@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/cor
 import { BlockchainService } from '../../services/blockchain.service';
 import { Balance } from '../../../models/Balance';
 import { Observable } from 'rxjs/Observable';
-import { MdProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';

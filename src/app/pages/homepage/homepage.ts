@@ -1,12 +1,12 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import {
-  MdButtonModule,
-  MdListModule,
-  MdIconModule,
-  MdLineModule,
-  MdCardModule,
-  MdProgressBarModule,
-  MdSnackBar
+  MatButtonModule,
+  MatListModule,
+  MatIconModule,
+  MatLineModule,
+  MatCardModule,
+  MatProgressBarModule,
+  MatSnackBar
 } from '@angular/material';
 import { FooterModule } from '../../shared/footer/footer';
 import { RouterModule } from '@angular/router';
@@ -42,7 +42,7 @@ export class HomepageComponent implements OnInit {
     public wagerService: WagerService,
     public registerService: RegisterService,
     public blockchainService: BlockchainService,
-    private snackBar: MdSnackBar) {
+    private snackBar: MatSnackBar) {
 
     this.recentBets = new Array<PlacedBet>();
   }

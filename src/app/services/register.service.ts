@@ -1,13 +1,13 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import { Register } from 'tc2017-contract-artifacts';
+const Register = require('tc2017-contract-artifacts/build/contracts/Register.json');
 import { BlockchainService } from './blockchain.service';
 import { Registration } from '../../models/Registration';
 import { AppComponent } from '../app.component';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromPromise.js';
-import 'rxjs/add/operator/mergeMap.js';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/mergeMap';
 
-const contract = require('truffle-contract');
+import * as contract from 'truffle-contract';
 
 @Injectable()
 export class RegisterService {
@@ -58,5 +58,5 @@ export class RegisterService {
 
   getAccountsForCharity = (charity: number): Observable<string[]> =>
     Observable.fromPromise(this.Register.deployed())
-      .mergeMap((instance: any) => Observable.fromPromise(instance.getAccountsByCharity(charity)))
+      .mergeMap((instance: any) => Observable.fromPromise(instance.getAddressesByCharity(charity)))
 }

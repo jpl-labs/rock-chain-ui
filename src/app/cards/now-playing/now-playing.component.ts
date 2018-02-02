@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AudioSong } from '../../../models/PlayerStatus';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { SongFeedbackComponent } from '../../dialogs/song-feedback';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
@@ -24,7 +24,7 @@ export class NowPlayingComponent implements OnInit, OnChanges {
     background: string;
     foreground: string;
 
-    constructor(public dialog: MdDialog) {
+    constructor(public dialog: MatDialog) {
 
 
     }

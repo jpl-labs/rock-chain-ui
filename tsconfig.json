@@ -9,15 +9,12 @@
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules/web3-typescript-typings"
     ],
     "lib": [
       "es2016",
       "dom"
     ]
-  },
-  "include": [
-    "src/**/*",
-    "node_modules/web3-typescript-typings"
-  ]
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { WagerService } from '../../services/wager.service';
 import { BlockchainService } from '../../services/blockchain.service';
 import { FormControl, FormsModule, NgForm, Validators  } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { BetByRound, MyBet } from '../../../models/Bet';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -33,7 +33,7 @@ export class BetPlacementComponent implements OnInit {
   blockchainService: BlockchainService;
   filteredArtists: any;
   numberOfRounds: number;
-  snackBar: MdSnackBar;
+  snackBar: MatSnackBar;
   filter: any;
   myBets: Array<MyBet>;
 
@@ -41,13 +41,13 @@ export class BetPlacementComponent implements OnInit {
 
   constructor(private _wagerService: WagerService,
     private _blockchainService: BlockchainService,
-    private _snackBar: MdSnackBar) {
+    private _snackBar: MatSnackBar) {
     this.wagerService = _wagerService;
     this.blockchainService = _blockchainService;
     this.snackBar = _snackBar;
-    this.artistCtrl = new FormControl('', [<any>Validators.required]);
-    this.numberOfRoundsCtrl = new FormControl('', [<any>Validators.required]);
-    this.passwordCtrl = new FormControl('', [<any>Validators.required]);
+    this.artistCtrl = new FormControl('', [Validators.required]);
+    this.numberOfRoundsCtrl = new FormControl('', [Validators.required]);
+    this.passwordCtrl = new FormControl('', [Validators.required]);
     this.artists = this.wagerService.artists;
     this.filter = new Filter();
     this.filteredArtists = this.artistCtrl.valueChanges

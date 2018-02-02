@@ -2,13 +2,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Registration } from '../../../models/Registration';
 import { CharityService } from '../../services/charity.service';
 import {
-  MdInputModule,
-  MdDialog,
-  MdDialogRef,
-  MdSnackBar
+  MatInputModule,
+  MatDialog,
+  MatDialogRef,
+  MatSnackBar
 } from '@angular/material';
-const Web3 = require('web3');
-
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   @Output() onRegister = new EventEmitter<Registration>();
   charityService: CharityService;
 
-  snackBar: MdSnackBar;
+  snackBar: MatSnackBar;
 
   model = {
     wallet: '',
@@ -32,9 +30,9 @@ charities: string[];
 
   waitingForRegistration = false;
 
-  constructor(public dialog: MdDialog,
+  constructor(public dialog: MatDialog,
               private _charityService: CharityService,
-              private _snackBar: MdSnackBar) {
+              private _snackBar: MatSnackBar) {
     this.charityService = _charityService;
     this.snackBar = _snackBar;
   }
@@ -65,5 +63,5 @@ charities: string[];
   templateUrl: 'registration-dialog.html',
 })
 export class RegistrationDialogComponent {
-  constructor(public dialogRef: MdDialogRef<RegistrationDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<RegistrationDialogComponent>) {}
 }

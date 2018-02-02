@@ -1,17 +1,25 @@
-<md-card style="margin-top:8px">
-  <md-card-title>
-    Charity Standings
-  </md-card-title>
-  <md-card-content>
-    <md-progress-spinner *ngIf="!charities" mode="indeterminate">
-    </md-progress-spinner>
-    <md-list>
-      <md-list-item *ngFor="let charity of charities">
-        <md-icon svgIcon="{{charity.icon}}" md-list-icon style="height: 100px; width: 100px;"></md-icon>
-        <h4 md-line>{{charity.name}}</h4>
-        <p md-line style="display: flex"> {{charity.backers}} backers <span style="flex-grow: 1"> </span>Ꮻ {{charity.amount | number : '1.4-4'}}</p>
-        <md-progress-bar md-line mode="determinate" value="{{charity.amount / totalCharityAmount * 100}}"></md-progress-bar>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
+<mat-card style="margin-top:8px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon color="primary">equalizer</mat-icon>
+    </div>
+    <mat-card-title>
+      Charity Standings
+    </mat-card-title>
+    <mat-card-subtitle>
+      Distribution of coins to charites
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-progress-spinner *ngIf="!charities" mode="indeterminate">
+    </mat-progress-spinner>
+    <mat-list>
+      <mat-list-item *ngFor="let charity of charities">
+        <mat-icon svgIcon="{{charity.icon}}" mat-list-icon style="height: 100px; width: 100px;"></mat-icon>
+        <h4 mat-line>{{charity.name}}</h4>
+        <p mat-line style="display: flex"> {{charity.backers}} backers <span style="flex-grow: 1"> </span>Ꮻ {{charity.amount | number : '1.4-4'}}</p>
+        <mat-progress-bar mat-line mode="determinate" value="{{charity.amount / totalCharityAmount * 100}}"></mat-progress-bar>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

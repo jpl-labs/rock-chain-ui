@@ -2,10 +2,8 @@
 
 <app-login *ngIf="!wallet || !wallet.id"></app-login>
 
+<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
+
 <app-wallet *ngIf="wallet && wallet.id" [wallet]="wagerService.balanceUpdated$ | async"></app-wallet>
 
-<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
-
-<app-bet-list [myBets]="myBets"></app-bet-list>
-
-<app-faq *ngIf="!wallet || !wallet.id"></app-faq>
+<app-bet-list *ngIf="wallet && wallet.id" [myBets]="myBets"></app-bet-list>

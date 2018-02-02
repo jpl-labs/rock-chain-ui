@@ -1,9 +1,17 @@
-<md-card style=margin-top:8px>
-  <md-card-title>
-    About Rockchain
-  </md-card-title>
-  <md-card-content dense>
-    <h3 md-line>
+<mat-card style=margin-top:8px>
+    <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon ng-class="md-48" color="primary">info</mat-icon>
+        </div>
+        <mat-card-title>
+          About
+        </mat-card-title>
+        <mat-card-subtitle>
+            Frequently asked questions about RockChain
+        </mat-card-subtitle>
+      </mat-card-header>
+  <mat-card-content dense>
+    <h3 mat-line>
       What is Rockchain?
     </h3>
     <p>
@@ -12,13 +20,13 @@
     <p>
       After you register, feel free to place bets on your favorite artist from the genre playing each day (check the Omni Resources booth for more information) and watch the blockchain go!
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       How do I win more OmniCoin?
     </h3>
     <p>
       If you picked the correct artist for the current round, your wallet will be automatically paid out by our smart contract (also on the blockchain) and the next round will commence. 
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       How can I win a prize?
     </h3>
     <p>
@@ -26,13 +34,13 @@
     <p>
       The Amazon Echo Show will be awarded to one player at 2pm on Wednesday at the Omni Resources booth. This prize will be awared to a player in the top 20 leaderboard standings at that time and their odds of being chosen are weighted based upon the total percentage of all coins in the top 20 wallets that they own*. So if you own 10% of all coins in the top 20 wallets on Wednesday at 2pm, you have a 10% chance of winning the prize.
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       Why do I pick a charity?
     </h3>
     <p>
       In an attempt to keep players interested throughout the entire game time, encourage late sign-ups, create tribes within the game, and because we were talking about charitable giving anyway, we decided to implement this system to allow players to pick a charity for their coins to count towards (as a percentage of 500 real dollars).
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       How do I know which genre will be playing next?
     </h3>
     <p>
@@ -52,31 +60,31 @@
     <p>
       In an effort to make choosing artists a little simpler, we've included a list of popular artists from each genre to help you decide. Please note that this list may not be exhaustive.
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       How accurate are the genres?
     </h3>
     <p>
       Very, but please be aware that the music algorithm may play songs outside the decade of the listed daily genre - this is almost entirely out of our control. Luckily, this should be an uncommon occurrence.
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       Why are there small fractions of OmniCoin deducted from my wallet?
     </h3>
     <p>
       Every time you transact with our blockchain network in a way that impacts the state of the contract brokering the game, there is a cost associated with that transaction that is paid to miners who validate the authenticity of the transaction. This cost is paid in an increment of OmniCoin/Ether called Gas, which is normally a very small amount of OmniCoin/Ether. This is the cost of doing business on the blockchain!
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       What's with the colored labels next to wallet hashes?
     </h3>
     <p>
       Since the unique wallet hashes describing a semi-anonymous player are kind of tedious to look at and we don't want to memorize them, we've turned the first six non-prefx ('0x') characters into html colors for visual appeal and leaderboard differentiation.
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       Why is the data in 'Recent Bets' and 'Recent Winners' different than what my friend sees there?
     </h3>
     <p>
       Rockchain is constantly polling the blockchain directly with no server component in between storing blockchain data. Because of the way the blockchain functions, it is difficult to query previously written data without knowing specific transaction/block keys and so what you see in these sections is whatever the app witnesses happening on our blockchain while it is open.
     </p>
-    <h3 md-line>
+    <h3 mat-line>
       I have a question you didn't answer here!
     </h3>
     <p>
@@ -91,5 +99,5 @@
     <p>
       If we feel that a player's behavior is nefarious or unsportsmanlike in any way, we reserve the right to deny prizes to that player or remove them from the game.
     </p>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

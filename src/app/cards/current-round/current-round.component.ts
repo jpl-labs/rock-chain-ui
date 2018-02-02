@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
-  MdSnackBar
+  MatSnackBar
 } from '@angular/material';
 import { WagerService } from '../../services/wager.service';
 import { RegisterService } from '../../services/register.service';
@@ -29,7 +29,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
 
   roundPot: string;
 
-  snackBar: MdSnackBar;
+  snackBar: MatSnackBar;
 
   filter: any;
   private subscriptions: Array<Subscription> = [];
@@ -38,7 +38,7 @@ export class CurrentRoundComponent implements OnInit, OnDestroy {
     private _wagerService: WagerService,
     private _registerService: RegisterService,
     private _blockchainService: BlockchainService,
-    private _snackBar: MdSnackBar) {
+    private _snackBar: MatSnackBar) {
     this.registerService = _registerService;
     this.wagerService = _wagerService;
     this.blockchainService = _blockchainService;

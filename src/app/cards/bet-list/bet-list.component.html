@@ -1,14 +1,23 @@
-<md-card style="margin-top:8px">
-  <md-card-title>
-    My Active Bets
-  </md-card-title>
-  <md-card-content>
-      <md-card *ngFor="let bet of myBets;">
-        <md-card-header>
-          <md-icon md-card-avatar md-list-icon>queue_music</md-icon>
-          <md-card-title>{{bet.artist}}</md-card-title>
-          <md-card-subtitle>Rounds {{bet.startRound}} - {{bet.endRound}}</md-card-subtitle>
-        </md-card-header>
-      </md-card>
-  </md-card-content>
-</md-card>
+<mat-card style="margin-top:8px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon color="primary">assignment</mat-icon>
+    </div>
+    <mat-card-title>
+      My Active Bets
+    </mat-card-title>
+    <mat-card-subtitle>
+      Artists that will win you coins if played
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let bet of myBets">
+        <mat-icon mat-list-icon>queue_music</mat-icon>
+        <h4 mat-line>{{bet.artist}}</h4>
+        <p mat-line>Rounds {{bet.startRound}} - {{bet.endRound}}</p>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>

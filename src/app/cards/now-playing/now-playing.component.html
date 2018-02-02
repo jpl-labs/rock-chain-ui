@@ -1,11 +1,11 @@
-<md-card [style.background]="background" style="margin-top:8px">
-  <md-card-title color="primary" *ngIf="song" >
+<mat-card [style.background]="background" style="margin-top:8px">
+  <mat-card-title color="primary" *ngIf="song" >
     Now Playing <span style="font-style: italic">- {{song.style}}</span>
-  </md-card-title>
+  </mat-card-title>
   <div class="albumArtInfo" *ngIf="song">
-    <img md-card-image  src="https://media-rockchain.azureedge.net/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <img mat-card-image  src="https://media-rockchain.azureedge.net/{{albumArtKey}}" align="middle" style="margin: 5%; width:90%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <h2 class="albumInfo">
       <span class="albumSpan">{{song.title}} <br /> {{song.artist}}</span>
     </h2>
   </div>
-</md-card>
+</mat-card>

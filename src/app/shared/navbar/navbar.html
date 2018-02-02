@@ -1,30 +1,30 @@
 <!-- TODO: figure out if the <nav> should go inside of a <header> element. -->
 
 
-<md-toolbar color="primary" style="position:fixed; z-index: 2;">
-  <button *ngIf="!searching" md-icon-button (click)="toggleSidenav.emit()">
-    <md-icon>menu</md-icon>
+<mat-toolbar color="primary" style="position:fixed; z-index: 2;">
+  <button *ngIf="!searching" mat-icon-button (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
   </button>
   <span *ngIf="!searching">RockChain by Omni</span>
   <div *ngIf="!searching" class="flex-spacer"></div>
 
 
-  <button md-icon-button (click)="search(false)" *ngIf="searching">
-    <md-icon>keyboard_backspace</md-icon>
+  <button mat-icon-button (click)="search(false)" *ngIf="searching">
+    <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <md-input-container *ngIf="searching" class="artist-search">
-    <input mdInput placeholder="Artist" [mdAutocomplete]="auto" [formControl]="artistCtrl">
-  </md-input-container>
+  <mat-form-field *ngIf="searching" class="artist-search">
+    <input matInput placeholder="Artist" [matAutocomplete]="auto" [formControl]="artistCtrl">
+  </mat-form-field>
 
-  <md-autocomplete #auto="mdAutocomplete">
-    <md-option *ngFor="let artist of filteredArtists | async" [value]="artist">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let artist of filteredArtists | async" [value]="artist">
       {{ artist }}
-    </md-option>
-  </md-autocomplete>
-  <button md-icon-button (click)="artistCtrl.reset()" *ngIf="searching">
-    <md-icon>close</md-icon>
+    </mat-option>
+  </mat-autocomplete>
+  <button mat-icon-button (click)="artistCtrl.reset()" *ngIf="searching">
+    <mat-icon>close</mat-icon>
   </button>
-  <!--<button md-icon-button (click)="search(true)" *ngIf="!searching">
-    <md-icon>search</md-icon>
+  <!--<button mat-icon-button (click)="search(true)" *ngIf="!searching">
+    <mat-icon>search</mat-icon>
   </button>-->
-</md-toolbar>
+</mat-toolbar>

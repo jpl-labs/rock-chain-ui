@@ -1,20 +1,31 @@
-<md-card >
-  <md-card-title>
-    My Wallet
-  </md-card-title>
-  <md-card-content *ngIf="wallet">
-    <md-list align="middle">
-      <md-list-item style="text-align:center">
-        <md-icon [ngStyle]="{ 'color': '#' + wallet.id.substring(2,8) }">label</md-icon>
+<mat-card >
+    <mat-card-header>
+        <div mat-card-avatar *ngIf="wallet">
+          <mat-icon  [ngStyle]="{ 'color': '#' + wallet.id.substring(2,8) }" >account_balance_wallet</mat-icon>
+        </div>
+        <mat-card-title>
+          My Wallet
+        </mat-card-title>
+        <mat-card-subtitle *ngIf="wallet">
+            {{wallet.id}}
+        </mat-card-subtitle>
+      </mat-card-header>
+  <mat-card-content *ngIf="wallet">
+    <!--<mat-list align="middle">
+      <mat-list-item style="text-align:center">
+        <mat-icon [ngStyle]="{ 'color': '#' + wallet.id.substring(2,8) }">label</mat-icon>
         <h5>
           {{wallet.id}}
         </h5>
-      </md-list-item>
-      <md-list-item style="text-align:center">
+      </mat-list-item>
+      <mat-list-item style="text-align:center">
         <h1>
           Ꮻ {{wallet.balance | number : '1.4-4'}}
         </h1>
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
+      </mat-list-item>
+    </mat-list>-->
+    <h1 style="text-align:center">
+        Ꮻ {{wallet.balance | number : '1.4-4'}}
+      </h1>
+  </mat-card-content>
+</mat-card>

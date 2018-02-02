@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
-import { MaterialModule } from '@angular/material';
 import { FooterModule } from './shared/footer/footer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -35,6 +34,27 @@ import { LoginPageComponent } from './pages/loginpage/loginpage.component';
 import { LoginComponent } from './cards/login/login.component';
 import { CurrentRoundComponent } from './cards/current-round/current-round.component';
 import { BetsComponent } from './pages/bets/bets.component';
+
+import {
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatTabsModule,
+    MatFormFieldModule,
+} from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -69,7 +89,24 @@ import { BetsComponent } from './pages/bets/bets.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        MaterialModule,
+        HttpClientModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatAutocompleteModule,
+        MatOptionModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSnackBarModule,
+        MatListModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatGridListModule,
+        MatTabsModule,
         FooterModule,
         RouterModule.forRoot(ROCK_CHAIN_ROUTES),
         FormsModule,
@@ -77,7 +114,13 @@ import { BetsComponent } from './pages/bets/bets.component';
         BrowserAnimationsModule,
         HttpModule
     ],
-    providers: [WagerService, BlockchainService, RegisterService, CharityService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    providers: [
+        WagerService,
+        BlockchainService,
+        RegisterService,
+        CharityService,
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { WagerService } from '../../services/wager.service';
 import { Bet, PlacedBet, MyBet, BetByRound } from '../../../models/Bet';
 import {
-  MdButtonModule,
-  MdListModule,
-  MdIconModule,
-  MdLineModule,
-  MdCardModule,
-  MdProgressBarModule,
-  MdSnackBar
+  MatButtonModule,
+  MatListModule,
+  MatIconModule,
+  MatLineModule,
+  MatCardModule,
+  MatProgressBarModule,
+  MatSnackBar
 } from '@angular/material';
 import { BlockchainService } from '../../services/blockchain.service';
 import { Wallet } from '../../../models/Wallet';
@@ -24,7 +24,7 @@ export class BetsComponent implements OnInit {
   myBets: Array<MyBet>;
   wallet: Wallet;
 
-  constructor(public wagerService: WagerService, public blockchainService: BlockchainService, private snackBar: MdSnackBar) { }
+  constructor(public wagerService: WagerService, public blockchainService: BlockchainService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const tmpWallet = localStorage.getItem('walletId');

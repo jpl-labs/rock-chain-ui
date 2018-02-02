@@ -1,6 +1,6 @@
-import { Component, ViewChild, OnInit, NgModule } from '@angular/core';
-import { MdSidenav, MdSidenavModule, MdChipsModule, MdIconRegistry } from '@angular/material';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, ViewChild, OnInit, AfterViewInit, NgModule } from '@angular/core';
+import { MatSidenav, MatSidenavContainer, MatSidenavModule, MatChipsModule, MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { Charity } from '../models/Charity';
 import { Wallet } from '../models/Wallet';
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
     private _blockchainService: BlockchainService,
     private _wagerService: WagerService,
     private _charityService: CharityService,
-    iconRegistry: MdIconRegistry,
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
     this.blockchainService = _blockchainService;
     this.wagerService = _wagerService;
@@ -64,7 +64,8 @@ export class AppComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl('hsi.svg'));
   }
 
-  @ViewChild(MdSidenav) sidenav: MdSidenav;
+  @ViewChild(MatSidenav) sidenav: MatSidenav;
+  @ViewChild('container') private _container;
 
   ngOnInit() {
     const tmpWallet = localStorage.getItem('walletId');
@@ -87,7 +88,7 @@ export class AppComponent implements OnInit {
     });
 
     this.iPhoneUser = navigator.userAgent.includes('iPhone');
-    this.charityId = parseInt(localStorage.getItem('charity'));
+    this.charityId = parseInt(localStorage.getItem('charity'), 10);
     this.charity = this.charityService.getCharityFromIndex(this.charityId);
   }
 

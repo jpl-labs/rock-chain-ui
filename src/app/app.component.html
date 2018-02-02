@@ -1,55 +1,55 @@
-<md-sidenav-container>
-  <md-sidenav #sidenav class="docs-component-viewer-sidenav" [opened]="!isScreenSmall()" [mode]="isScreenSmall() ? 'over' : 'side'">
+<mat-sidenav-container #container>
+  <mat-sidenav #sidenav class="docs-component-viewer-sidenav" [opened]="'false'" [mode]="'over'">
 
-    <md-toolbar color="white">
+    <mat-toolbar color="white">
         <img  src="rockchain-header-logo-300x100-01.png">
 
-      <md-toolbar-row *ngIf="charity">
-        <md-icon svgIcon="{{charity.icon}}"> </md-icon>
+      <mat-toolbar-row *ngIf="charity">
+        <mat-icon svgIcon="{{charity.icon}}"> </mat-icon>
         <span>{{charity.name}}</span>
-      </md-toolbar-row>
+      </mat-toolbar-row>
 
-      <md-toolbar-row>
+      <mat-toolbar-row>
         <span *ngIf="wallet">Ꮻ {{wallet.balance | number : '1.4-4'}}</span>
-      </md-toolbar-row>
-    </md-toolbar>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
-    <md-nav-list>
-      <md-divider></md-divider>
-      <h3 md-subheader>Dashboards</h3>
-      <a md-list-item routerLink="/bets" routerLinkActive="active">
-        <md-icon md-list-icon>casino</md-icon>
-        <h4 md-line>Play</h4>
+    <mat-nav-list>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Dashboards</h3>
+      <a mat-list-item routerLink="/bets" routerLinkActive="active">
+        <mat-icon mat-list-icon>casino</mat-icon>
+        <h4 mat-line>Play</h4>
       </a>
-      <a md-list-item routerLink="/playing" routerLinkActive="active">
-        <md-icon md-list-icon>audiotrack</md-icon>
-        <h4 md-line>Now Playing</h4>
-        <p md-line>{{currentSong.artist}} - {{currentSong.title}}</p>
+      <a mat-list-item routerLink="/playing" routerLinkActive="active">
+        <mat-icon mat-list-icon>audiotrack</mat-icon>
+        <h4 mat-line>Now Playing</h4>
+        <p mat-line>{{currentSong.artist}} - {{currentSong.title}}</p>
       </a>
-      <a md-list-item routerLink="/wallet" routerLinkActive="active">
-        <md-icon md-list-icon>local_atm</md-icon>
-        <h4 md-line>My Wallet</h4>
-        <p md-line *ngIf="wallet">{{wallet.id}}</p>
+      <a mat-list-item routerLink="/wallet" routerLinkActive="active">
+        <mat-icon mat-list-icon>local_atm</mat-icon>
+        <h4 mat-line>My Wallet</h4>
+        <p mat-line *ngIf="wallet">{{wallet.id}}</p>
       </a>
-      <a md-list-item routerLink="/standings" routerLinkActive="active" *ngIf="!iPhoneUser">
-        <md-icon md-list-icon>sort</md-icon>
-        <h4 md-line>Standings</h4>
+      <a mat-list-item routerLink="/standings" routerLinkActive="active" *ngIf="!iPhoneUser">
+        <mat-icon mat-list-icon>sort</mat-icon>
+        <h4 mat-line>Standings</h4>
       </a>
-      <md-divider></md-divider>
-      <a md-list-item routerLink="/about" routerLinkActive="active">
-        <md-icon md-list-icon>live_help</md-icon>
-        <h4 md-line>About</h4>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/about" routerLinkActive="active">
+        <mat-icon mat-list-icon>live_help</mat-icon>
+        <h4 mat-line>About</h4>
       </a>
-      <a md-list-item href="http://omniresources.com/careers?rockchain" target="_blank">
-        <md-icon md-list-icon>group_add</md-icon>
-        <h4 md-line>We're Hiring!</h4>
+      <a mat-list-item href="http://omniresources.com/careers?rockchain" target="_blank">
+        <mat-icon mat-list-icon>group_add</mat-icon>
+        <h4 mat-line>We're Hiring!</h4>
       </a>
-    </md-nav-list>
-  </md-sidenav>
+    </mat-nav-list>
+  </mat-sidenav>
   <app-navbar (toggleSidenav)="sidenav.toggle()"></app-navbar>
 
   <div class="app-body">
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </div>
-</md-sidenav-container>
+</mat-sidenav-container>

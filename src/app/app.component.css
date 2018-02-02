@@ -1,10 +1,10 @@
 .app-body {
-        margin: 8px;
-    margin-top: 64px;  
+  margin: 8px;
+  margin-top: 64px;
 }
 
 @media (max-width: 850px) {
-  md-sidenav {
+  mat-sidenav {
     width: 80%;
   }
 }
@@ -13,8 +13,8 @@
   flex: 1 1 auto;
 }
 
-md-sidenav-container {
-    position: absolute;
-    min-height: 100% !important;
-    width: 100%;
+mat-sidenav-container {
+  position: absolute;
+  min-height: 100% !important;
+  width: 100%;
 }

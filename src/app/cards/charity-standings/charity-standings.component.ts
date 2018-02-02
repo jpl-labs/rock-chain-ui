@@ -9,8 +9,8 @@ import 'rxjs/add/observable/zip';
 import { Charity } from '../../../models/Charity';
 import { RegisterService } from '../../services/register.service';
 import { Balance } from '../../../models/Balance';
-import {DomSanitizer} from '@angular/platform-browser';
-import {MdIconRegistry} from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 
 @Component({
   selector: 'app-charity-standings',
@@ -25,7 +25,7 @@ export class CharityStandingsComponent implements OnInit, OnChanges {
   totalCharityAmount: number;
 
 
-  constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'eff',
       sanitizer.bypassSecurityTrustResourceUrl('eff.svg'));

@@ -1,44 +1,52 @@
-<md-card style="margin-top:8px">
-  <md-card-title>
-    Current Round
-  </md-card-title>
-  <md-card-content>
-    <md-grid-list cols="2" rowHeight="50px">
-      <md-grid-tile colspan="1" rowspan="1">
+<mat-card style="margin-top:8px">
+    <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon color="primary">trending_up</mat-icon>
+        </div>
+        <mat-card-title>
+          Current Round
+        </mat-card-title>
+        <mat-card-subtitle>
+          Details on the current round of betting
+        </mat-card-subtitle>
+      </mat-card-header>
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="50px">
+      <mat-grid-tile colspan="1" rowspan="1">
         Round: {{wagerService.currentRound$ | async}}
-      </md-grid-tile>
-      <md-grid-tile colspan="1" rowspan="1">
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
         <div *ngIf="roundPot; else loading">
           Pot: {{roundPot}}
         </div>
         <ng-template #loading >
-          Pot: <md-progress-spinner mode="indeterminate" class="round-pot-spinner"></md-progress-spinner>
+          Pot: <mat-progress-spinner mode="indeterminate" class="round-pot-spinner"></mat-progress-spinner>
         </ng-template>
-      </md-grid-tile>
-    </md-grid-list>
-    <md-tab-group>
-      <md-tab label="Recent Bets">
-        <md-card-content>
-          <md-list>
-            <md-list-item *ngFor="let bet of betsArr; index as i">
-              <md-icon *ngIf="bet.wallet" md-list-icon [ngStyle]="{ 'color': '#' + bet.wallet.substring(2,8) }">local_play</md-icon>
-              <h4 md-line>{{bet.wallet}}</h4>
-              <p md-line>{{bet.artist}}</p>
-            </md-list-item>
-          </md-list>
-        </md-card-content>
-      </md-tab>
-      <md-tab label="Recent Winners">
-        <md-card-content>
-          <md-list>
-            <md-list-item *ngFor="let winner of winnersArr">
-              <md-icon *ngIf="winner.wallet" [ngStyle]="{ 'color': '#' + winner.wallet.substring(2,8) }" md-list-icon>grade</md-icon>
-              <h4 md-line>{{winner.wallet}}</h4>
-              <p md-line>{{winner.win}}</p>
-            </md-list-item>
-          </md-list>
-        </md-card-content>
-      </md-tab>
-    </md-tab-group>
-  </md-card-content>
-</md-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-tab-group>
+      <mat-tab label="Recent Bets">
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let bet of betsArr; index as i">
+              <mat-icon *ngIf="bet.wallet" mat-list-icon [ngStyle]="{ 'color': '#' + bet.wallet.substring(2,8) }">local_play</mat-icon>
+              <h4 mat-line>{{bet.wallet}}</h4>
+              <p mat-line>{{bet.artist}}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Recent Winners">
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let winner of winnersArr">
+              <mat-icon *ngIf="winner.wallet" [ngStyle]="{ 'color': '#' + winner.wallet.substring(2,8) }" mat-list-icon>grade</mat-icon>
+              <h4 mat-line>{{winner.wallet}}</h4>
+              <p mat-line>{{winner.win}}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

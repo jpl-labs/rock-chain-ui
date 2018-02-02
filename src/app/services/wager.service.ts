@@ -1,24 +1,26 @@
 import { Injectable, Inject, EventEmitter } from '@angular/core';
-import { Wager } from 'tc2017-contract-artifacts';
+// import { Wager } from 'tc2017-contract-artifacts/build/contracts';
+const Wager = require('tc2017-contract-artifacts/build/contracts/Wager.json');
+
 import { BlockchainService } from './blockchain.service';
 import { Bet, BetByRound } from '../../models/Bet';
 import { AudioSong } from '../../models/PlayerStatus';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/fromPromise.js';
-import 'rxjs/add/operator/do.js';
-import 'rxjs/add/operator/concat.js';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/concat';
 import { BigNumber } from 'bignumber.js';
 import { Wallet } from '../../models/Wallet';
 
 import { providers, Transaction, AbstractBlock, SolidityEvent } from 'web3';
 
-const contract = require('truffle-contract');
+import * as contract from 'truffle-contract';
 
 @Injectable()
 export class WagerService {
-  Wager = contract(Wager);
+  Wager: any;
   instance: any;
 
   private betPlacedSource = new Subject<SolidityEvent<any>>();
@@ -32,6 +34,10 @@ export class WagerService {
   currentRound$: Observable<BigNumber>;
 
   constructor(private blockchainService: BlockchainService) {
+    console.log(Wager);
+
+    this.Wager = contract(Wager);
+
     this.Wager.setProvider(this.blockchainService.web3.currentProvider);
     this.getWagerInstance();
     this.setupContractWatchers();
@@ -136,7 +142,7 @@ export class WagerService {
       const wallet = betByRound.walletId;
       const numberOfRounds = betByRound.numberOfRounds;
 
-      instance.betFuture.sendTransaction(
+      instance.bet.sendTransaction(
         this.blockchainService.web3.toHex(artist),
         numberOfRounds,
         {

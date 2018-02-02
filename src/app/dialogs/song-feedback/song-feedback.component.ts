@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -10,8 +10,8 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 export class SongFeedbackComponent {
 
   constructor(
-    @Optional() @Inject(MD_DIALOG_DATA) public dialogData: any,
-    private dialogRef: MdDialogRef<SongFeedbackComponent>
+    @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private dialogRef: MatDialogRef<SongFeedbackComponent>
   ) { }
 
 }
